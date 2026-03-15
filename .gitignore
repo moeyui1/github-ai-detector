@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+.streamlit/
+*.db
+logs/
+reports/
+site/

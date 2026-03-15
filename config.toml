@@ -1,0 +1,134 @@
+# GitHub AI-Radar 配置文件
+# 所有配置项均有默认值，可按需修改。
+# 环境变量优先级高于本文件中的 token/api_key 配置。
+
+[github]
+# 要分析的仓库列表（URL 或 owner/repo 格式，每行一个）
+repos = [
+    "https://github.com/HKUDS/nanobot",
+    "https://github.com/openclaw/openclaw",
+    "ollama/ollama",
+    "langchain-ai/deepagents",
+    "open-webui/open-webui",
+    "huggingface/transformers",
+    "mem0ai/mem0",
+    "torvalds/linux"
+]
+# GitHub Personal Access Token（推荐通过环境变量 GITHUB_TOKEN 设置）
+token = ""
+# 每次运行时自动拉取的当日热门仓库数量（0 = 禁用）
+trending_count = 10
+
+[llm]
+# LLM Provider: "none" | "openai" | "github"
+provider = "openai"
+# 模型标识
+# model = "DeepSeek-V3.2"
+model = "gpt-4.1"
+# OpenAI API Key（推荐通过环境变量 OPENAI_API_KEY 设置）
+api_key = ""
+# OpenAI 兼容端点（推荐通过环境变量 OPENAI_BASE_URL 设置）
+base_url = ""
+# LLM 并发调用数（L3 阶段）
+concurrency = 15
+
+[site]
+# 分享图片中二维码指向的网站地址
+site_url = "http://localhost:8080"
+
+[analysis]
+# 每类事件最大拉取条数（commit 取最新 N 条，issue/PR 取最近更新的 N 条）
+max_items = 100
+# 最大分页次数（commit 会过滤 merge commit，可能需要多页才能凑够 max_items）
+max_pages = 10
+# 高风险事件阈值（AI score ≥ 此值视为高风险）
+high_risk_threshold = 0.6
+
+[analysis.weights]
+# AII 公式中各维度权重
+# Issue 仅供参考，不纳入 AII 总分（仅靠 title+body 判断 AI 太武断）
+commit = 0.5
+pr = 0.3
+review = 0.2
+issue = 0.0
+
+[bots]
+# 系统 Bot 登录名（小写）— 被 L1 过滤，ai_score = 0
+system = [
+    # 依赖管理
+    "dependabot[bot]",
+    "dependabot-preview[bot]",
+    "renovate[bot]",
+    "greenkeeper[bot]",
+    "depfu[bot]",
+    "pyup-bot",
+    "snyk-bot",
+    "whitesource-bolt-for-github[bot]",
+    "mend-bolt-for-github[bot]",
+    # CI/CD & 部署
+    "github-actions[bot]",
+    "netlify[bot]",
+    "vercel[bot]",
+    "railway-app[bot]",
+    "render[bot]",
+    "circleci-bot",
+    # 代码质量 & 覆盖率
+    "codecov[bot]",
+    "codecov-commenter[bot]",
+    "sonarcloud[bot]",
+    "codeclimate[bot]",
+    "coveralls[bot]",
+    "lgtm-com[bot]",
+    # 仓库维护
+    "stale[bot]",
+    "allcontributors[bot]",
+    "imgbot[bot]",
+    "mergify[bot]",
+    "pre-commit-ci[bot]",
+    "github-pages[bot]",
+    # 发布 & 变更日志
+    "semantic-release-bot",
+    "release-drafter[bot]",
+    "changeset-bot[bot]",
+]
+# AI Bot 登录名（小写）— 被 L2 识别，ai_score = 1.0
+ai = [
+    # GitHub Copilot
+    "github-copilot[bot]",
+    "copilot[bot]",
+    "copilot-swe-agent[bot]",
+    # 代码审查 AI
+    "coderabbitai[bot]",
+    "coderabbitai",
+    "codiumai-pr-agent-pro[bot]",
+    "pr-agent[bot]",
+    "sourcery-ai[bot]",
+    "ellipsis-dev[bot]",
+    # AI 编码代理
+    "sweep-ai[bot]",
+    "deepsource-autofix[bot]",
+    "claude-by-anthropic[bot]",
+    "devin-ai[bot]",
+    "cursor[bot]",
+    "aider-bot[bot]",
+    # AI 修复/重构
+    "greptileai[bot]",
+    "korbit-ai[bot]",
+    "bito-ai[bot]",
+    "tabnine[bot]",
+    # AI Review / Codex
+    "chatgpt-codex-connector[bot]",
+    "copilot-pull-request-reviewer[bot]",
+    "openai-codex[bot]",
+]
+
+[database]
+# SQLite 数据库文件路径
+path = "ai_radar.db"
+
+[icons]
+# 为仓库自定义图标（可选）。
+# 键 = "owner/repo"，值 = 图标图片 URL。
+# 如果未配置，将自动使用 GitHub 组织/用户头像。
+# 示例：
+# "HKUDS/nanobot" = "https://example.com/custom-icon.png"

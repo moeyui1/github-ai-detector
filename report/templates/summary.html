@@ -1,0 +1,69 @@
+{#- Summary / Ranking section -#}
+{% from "macros.html" import score_class, pct, badge_cls, rank_card, events_table, trend_html %}
+
+<div id="summary" class="repo-section">
+  <div class="flex items-center justify-between mb-1">
+    <h1 class="text-2xl font-bold tracking-tight">🛸 AI Involvement Ranking</h1>
+    <button id="share-btn" onclick="shareRanking()" class="btn btn-sm btn-outline btn-primary gap-1.5 rounded-xl" title="Share ranking as image">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5-6 5 6"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12"/></svg>
+      Share
+    </button>
+  </div>
+  <p class="text-sm opacity-50 mb-6">Tracking AI-generated code across open-source repositories · {{ date_str }} · {{ repos|length }} repos</p>
+  <div id="share-site-url" data-url="{{ site_url }}" class="hidden"></div>
+
+  {#- Ranking cards (show first 8, rest collapsed) -#}
+  <div class="space-y-2 mb-8">
+    {% for r in sorted_repos %}
+    {% if loop.index <= 8 %}
+    {{ rank_card(r, loop.index, r._slug, r._avatar, r._cls, r._trend, r._sparkline) }}
+    {% elif loop.index == 9 %}
+    <div id="rank-collapsed" class="hidden space-y-2">
+    {{ rank_card(r, loop.index, r._slug, r._avatar, r._cls, r._trend, r._sparkline) }}
+    {% else %}
+    {{ rank_card(r, loop.index, r._slug, r._avatar, r._cls, r._trend, r._sparkline) }}
+    {% endif %}
+    {% endfor %}
+    {% if sorted_repos|length > 8 %}
+    </div>
+    <button id="rank-toggle" onclick="document.getElementById('rank-collapsed').classList.toggle('hidden');this.textContent=this.textContent.includes('Show')?'Hide':'Show {{ sorted_repos|length - 8 }} more …'"
+            class="w-full text-center py-2 text-sm text-blue-600 hover:text-blue-800 font-medium cursor-pointer">
+      Show {{ sorted_repos|length - 8 }} more …
+    </button>
+    {% endif %}
+  </div>
+
+  {#- Detail table -#}
+  <div class="mb-8">
+    <h2 class="text-lg font-bold mb-3">📋 Detail</h2>
+    <div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+    <table class="table table-sm">
+    <thead class="bg-beige-50"><tr>
+      {% for col in ["", "Repository", "AII", "Trend", "Bot Rate", "AI Commits", "AI PRs", "AI Reviews", "Events"] %}
+      <th class="text-xs uppercase tracking-wide opacity-50">{{ col }}</th>
+      {% endfor %}
+    </tr></thead>
+    <tbody>
+    {% for r in sorted_repos %}
+      {% set cls = r._cls %}
+      <tr class="hover">
+        <td><img src="{{ r._avatar }}" class="w-5 h-5 rounded" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'"></td>
+        <td>
+          <a href="#{{ r._slug }}" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2 font-medium">
+            {{ r.repo_name }}
+          </a>
+        </td>
+        <td><span class="badge {{ badge_cls(cls) }} badge-sm font-mono">{{ pct(r.aii) }}</span></td>
+        <td>{{ trend_html(r._trend) }}</td>
+        <td class="font-mono text-xs">{{ pct(r.bot_rate) }}</td>
+        <td class="font-mono text-xs">{{ r.commit_ai|default(0) }}/{{ r.commit_total|default(0) }}</td>
+        <td class="font-mono text-xs">{{ r.pr_ai|default(0) }}/{{ r.pr_total|default(0) }}</td>
+        <td class="font-mono text-xs">{{ r.review_ai|default(0) }}/{{ r.review_total|default(0) }}</td>
+        <td class="font-mono text-xs">{{ r.events|default([])|length }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+{#- Base page layout — all pages extend this -#}
+{% from "macros.html" import score_class, pct, badge_cls %}
+<!DOCTYPE html>
+<html lang="en" data-theme="corporate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}AI Intrusion Report{% endblock %}</title>
+<meta name="theme-color" content="#f0ebe4">
+<link rel="icon" type="image/svg+xml" href="{{ favicon_path }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['DM Sans', 'sans-serif'], mono: ['DM Mono', 'monospace'] }, colors: { beige: { 50: '#faf7f4', 100: '#f0ebe4', 200: '#e2dace', 300: '#cdc3b5' } } } } }</script>
+{% block head_extra %}{% endblock %}
+<link rel="stylesheet" href="{{ css_path }}">
+</head>
+<body class="bg-beige-100 font-sans text-base-content min-h-screen">
+{% block body %}{% endblock %}
+{% block scripts %}{% endblock %}
+</body>
+</html>

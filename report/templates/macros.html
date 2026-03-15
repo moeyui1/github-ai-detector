@@ -1,0 +1,232 @@
+{#- Reusable macros for report templates -#}
+
+{#- Score class: high / med / low -#}
+{% macro score_class(score) -%}
+  {%- if score >= 0.6 %}high{% elif score >= 0.3 %}med{% else %}low{% endif -%}
+{%- endmacro %}
+
+{#- Format percentage -#}
+{% macro pct(val) -%}{{ "%.1f%%"|format(val * 100) }}{%- endmacro %}
+
+{#- Badge class for score -#}
+{% macro badge_cls(cls) -%}
+  {%- if cls == "high" %}badge-error{% elif cls == "med" %}badge-warning{% elif cls == "low" %}badge-success{% else %}badge-ghost{% endif -%}
+{%- endmacro %}
+
+{#- Progress bar class for score -#}
+{% macro bar_cls(cls) -%}
+  {%- if cls == "high" %}progress-error{% elif cls == "med" %}progress-warning{% elif cls == "low" %}progress-success{% else %}progress-info{% endif -%}
+{%- endmacro %}
+
+{#- Score background class (for highlighted AI Score) -#}
+{% macro score_bg(cls) -%}
+  {%- if cls == "high" %}bg-error/10 text-error{% elif cls == "med" %}bg-warning/10 text-warning{% elif cls == "low" %}bg-success/10 text-success{% endif -%}
+{%- endmacro %}
+
+{#- Rank class for #1 / #2 / #3 -#}
+{% macro rank_cls(rank) -%}
+  {%- if rank == 1 %}text-amber-600 font-extrabold
+  {%- elif rank == 2 %}text-gray-400 font-bold
+  {%- elif rank == 3 %}text-orange-700 font-bold
+  {%- else %}opacity-30{% endif -%}
+{%- endmacro %}
+
+{#- Sparkline SVG -#}
+{% macro sparkline(series_data) %}
+  {%- if series_data.points %}
+  <div class="rank-trend">
+    <svg viewBox="0 0 120 36" preserveAspectRatio="none">
+      <polygon class="sparkline-area" points="{{ series_data.area }}" fill="{{ series_data.color }}"/>
+      <polyline class="sparkline-line" points="{{ series_data.polyline }}" stroke="{{ series_data.color }}"/>
+      <circle class="sparkline-dot" cx="{{ series_data.last_x }}" cy="{{ series_data.last_y }}" fill="{{ series_data.color }}"/>
+    </svg>
+  </div>
+  {%- endif %}
+{% endmacro %}
+
+{#- Trend label (arrow + percentage) -#}
+{% macro trend_label(trend) %}
+  {%- if trend.direction == "flat" -%}
+    <span class="opacity-30">→</span>
+  {%- elif trend.direction == "up" -%}
+    <span class="text-error font-mono">↑{{ "%.1f%%"|format(trend.diff * 100) }}</span>
+  {%- elif trend.direction == "down" -%}
+    <span class="text-success font-mono">↓{{ "%.1f%%"|format(trend.diff * 100) }}</span>
+  {%- endif -%}
+{% endmacro %}
+
+{#- Trend HTML for detail table -#}
+{% macro trend_html(trend) %}
+  {%- if trend -%}
+    {%- if trend.direction == "flat" -%}
+      <span class="opacity-30">→</span>
+    {%- elif trend.direction == "up" -%}
+      <span class="text-error font-mono text-xs">↑{{ "%.1f%%"|format(trend.diff * 100) }}</span>
+    {%- elif trend.direction == "down" -%}
+      <span class="text-success font-mono text-xs">↓{{ "%.1f%%"|format(trend.diff * 100) }}</span>
+    {%- endif -%}
+  {%- else -%}
+    <span class="opacity-20">—</span>
+  {%- endif -%}
+{% endmacro %}
+
+{#- KPI cells for ranking card (hidden on mobile, shown inline on sm+) -#}
+{% macro kpi_cells_inline(r) %}
+  {% set c_ai = r.commit_ai|default(0) %}
+  {% set c_total = r.commit_total|default(0) %}
+  {% set p_ai = r.pr_ai|default(0) %}
+  {% set p_total = r.pr_total|default(0) %}
+  {% set rv_ai = r.review_ai|default(0) %}
+  {% set rv_total = r.review_total|default(0) %}
+  {% for lbl, val in [("AI Commits", c_ai ~ "/" ~ c_total), ("AI PRs", p_ai ~ "/" ~ p_total), ("AI Reviews", rv_ai ~ "/" ~ rv_total)] %}
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">{{ lbl }}</div>
+    <div class="font-bold font-mono text-sm">{{ val }}</div>
+  </div>
+  {% endfor %}
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">Bot Rate</div>
+    <div class="font-bold font-mono text-sm">{{ pct(r.bot_rate) }}</div>
+  </div>
+{% endmacro %}
+
+{#- KPI cells for ranking card mobile row (shown only on mobile) -#}
+{% macro kpi_cells_mobile(r) %}
+  {% set c_ai = r.commit_ai|default(0) %}
+  {% set c_total = r.commit_total|default(0) %}
+  {% set p_ai = r.pr_ai|default(0) %}
+  {% set p_total = r.pr_total|default(0) %}
+  {% set rv_ai = r.review_ai|default(0) %}
+  {% set rv_total = r.review_total|default(0) %}
+  <div class="flex gap-4 mt-2 pl-[52px] flex-wrap sm:hidden text-[11px] text-base-content/50">
+    {% for lbl, val in [("C", c_ai ~ "/" ~ c_total), ("PR", p_ai ~ "/" ~ p_total), ("R", rv_ai ~ "/" ~ rv_total), ("Bot", pct(r.bot_rate))] %}
+    <div>
+      <span class="opacity-50">{{ lbl }}</span>
+      <span class="font-mono">{{ val }}</span>
+    </div>
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{#- Single ranking card -#}
+{% macro rank_card(r, rank, slug, avatar, cls, trend, sparkline_data) %}
+<div class="bg-white border border-beige-200 rounded-xl px-4 py-3 cursor-pointer hover:border-primary hover:bg-primary/5 transition-all shadow-sm"
+     onclick="document.querySelector('a[data-repo=&quot;{{ slug }}&quot;]').click()">
+  {#- Main row: rank + avatar + name + (KPIs on sm+) + trend + score -#}
+  <div class="flex items-center gap-3">
+    <span class="font-mono text-base w-8 text-center shrink-0 {{ rank_cls(rank) }}">
+      #{{ rank }}
+    </span>
+    <img class="w-10 h-10 rounded-lg object-cover shrink-0 bg-beige-200"
+         src="{{ avatar }}" alt="" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+    <div class="min-w-0 flex-1">
+      <div class="text-[10px] uppercase tracking-wider opacity-40">Repository</div>
+      <div class="font-bold text-sm truncate">{{ r.repo_name }}</div>
+    </div>
+    {{ kpi_cells_inline(r) }}
+    {%- if trend or sparkline_data.points %}
+    <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+      {%- if trend %}
+      <div class="text-[10px] uppercase tracking-wider opacity-40">Trend</div>
+      <div class="font-bold text-sm">{{ trend_label(trend) }}</div>
+      {%- endif %}
+      {%- if sparkline_data.points %}
+      <div class="mt-1">{{ sparkline(sparkline_data) }}</div>
+      {%- endif %}
+    </div>
+    {%- endif %}
+    <div class="border-l border-beige-200 pl-3 shrink-0">
+      <div class="text-[10px] uppercase tracking-wider opacity-40">AI Score</div>
+      <div class="font-extrabold font-mono text-lg {{ score_bg(cls) }} rounded px-1.5 py-0.5 inline-block mt-0.5">
+        {{ pct(r.aii) }}
+      </div>
+    </div>
+  </div>
+  {#- Mobile-only second row: compact KPI stats -#}
+  {{ kpi_cells_mobile(r) }}
+</div>
+{% endmacro %}
+
+{#- Events table -#}
+{% macro events_table(events, max_rows=0, show_more_url="") %}
+  {% set show_events = events[:max_rows] if max_rows and events|length > max_rows else events %}
+<div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+<table class="table table-sm">
+<thead class="bg-beige-50"><tr>
+  {% for col in ["Type", "AI Score", "Description", "Actor", "Reason", "Date"] %}
+  <th class="text-xs uppercase tracking-wide opacity-50">{{ col }}</th>
+  {% endfor %}
+</tr></thead>
+<tbody>
+{% for e in show_events %}
+  {% set sc = e.ai_score %}
+  {% set ecls = score_class(sc)|trim %}
+  {% set kind = e.kind|upper %}
+  {% set kind_colors = {"COMMIT": "badge-success", "PR": "badge-error", "ISSUE": "badge-info", "REVIEW": "badge-warning"} %}
+  {% set kind_cls = kind_colors.get(kind, "badge-ghost") %}
+  {% set actor = e.actor %}
+  {% set is_copilot = actor|lower == "copilot" %}
+  {% set actor_avatar = "https://avatars.githubusercontent.com/in/29110?s=32" if is_copilot else "https://github.com/" ~ actor ~ ".png?size=32" %}
+  {% set url = e.url|default("") %}
+  {% set title = e.title[:60] %}
+  {% set reason = (e.reason|default(""))[:40] %}
+  {% set date_str = (e.created_at|default(""))[:10] %}
+  <tr class="hover">
+    <td><span class="badge {{ kind_cls }} badge-sm font-medium">{{ kind }}</span></td>
+    <td class="font-mono text-sm font-semibold {{ 'text-red-600' if sc >= 0.6 else '' }}">{{ "%.2f"|format(sc) }}</td>
+    <td class="max-w-[200px] truncate">
+      {%- if url %}<a href="{{ url }}" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">{{ title }}</a>
+      {%- else %}{{ title }}{% endif -%}
+    </td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="{{ actor_avatar }}" loading="lazy" onerror="this.style.display='none'">
+        {%- if is_copilot %}
+        <span class="font-medium text-sm">{{ actor }}</span>
+        {%- else %}
+        <a href="https://github.com/{{ actor }}" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">{{ actor }}</a>
+        {%- endif %}
+      </div>
+    </td>
+    <td class="max-w-[160px] truncate">
+      {%- if reason %}<span class="text-xs opacity-60">{{ reason }}</span>
+      {%- else %}<span class="opacity-30">—</span>{% endif -%}
+    </td>
+    <td class="font-mono text-xs opacity-50">{{ date_str }}</td>
+  </tr>
+{% endfor %}
+{% if show_more_url and events|length > show_events|length %}
+  <tr><td colspan="6" class="text-center py-3">
+    <a href="{{ show_more_url }}" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Show more …</a>
+  </td></tr>
+{% endif %}
+</tbody>
+</table>
+</div>
+{% endmacro %}
+
+{#- ECharts trend chart -#}
+{% macro trend_chart(chart_id, series, repo_name, color, trend) %}
+<div class="bg-white border border-beige-200 rounded-xl p-5 shadow-sm mb-8">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">AII Trend</h2>
+    {%- if trend %}
+    <div class="flex items-center gap-2">
+      {%- if trend.direction == "up" %}
+      <span class="text-sm font-mono font-bold text-red-500">↑{{ "%.1f"|format(trend.diff * 100) }}%</span>
+      {%- elif trend.direction == "down" %}
+      <span class="text-sm font-mono font-bold text-green-600">↓{{ "%.1f"|format(trend.diff * 100) }}%</span>
+      {%- else %}
+      <span class="text-sm font-mono font-bold text-gray-400">→ Flat</span>
+      {%- endif %}
+    </div>
+    {%- endif %}
+  </div>
+  <div id="{{ chart_id }}" class="echart-container"
+       data-dates='{{ series.dates_json }}'
+       data-values='{{ series.values_json }}'
+       data-color="{{ color }}"
+       data-name="{{ repo_name }}">
+  </div>
+</div>
+{% endmacro %}
