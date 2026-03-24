@@ -30,7 +30,18 @@ def _gh_headers(token: str) -> dict[str, str]:
 
 
 def _is_retryable(exc: httpx.HTTPStatusError) -> bool:
-    return exc.response.status_code in (429, 403, 502, 503, 504)
+    code = exc.response.status_code
+    if code in (429, 502, 503, 504):
+        return True
+    if code == 403:
+        # Only retry 403 if it's a rate limit (not a permission denial)
+        remaining = exc.response.headers.get("x-ratelimit-remaining")
+        if remaining == "0":
+            return True
+        body = exc.response.text.lower()
+        if "rate limit" in body or "abuse" in body:
+            return True
+    return False
 
 
 def _rate_limit_delay(response: httpx.Response, attempt: int) -> float:
