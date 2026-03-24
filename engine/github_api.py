@@ -5,7 +5,6 @@ GitHub REST API helpers for data fetching.
 from __future__ import annotations
 
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
 import httpx
@@ -15,9 +14,9 @@ from log import get_logger
 _log = get_logger("engine.github_api")
 
 # ── Concurrency & retry settings ─────────────────────────────
-_GH_CONCURRENCY = 3   # max parallel GitHub API requests (keep low to avoid secondary rate limits)
 _MAX_RETRIES = 5
 _RETRY_DELAY = 2.0  # seconds (exponential backoff base)
+_REQUEST_GAP = 0.3  # seconds between sequential batch requests (avoid secondary rate limit)
 
 _GH_API = "https://api.github.com"
 
@@ -285,22 +284,18 @@ def fetch_issue_comments(owner: str, repo: str, number: int, token: str) -> list
 def fetch_pr_reviews_batch(
     owner: str, repo: str, token: str, pr_numbers: list[int],
 ) -> dict[int, list[dict]]:
-    """Fetch reviews for multiple PRs concurrently."""
+    """Fetch reviews for multiple PRs sequentially with inter-request delay."""
     results: dict[int, list[dict]] = {}
     if not pr_numbers:
         return results
-    _log.info("Fetching reviews for %d PRs concurrently (workers=%d)", len(pr_numbers), _GH_CONCURRENCY)
-    with ThreadPoolExecutor(max_workers=_GH_CONCURRENCY) as pool:
-        futures = {
-            pool.submit(_gh_get, f"/repos/{owner}/{repo}/pulls/{num}/reviews", token, {"per_page": 100}): num
-            for num in pr_numbers
-        }
-        for future in as_completed(futures):
-            num = futures[future]
-            try:
-                results[num] = future.result()
-            except Exception as exc:
-                _log.warning("Failed to fetch reviews for PR #%d: %s", num, exc)
+    _log.info("Fetching reviews for %d PRs sequentially (gap=%.1fs)", len(pr_numbers), _REQUEST_GAP)
+    for i, num in enumerate(pr_numbers):
+        try:
+            results[num] = _gh_get(f"/repos/{owner}/{repo}/pulls/{num}/reviews", token, {"per_page": 100})
+        except Exception as exc:
+            _log.warning("Failed to fetch reviews for PR #%d: %s", num, exc)
+        if i < len(pr_numbers) - 1:
+            time.sleep(_REQUEST_GAP)
     _log.info("Fetched reviews for %d/%d PRs (total %d reviews)",
               len(results), len(pr_numbers), sum(len(v) for v in results.values()))
     return results
@@ -309,22 +304,18 @@ def fetch_pr_reviews_batch(
 def fetch_issue_comments_batch(
     owner: str, repo: str, token: str, issue_numbers: list[int],
 ) -> dict[int, list[dict]]:
-    """Fetch comments for multiple issues concurrently."""
+    """Fetch comments for multiple issues sequentially with inter-request delay."""
     results: dict[int, list[dict]] = {}
     if not issue_numbers:
         return results
-    _log.info("Fetching comments for %d issues concurrently (workers=%d)", len(issue_numbers), _GH_CONCURRENCY)
-    with ThreadPoolExecutor(max_workers=_GH_CONCURRENCY) as pool:
-        futures = {
-            pool.submit(_gh_get, f"/repos/{owner}/{repo}/issues/{num}/comments", token, {"per_page": 100}): num
-            for num in issue_numbers
-        }
-        for future in as_completed(futures):
-            num = futures[future]
-            try:
-                results[num] = future.result()
-            except Exception as exc:
-                _log.warning("Failed to fetch comments for issue #%d: %s", num, exc)
+    _log.info("Fetching comments for %d issues sequentially (gap=%.1fs)", len(issue_numbers), _REQUEST_GAP)
+    for i, num in enumerate(issue_numbers):
+        try:
+            results[num] = _gh_get(f"/repos/{owner}/{repo}/issues/{num}/comments", token, {"per_page": 100})
+        except Exception as exc:
+            _log.warning("Failed to fetch comments for issue #%d: %s", num, exc)
+        if i < len(issue_numbers) - 1:
+            time.sleep(_REQUEST_GAP)
     _log.info("Fetched comments for %d/%d issues (total %d comments)",
               len(results), len(issue_numbers), sum(len(v) for v in results.values()))
     return results
