@@ -107,41 +107,6 @@ python -m http.server 8000 -d site
 
 报告地址：`https://<user>.github.io/<repo>/`
 
-## 项目结构
-
-```
-├── analyze.py              # 单项分析 CLI
-├── config.py / config.toml # 配置
-├── log.py                  # 日志（LOG_LEVEL 环境变量控制）
-├── prompts/                # LLM Prompt 模板
-├── providers/              # LLM Provider 抽象层（OpenAI、GitHub Models）
-├── engine/                 # 核心分析管线
-│   ├── analysis.py         #   主调度器（analyze_repo / analyze_single）
-│   ├── github_api.py       #   GitHub REST API（含重试、并发与分页）
-│   ├── cache.py            #   事件级缓存（跳过未变更事件）
-│   ├── scoring.py          #   LLM 评分（单项 + 批量）
-│   ├── commits.py          #   Commit 事件处理（AI trailer 检测 + LLM）
-│   ├── pulls.py            #   PR 事件处理（显式 AI 模式检测 + LLM）
-│   └── issues.py           #   Issue 评论计数（L1/L2 作者名匹配，无 LLM）
-├── report/                 # 报告生成
-│   ├── cli.py              #   批量分析 CLI（输出 JSON + 缓存）
-│   ├── html.py             #   静态 HTML 站点生成器（Jinja2）
-│   ├── templates/          #   Jinja2 HTML 模板
-│   │   ├── base.html       #     页面骨架（head、CDN、body）
-│   │   ├── report.html     #     主报告页（侧边栏 + 内容区）
-│   │   ├── summary.html    #     排行榜（卡片 + 详细表格）
-│   │   ├── repo_section.html #   仓库详情（KPI、图表、事件）
-│   │   ├── events_page.html #    独立事件详情页
-│   │   ├── history.html    #     历史索引页
-│   │   └── macros.html     #     可复用组件宏（rank_card、sparkline 等）
-│   └── static/             #   静态资源
-│       ├── style.css       #     CSS 样式
-│       ├── app.js          #     客户端 JavaScript
-│       └── favicon.svg     #     网站图标
-└── .github/workflows/
-    └── daily-report.yml    # GitHub Actions 每日任务 → gh-pages
-```
-
 ## 许可证
 
 MIT

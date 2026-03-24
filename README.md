@@ -107,41 +107,6 @@ Automatically analyze your repos daily and publish to GitHub Pages — zero main
 
 Reports will be available at `https://<user>.github.io/<repo>/`
 
-## Project Structure
-
-```
-├── analyze.py              # Single-item CLI
-├── config.py / config.toml # Configuration
-├── log.py                  # Logging (LOG_LEVEL env var)
-├── prompts/                # LLM prompt templates
-├── providers/              # LLM provider abstraction (OpenAI, GitHub Models)
-├── engine/                 # Core analysis pipeline
-│   ├── analysis.py         #   Main orchestrator (analyze_repo / analyze_single)
-│   ├── github_api.py       #   GitHub REST API with retry, concurrency & pagination
-│   ├── cache.py            #   Event-level cache (skip unchanged events)
-│   ├── scoring.py          #   LLM scoring (single & batch)
-│   ├── commits.py          #   Commit event processing (AI trailer detection + LLM)
-│   ├── pulls.py            #   PR event processing (explicit AI pattern + LLM)
-│   └── issues.py           #   Issue comment counting (L1/L2 author matching, no LLM)
-├── report/                 # Report generation
-│   ├── cli.py              #   Batch analysis CLI (JSON output + cache)
-│   ├── html.py             #   Static HTML site builder (Jinja2)
-│   ├── templates/          #   Jinja2 HTML templates
-│   │   ├── base.html       #     Page skeleton (head, CDN, body)
-│   │   ├── report.html     #     Main report page (sidebar + content)
-│   │   ├── summary.html    #     Ranking section (cards + detail table)
-│   │   ├── repo_section.html #   Repo detail (KPI, charts, events)
-│   │   ├── events_page.html #    Standalone events page
-│   │   ├── history.html    #     History index page
-│   │   └── macros.html     #     Reusable components (rank_card, sparkline, etc.)
-│   └── static/             #   Static assets
-│       ├── style.css       #     CSS overrides
-│       ├── app.js          #     Client-side JavaScript
-│       └── favicon.svg     #     Site favicon
-└── .github/workflows/
-    └── daily-report.yml    # GitHub Actions daily job → gh-pages
-```
-
 ## License
 
 MIT
