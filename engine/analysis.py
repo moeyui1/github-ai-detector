@@ -150,9 +150,23 @@ def analyze_repo(
 
     reviews_map: dict[int, list[dict]] = {}
     if provider and raw_prs:
-        pr_numbers = [pr["number"] for pr in raw_prs if pr.get("number")]
-        _update(f"Fetching reviews for {len(pr_numbers)} PRs …")
-        reviews_map = fetch_pr_reviews_batch(owner, repo, token, pr_numbers)
+        # Only fetch reviews for PRs not in cache (saves API calls on repeat runs)
+        uncached_pr_numbers = []
+        for pr in raw_prs:
+            num = pr.get("number")
+            if not num:
+                continue
+            key = event_key("pr", pr)
+            cur_updated = event_updated_at("pr", pr)
+            prev = cache.get(key)
+            if prev and cur_updated == prev.get("updated_at", ""):
+                continue  # cached, skip review fetch
+            uncached_pr_numbers.append(num)
+        if uncached_pr_numbers:
+            _update(f"Fetching reviews for {len(uncached_pr_numbers)} uncached PRs …")
+            reviews_map = fetch_pr_reviews_batch(owner, repo, token, uncached_pr_numbers)
+        else:
+            _log.info("All %d PRs cached, skipping review fetch", len(raw_prs))
 
     t, b, rv_total, rv_ai = build_pr_events(raw_prs, provider, pr_scores, result.events, llm_tasks,
                            template=templates.get("pr", ""), reviews_by_pr=reviews_map)

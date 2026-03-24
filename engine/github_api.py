@@ -15,9 +15,9 @@ from log import get_logger
 _log = get_logger("engine.github_api")
 
 # ── Concurrency & retry settings ─────────────────────────────
-_GH_CONCURRENCY = 10  # max parallel GitHub API requests in batch ops
-_MAX_RETRIES = 3
-_RETRY_DELAY = 1.0  # seconds (exponential backoff base)
+_GH_CONCURRENCY = 3   # max parallel GitHub API requests (keep low to avoid secondary rate limits)
+_MAX_RETRIES = 5
+_RETRY_DELAY = 2.0  # seconds (exponential backoff base)
 
 _GH_API = "https://api.github.com"
 
@@ -30,7 +30,28 @@ def _gh_headers(token: str) -> dict[str, str]:
 
 
 def _is_retryable(exc: httpx.HTTPStatusError) -> bool:
-    return exc.response.status_code in (429, 502, 503, 504)
+    return exc.response.status_code in (429, 403, 502, 503, 504)
+
+
+def _rate_limit_delay(response: httpx.Response, attempt: int) -> float:
+    """Calculate delay respecting Retry-After / x-ratelimit-reset headers."""
+    # 429 / 403 with Retry-After header
+    retry_after = response.headers.get("retry-after")
+    if retry_after:
+        try:
+            return max(float(retry_after), 1.0)
+        except ValueError:
+            pass
+    # GitHub x-ratelimit-reset (unix timestamp)
+    reset_ts = response.headers.get("x-ratelimit-reset")
+    if reset_ts:
+        try:
+            wait = int(reset_ts) - int(time.time()) + 1
+            if 0 < wait <= 300:  # wait up to 5 minutes
+                return float(wait)
+        except ValueError:
+            pass
+    return _RETRY_DELAY * (2 ** attempt)
 
 
 def _gh_get(path: str, token: str, params: dict | None = None) -> list[dict]:
@@ -52,7 +73,7 @@ def _gh_get(path: str, token: str, params: dict | None = None) -> list[dict]:
             time.sleep(delay)
         except httpx.HTTPStatusError as exc:
             if _is_retryable(exc) and attempt < _MAX_RETRIES - 1:
-                delay = _RETRY_DELAY * (2 ** attempt)
+                delay = _rate_limit_delay(exc.response, attempt)
                 _log.warning("Retry %s (%d/%d) in %.1fs: HTTP %d", path, attempt + 1, _MAX_RETRIES, delay, exc.response.status_code)
                 time.sleep(delay)
             else:
@@ -79,7 +100,7 @@ def _gh_get_one(path: str, token: str, params: dict | None = None) -> dict:
             time.sleep(delay)
         except httpx.HTTPStatusError as exc:
             if _is_retryable(exc) and attempt < _MAX_RETRIES - 1:
-                delay = _RETRY_DELAY * (2 ** attempt)
+                delay = _rate_limit_delay(exc.response, attempt)
                 _log.warning("Retry %s (%d/%d) in %.1fs: HTTP %d", path, attempt + 1, _MAX_RETRIES, delay, exc.response.status_code)
                 time.sleep(delay)
             else:
