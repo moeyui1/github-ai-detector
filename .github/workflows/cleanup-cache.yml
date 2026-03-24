@@ -1,0 +1,88 @@
+name: Cleanup Cache
+
+on:
+  schedule:
+    - cron: "0 0 */7 * *"  # Every 7 days at midnight UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Prune cache.json
+        run: |
+          if [ ! -f reports/cache.json ]; then
+            echo "No cache file found, nothing to do"
+            exit 0
+          fi
+
+          python3 -c "
+          import json, glob, sys
+          from datetime import datetime, timezone, timedelta
+
+          # 1. Collect active repo names from recent reports
+          repos = set()
+          for f in glob.glob('reports/report-*.json'):
+              try:
+                  data = json.load(open(f))
+                  for r in data.get('repos', []):
+                      name = r.get('name', '')
+                      if name:
+                          repos.add(name)
+              except Exception:
+                  pass
+
+          cache_path = 'reports/cache.json'
+          try:
+              cache = json.load(open(cache_path))
+          except Exception:
+              print('Failed to load cache', file=sys.stderr)
+              sys.exit(0)
+
+          before_repos = len(cache)
+          before_events = sum(len(v) for v in cache.values())
+
+          # 2. Remove repos not in any report
+          cache = {k: v for k, v in cache.items() if k in repos}
+
+          # 3. Remove events with updated_at older than 30 days
+          cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+          for repo_key in list(cache.keys()):
+              events = cache[repo_key]
+              cache[repo_key] = {
+                  ek: ev for ek, ev in events.items()
+                  if ev.get('updated_at', '') >= cutoff
+              }
+              # Remove repo entry if all events were pruned
+              if not cache[repo_key]:
+                  del cache[repo_key]
+
+          after_repos = len(cache)
+          after_events = sum(len(v) for v in cache.values())
+
+          if before_repos != after_repos or before_events != after_events:
+              json.dump(cache, open(cache_path, 'w'), ensure_ascii=False)
+              print(f'Pruned cache: {before_repos} -> {after_repos} repos, {before_events} -> {after_events} events')
+          else:
+              print(f'Cache is clean: {after_repos} repos, {after_events} events')
+          "
+
+      - name: Push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: prune stale cache entries"
+            git push origin gh-pages
+          fi

@@ -20,6 +20,7 @@ Cache structure (``reports/cache.json``):
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 from log import get_logger
@@ -71,3 +72,22 @@ def event_updated_at(kind: str, raw: dict) -> str:
     if kind == "commit":
         return raw.get("commit", {}).get("author", {}).get("date", "")
     return raw.get("updated_at", "")
+
+
+def cache_is_fresh(cached_updated: str, current_updated: str, max_age_hours: int = 24) -> bool:
+    """Return True if cached entry is still fresh enough to reuse.
+
+    Fresh means the event hasn't been updated more than *max_age_hours*
+    after the cached snapshot, so minor/trivial updates don't trigger
+    unnecessary LLM re-scoring.
+    """
+    if cached_updated == current_updated:
+        return True
+    if not cached_updated or not current_updated:
+        return False
+    try:
+        cached_dt = datetime.fromisoformat(cached_updated.replace("Z", "+00:00"))
+        current_dt = datetime.fromisoformat(current_updated.replace("Z", "+00:00"))
+        return (current_dt - cached_dt) < timedelta(hours=max_age_hours)
+    except (ValueError, TypeError):
+        return False

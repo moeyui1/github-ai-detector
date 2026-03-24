@@ -14,7 +14,7 @@ from config import get_config
 from log import get_logger
 from providers.base import BaseProvider
 
-from engine.cache import CacheRepo, event_key, event_updated_at
+from engine.cache import CacheRepo, event_key, event_updated_at, cache_is_fresh
 from engine.commits import analyze_single_commit, build_commit_events
 from engine.github_api import _gh_get_one, fetch_commits, fetch_issue_comments_batch, fetch_pulls_and_issues, fetch_pr_reviews_batch, fetch_repo_templates
 from engine.issues import analyze_single_issue, build_issue_events
@@ -159,7 +159,7 @@ def analyze_repo(
             key = event_key("pr", pr)
             cur_updated = event_updated_at("pr", pr)
             prev = cache.get(key)
-            if prev and cur_updated == prev.get("updated_at", ""):
+            if prev and cache_is_fresh(prev.get("updated_at", ""), cur_updated):
                 continue  # cached, skip review fetch
             uncached_pr_numbers.append(num)
         if uncached_pr_numbers:
@@ -212,7 +212,7 @@ def analyze_repo(
             raw_dict = _raw_lookup[key][0]
             cur_updated = event_updated_at(_raw_lookup[key][1], raw_dict)
             prev = cache[key]
-            if cur_updated == prev.get("updated_at", ""):
+            if cache_is_fresh(prev.get("updated_at", ""), cur_updated):
                 ev.ai_score = prev["ai_score"]
                 ev.reason = prev.get("reason", "")
                 cached_count += 1
