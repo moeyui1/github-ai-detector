@@ -99,12 +99,14 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Show section from hash or default to summary
+  // Use scrollTo instant (no smooth) on first load to prevent visible scroll jump
   var hash = location.hash.slice(1);
   if (hash && document.getElementById(hash)) {
     show(hash);
   } else if (sections.length > 0) {
     show(sections[0].id);
   }
+  window.scrollTo({ top: 0, behavior: 'instant' });
 
   // ── Animate bars on load ──
   requestAnimationFrame(function() {

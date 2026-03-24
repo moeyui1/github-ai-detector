@@ -16,6 +16,7 @@
 <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['DM Sans', 'sans-serif'], mono: ['DM Mono', 'monospace'] }, colors: { beige: { 50: '#faf7f4', 100: '#f0ebe4', 200: '#e2dace', 300: '#cdc3b5' } } } } }</script>
 {% block head_extra %}{% endblock %}
 <link rel="stylesheet" href="{{ css_path }}">
+<style>html{scroll-behavior:auto!important}</style>
 </head>
 <body class="bg-beige-100 font-sans text-base-content min-h-screen">
 {% block body %}{% endblock %}
