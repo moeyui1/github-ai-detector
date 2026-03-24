@@ -57,6 +57,18 @@ jobs:
         working-directory: src
         run: python -m report.cli --out ../data/reports
 
+      - name: Prune reports older than 30 days
+        run: |
+          cutoff=$(date -u -d '30 days ago' +%Y-%m-%d)
+          for f in data/reports/report-*.json; do
+            # Extract date from filename: report-YYYY-MM-DD.json
+            d=$(basename "$f" | sed 's/report-//;s/\.json//')
+            if [ "$d" \< "$cutoff" ]; then
+              echo "Removing old report: $f"
+              rm -f "$f"
+            fi
+          done
+
       - name: Generate static site (all reports → data/site/)
         working-directory: src
         run: python -m report.html --input ../data/reports --out ../data/site
