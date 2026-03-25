@@ -58,6 +58,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          LLM_CONCURRENCY: ${{ vars.LLM_CONCURRENCY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
         run: python -m report.cli --out data/reports

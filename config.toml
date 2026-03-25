@@ -8,11 +8,11 @@ repos = [
     "https://github.com/HKUDS/nanobot",
     "https://github.com/openclaw/openclaw",
     "ollama/ollama",
-    "langchain-ai/deepagents",
     "open-webui/open-webui",
     "huggingface/transformers",
     "mem0ai/mem0",
-    "torvalds/linux"
+    "torvalds/linux",
+    "moeyui1/github-ai-detector"
 ]
 # Number of today's trending repos to pull automatically per run (0 = disabled)
 trending_count = 10
@@ -26,7 +26,7 @@ model = "gpt-4.1"
 # OpenAI-compatible endpoint (set via OPENAI_BASE_URL env var)
 base_url = ""
 # LLM concurrency for L3 scoring
-concurrency = 5
+concurrency = 3
 
 [site]
 # Website URL used for QR code in share images

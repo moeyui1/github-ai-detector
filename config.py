@@ -129,6 +129,12 @@ def load_config(path: str | Path | None = None) -> Config:
     if env_provider := os.environ.get("LLM_PROVIDER"):
         cfg.llm.provider = env_provider
         log.info("LLM_PROVIDER loaded from environment")
+    if env_concurrency := os.environ.get("LLM_CONCURRENCY"):
+        try:
+            cfg.llm.concurrency = int(env_concurrency)
+            log.info("LLM_CONCURRENCY loaded from environment: %d", cfg.llm.concurrency)
+        except ValueError:
+            log.warning("Invalid LLM_CONCURRENCY value: %s", env_concurrency)
 
     log.info("Config loaded | repos=%d | llm=%s | model=%s | max_items=%d | concurrency=%d",
              len(cfg.github.repos), cfg.llm.provider, cfg.llm.model,
