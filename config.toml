@@ -1,9 +1,9 @@
-# GitHub AI-Radar 配置文件
-# 所有配置项均有默认值，可按需修改。
-# 环境变量优先级高于本文件中的 token/api_key 配置。
+# GitHub AI-Radar Configuration
+# All options have default values. Modify as needed.
+# Secrets (tokens, API keys) must be set via environment variables.
 
 [github]
-# 要分析的仓库列表（URL 或 owner/repo 格式，每行一个）
+# Repositories to analyse (URL or owner/repo format, one per line)
 repos = [
     "https://github.com/HKUDS/nanobot",
     "https://github.com/openclaw/openclaw",
@@ -14,48 +14,44 @@ repos = [
     "mem0ai/mem0",
     "torvalds/linux"
 ]
-# GitHub Personal Access Token（推荐通过环境变量 GITHUB_TOKEN 设置）
-token = ""
-# 每次运行时自动拉取的当日热门仓库数量（0 = 禁用）
+# Number of today's trending repos to pull automatically per run (0 = disabled)
 trending_count = 10
 
 [llm]
-# LLM Provider: "none" | "openai" | "github"（推荐通过环境变量 LLM_PROVIDER 设置）
+# LLM Provider: "none" | "openai" | "github" (override via LLM_PROVIDER env var)
 provider = "github"
-# 模型标识（推荐通过环境变量 LLM_MODEL 设置）
+# Model identifier
 # model = "DeepSeek-V3.2"
 model = "gpt-4.1"
-# OpenAI API Key（推荐通过环境变量 OPENAI_API_KEY 设置）
-api_key = ""
-# OpenAI 兼容端点（推荐通过环境变量 OPENAI_BASE_URL 设置）
+# OpenAI-compatible endpoint (set via OPENAI_BASE_URL env var)
 base_url = ""
-# LLM 并发调用数（L3 阶段）
+# LLM concurrency for L3 scoring
 concurrency = 5
 
 [site]
-# 分享图片中二维码指向的网站地址
-site_url = "http://localhost:8080"
+# Website URL used for QR code in share images
+site_url = "https://moeyui1.github.io/github-ai-detector/"
 
 [analysis]
-# 每类事件最大拉取条数（commit 取最新 N 条，issue/PR 取最近更新的 N 条）
+# Max items to fetch per event type (latest N commits, most recently updated N issues/PRs)
 max_items = 100
-# 最大分页次数（commit 会过滤 merge commit，可能需要多页才能凑够 max_items）
+# Max pagination pages (commits are filtered for merge commits, may need multiple pages)
 max_pages = 10
-# 高风险事件阈值（AI score ≥ 此值视为高风险）
+# High-risk threshold (events with AI score >= this value are flagged)
 high_risk_threshold = 0.6
 
 [analysis.weights]
-# AII 公式中各维度权重
-# Issue 仅供参考，不纳入 AII 总分（仅靠 title+body 判断 AI 太武断）
+# Dimension weights for AII formula
+# Issues are informational only and excluded from AII (title+body alone is too unreliable)
 commit = 0.5
 pr = 0.3
 review = 0.2
 issue = 0.0
 
 [bots]
-# 系统 Bot 登录名（小写）— 被 L1 过滤，ai_score = 0
+# System bot logins (lowercase) — filtered by L1, ai_score = 0
 system = [
-    # 依赖管理
+    # Dependency management
     "dependabot[bot]",
     "dependabot-preview[bot]",
     "renovate[bot]",
@@ -65,70 +61,70 @@ system = [
     "snyk-bot",
     "whitesource-bolt-for-github[bot]",
     "mend-bolt-for-github[bot]",
-    # CI/CD & 部署
+    # CI/CD & deployment
     "github-actions[bot]",
     "netlify[bot]",
     "vercel[bot]",
     "railway-app[bot]",
     "render[bot]",
     "circleci-bot",
-    # 代码质量 & 覆盖率
+    # Code quality & coverage
     "codecov[bot]",
     "codecov-commenter[bot]",
     "sonarcloud[bot]",
     "codeclimate[bot]",
     "coveralls[bot]",
     "lgtm-com[bot]",
-    # 仓库维护
+    # Repository maintenance
     "stale[bot]",
     "allcontributors[bot]",
     "imgbot[bot]",
     "mergify[bot]",
     "pre-commit-ci[bot]",
     "github-pages[bot]",
-    # 发布 & 变更日志
+    # Release & changelog
     "semantic-release-bot",
     "release-drafter[bot]",
     "changeset-bot[bot]",
 ]
-# AI Bot 登录名（小写）— 被 L2 识别，ai_score = 1.0
+# AI bot logins (lowercase) — identified by L2, ai_score = 1.0
 ai = [
     # GitHub Copilot
     "github-copilot[bot]",
     "copilot[bot]",
     "copilot-swe-agent[bot]",
-    # 代码审查 AI
+    # Code review AI
     "coderabbitai[bot]",
     "coderabbitai",
     "codiumai-pr-agent-pro[bot]",
     "pr-agent[bot]",
     "sourcery-ai[bot]",
     "ellipsis-dev[bot]",
-    # AI 编码代理
+    # AI coding agents
     "sweep-ai[bot]",
     "deepsource-autofix[bot]",
     "claude-by-anthropic[bot]",
     "devin-ai[bot]",
     "cursor[bot]",
     "aider-bot[bot]",
-    # AI 修复/重构
+    # AI fix/refactor
     "greptileai[bot]",
     "korbit-ai[bot]",
     "bito-ai[bot]",
     "tabnine[bot]",
-    # AI Review / Codex
+    # AI review / Codex
     "chatgpt-codex-connector[bot]",
     "copilot-pull-request-reviewer[bot]",
     "openai-codex[bot]",
 ]
 
 [database]
-# SQLite 数据库文件路径
+# SQLite database file path
 path = "ai_radar.db"
 
 [icons]
-# 为仓库自定义图标（可选）。
-# 键 = "owner/repo"，值 = 图标图片 URL。
-# 如果未配置，将自动使用 GitHub 组织/用户头像。
-# 示例：
+# Custom icons for repositories (optional).
+# Key = "owner/repo", value = icon image URL.
+# If not set, the GitHub org/user avatar is used automatically.
+# Example:
 # "HKUDS/nanobot" = "https://example.com/custom-icon.png"

@@ -64,6 +64,7 @@ cp .env.example .env
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `GITHUB_TOKEN` | Recommended | GitHub PAT — without it, API is limited to 60 req/h |
+| `LLM_PROVIDER` | Optional | LLM backend: `none`, `openai`, or `github` (default: config.toml) |
 | `OPENAI_API_KEY` | Optional | Required when using the OpenAI provider |
 | `OPENAI_BASE_URL` | Optional | OpenAI-compatible endpoint (Azure, GitHub Models, etc.) |
 

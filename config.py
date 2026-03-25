@@ -103,6 +103,10 @@ def load_config(path: str | Path | None = None) -> Config:
     if "extra_ai" in bots_raw:
         bots_raw.setdefault("ai", []).extend(bots_raw.pop("extra_ai"))
 
+    # Ignore sensitive fields from config file — they must come from env vars
+    gh_raw.pop("token", None)
+    llm_raw.pop("api_key", None)
+
     cfg = Config(
         github=GitHubConfig(**gh_raw),
         llm=LLMConfig(**llm_raw),
@@ -111,22 +115,20 @@ def load_config(path: str | Path | None = None) -> Config:
         database=DatabaseConfig(**db_raw),
     )
 
-    # Environment variables take precedence over file values
-    if env_token := os.environ.get("GITHUB_TOKEN"):
-        cfg.github.token = env_token
+    # Secrets: only from environment variables
+    cfg.github.token = os.environ.get("GITHUB_TOKEN", "")
+    if cfg.github.token:
         log.info("GITHUB_TOKEN loaded from environment")
-    if env_key := os.environ.get("OPENAI_API_KEY"):
-        cfg.llm.api_key = env_key
+    cfg.llm.api_key = os.environ.get("OPENAI_API_KEY", "")
+    if cfg.llm.api_key:
         log.info("OPENAI_API_KEY loaded from environment")
+    # Non-secret overrides from environment
     if env_base := os.environ.get("OPENAI_BASE_URL"):
         cfg.llm.base_url = env_base
         log.info("OPENAI_BASE_URL loaded from environment")
     if env_provider := os.environ.get("LLM_PROVIDER"):
         cfg.llm.provider = env_provider
         log.info("LLM_PROVIDER loaded from environment")
-    if env_model := os.environ.get("LLM_MODEL"):
-        cfg.llm.model = env_model
-        log.info("LLM_MODEL loaded from environment")
 
     log.info("Config loaded | repos=%d | llm=%s | model=%s | max_items=%d | concurrency=%d",
              len(cfg.github.repos), cfg.llm.provider, cfg.llm.model,

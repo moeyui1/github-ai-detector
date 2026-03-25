@@ -1,0 +1,84 @@
+name: Cleanup Old Data
+
+on:
+  schedule:
+    - cron: "0 0 */7 * *"  # Every 7 days at midnight UTC
+  workflow_dispatch:
+
+permissions:
+  actions: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v6
+
+      - name: Restore data from artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p data/reports
+          RUN_ID=$(gh run list -w daily-report.yml --status success -L 1 \
+                   --json databaseId -q '.[0].databaseId' 2>/dev/null || true)
+          if [ -z "$RUN_ID" ]; then
+            echo "No successful daily run found, nothing to clean"
+            exit 0
+          fi
+          gh run download "$RUN_ID" --name radar-data -D data/reports
+          echo "✓ Restored $(ls data/reports/*.json 2>/dev/null | wc -l) files"
+
+      - name: Prune old reports and cache
+        run: |
+          # Remove reports older than 30 days
+          cutoff=$(date -u -d '30 days ago' +%Y-%m-%d)
+          pruned=0
+          for f in data/reports/report-*.json; do
+            [ -f "$f" ] || continue
+            d=$(basename "$f" | sed 's/report-//;s/\.json//')
+            if [ "$d" \< "$cutoff" ]; then
+              echo "Pruning: $f"
+              rm -f "$f"
+              pruned=$((pruned + 1))
+            fi
+          done
+          echo "Pruned $pruned old report(s)"
+
+          # Prune stale cache entries
+          python3 -c "
+          import json, glob
+          from datetime import datetime, timezone, timedelta
+          cache_path = 'data/reports/cache.json'
+          try:
+              cache = json.load(open(cache_path))
+          except Exception:
+              exit(0)
+          repos = set()
+          for f in glob.glob('data/reports/report-*.json'):
+              try:
+                  for r in json.load(open(f)).get('repos', []):
+                      repos.add(r.get('repo_name', ''))
+              except Exception:
+                  pass
+          before = sum(len(v) for v in cache.values())
+          cache = {k: v for k, v in cache.items() if k in repos}
+          cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+          for rk in list(cache):
+              cache[rk] = {ek: ev for ek, ev in cache[rk].items() if ev.get('updated_at', '') >= cutoff}
+              if not cache[rk]: del cache[rk]
+          after = sum(len(v) for v in cache.values())
+          if before != after:
+              json.dump(cache, open(cache_path, 'w'), ensure_ascii=False)
+              print(f'Cache pruned: {before} -> {after} entries')
+          else:
+              print(f'Cache clean: {after} entries')
+          "
+
+      - name: Upload cleaned artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: radar-data
+          path: data/reports/
+          retention-days: 90
+          overwrite: true

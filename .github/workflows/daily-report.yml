@@ -57,49 +57,10 @@ jobs:
       - name: Run analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
         run: python -m report.cli --out data/reports
-
-      - name: Prune old data
-        run: |
-          # Remove reports older than 30 days
-          cutoff=$(date -u -d '30 days ago' +%Y-%m-%d)
-          for f in data/reports/report-*.json; do
-            [ -f "$f" ] || continue
-            d=$(basename "$f" | sed 's/report-//;s/\.json//')
-            if [ "$d" \< "$cutoff" ]; then
-              echo "Pruning: $f"
-              rm -f "$f"
-            fi
-          done
-          # Prune stale cache entries
-          python3 -c "
-          import json, glob
-          from datetime import datetime, timezone, timedelta
-          cache_path = 'data/reports/cache.json'
-          try:
-              cache = json.load(open(cache_path))
-          except Exception:
-              exit(0)
-          repos = set()
-          for f in glob.glob('data/reports/report-*.json'):
-              try:
-                  for r in json.load(open(f)).get('repos', []):
-                      repos.add(r.get('repo_name', ''))
-              except Exception:
-                  pass
-          before = sum(len(v) for v in cache.values())
-          cache = {k: v for k, v in cache.items() if k in repos}
-          cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
-          for rk in list(cache):
-              cache[rk] = {ek: ev for ek, ev in cache[rk].items() if ev.get('updated_at', '') >= cutoff}
-              if not cache[rk]: del cache[rk]
-          after = sum(len(v) for v in cache.values())
-          if before != after:
-              json.dump(cache, open(cache_path, 'w'), ensure_ascii=False)
-              print(f'Cache pruned: {before} -> {after} entries')
-          "
 
       - name: Save data artifact
         uses: actions/upload-artifact@v4

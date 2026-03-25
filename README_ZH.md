@@ -64,6 +64,7 @@ cp .env.example .env
 | 变量 | 必填 | 说明 |
 |------|------|------|
 | `GITHUB_TOKEN` | 推荐 | GitHub PAT — 无 Token 时 API 限制为 60 次/h |
+| `LLM_PROVIDER` | 可选 | LLM 后端：`none`、`openai` 或 `github`（默认取 config.toml） |
 | `OPENAI_API_KEY` | 可选 | 使用 OpenAI provider 时必填 |
 | `OPENAI_BASE_URL` | 可选 | OpenAI 兼容端点（Azure、GitHub Models 等） |
 
