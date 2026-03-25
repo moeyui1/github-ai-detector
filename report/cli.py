@@ -19,7 +19,7 @@ from pathlib import Path
 from config import get_config
 from engine import AnalysisResult, analyze_repo, parse_repo_url
 from engine.cache import CacheData, load_cache, save_cache
-from engine.github_api import fetch_trending_repos
+from engine.github_api import fetch_repo_pushed_at, fetch_trending_repos
 from engine.stats import get_stats
 from log import get_logger
 from providers import get_provider
@@ -139,6 +139,21 @@ def main() -> None:
 
         repo_name = f"{owner}/{repo}"
         repo_cache = cache_data.get(repo_name, {})
+
+        # Skip inactive repos
+        inactive_days = cfg.analysis.inactive_days
+        if inactive_days > 0:
+            pushed_at = fetch_repo_pushed_at(owner, repo, token)
+            if pushed_at:
+                from datetime import timedelta
+                try:
+                    pushed_dt = datetime.fromisoformat(pushed_at.replace("Z", "+00:00"))
+                    cutoff = datetime.now(timezone.utc) - timedelta(days=inactive_days)
+                    if pushed_dt < cutoff:
+                        print(f"Skip {repo_name} — inactive (last push: {pushed_at[:10]}, >{inactive_days}d ago)")
+                        continue
+                except (ValueError, TypeError):
+                    pass
 
         print(f"Analysing {repo_name} … (cache: {len(repo_cache)} entries)")
         try:

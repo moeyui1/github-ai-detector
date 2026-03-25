@@ -250,6 +250,18 @@ def fetch_trending_repos(token: str, count: int = 10) -> list[str]:
     return []
 
 
+# ── Repo metadata ─────────────────────────────────────────────
+
+def fetch_repo_pushed_at(owner: str, repo: str, token: str) -> str:
+    """Return the ISO-8601 `pushed_at` timestamp for a repo (empty string on error)."""
+    try:
+        data = _gh_get_one(f"/repos/{owner}/{repo}", token)
+        return data.get("pushed_at", "")
+    except Exception as exc:
+        _log.warning("Failed to fetch repo info for %s/%s: %s", owner, repo, exc)
+        return ""
+
+
 # ── Single-item fetch helpers ─────────────────────────────────
 
 def fetch_single_commit(owner: str, repo: str, sha: str, token: str) -> dict:

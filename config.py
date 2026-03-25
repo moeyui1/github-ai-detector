@@ -46,6 +46,7 @@ class AnalysisConfig:
     max_items: int = 50
     max_pages: int = 10
     high_risk_threshold: float = 0.6
+    inactive_days: int = 14
     weights: WeightsConfig = field(default_factory=WeightsConfig)
 
 
