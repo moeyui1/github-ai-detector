@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Restore data from artifact
+        id: restore
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -24,12 +25,19 @@ jobs:
                    --json databaseId -q '.[0].databaseId' 2>/dev/null || true)
           if [ -z "$RUN_ID" ]; then
             echo "No successful daily run found, nothing to clean"
+            echo "restored=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          gh run download "$RUN_ID" --name radar-data -D data/reports
-          echo "✓ Restored $(ls data/reports/*.json 2>/dev/null | wc -l) files"
+          if gh run download "$RUN_ID" --name radar-data -D data/reports 2>/dev/null; then
+            echo "✓ Restored $(ls data/reports/*.json 2>/dev/null | wc -l) files"
+            echo "restored=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Artifact expired or not found for run $RUN_ID"
+            echo "restored=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Prune old reports and cache
+        if: steps.restore.outputs.restored == 'true'
         run: |
           # Remove reports older than 30 days
           cutoff=$(date -u -d '30 days ago' +%Y-%m-%d)
@@ -76,6 +84,7 @@ jobs:
           "
 
       - name: Upload cleaned artifact
+        if: steps.restore.outputs.restored == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: radar-data

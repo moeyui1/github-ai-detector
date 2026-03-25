@@ -25,7 +25,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p data/reports
-          # Try artifact from the latest successful run
           RUN_ID=$(gh run list -w daily-report.yml --status success -L 1 \
                    --json databaseId -q '.[0].databaseId' 2>/dev/null || true)
           if [ -n "$RUN_ID" ]; then
@@ -33,9 +32,10 @@ jobs:
               echo "✓ Restored from artifact ($(ls data/reports/*.json 2>/dev/null | wc -l) files)"
               exit 0
             fi
+            echo "Artifact expired or not found for run $RUN_ID"
           fi
           # Fallback: migrate from gh-pages branch (one-time transition)
-          echo "Artifact not found, trying gh-pages branch …"
+          echo "Trying gh-pages branch …"
           git fetch origin gh-pages 2>/dev/null || exit 0
           git checkout FETCH_HEAD -- reports/ 2>/dev/null || exit 0
           if [ -d reports ]; then
