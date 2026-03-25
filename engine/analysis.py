@@ -27,6 +27,7 @@ from engine.models import (
 )
 from engine.pulls import analyze_single_pr, build_pr_events
 from engine.scoring import _rebase_penalty, _safe_llm_score, _safe_llm_score_batch
+from engine.stats import get_stats
 
 _log = get_logger("engine.analysis")
 
@@ -239,6 +240,8 @@ def analyze_repo(
             def _score_batch(batch: list[tuple[EventRecord, str, list[float], dict | None]]) -> list[LLMLogEntry]:
                 texts = [text for _, text, _, _ in batch]
                 results_list = _safe_llm_score_batch(provider, texts)
+                has_error = any(r.error for r in results_list)
+                get_stats().record_llm(repo_name, success=not has_error)
                 logs: list[LLMLogEntry] = []
                 for (ev, _, _, commit), llm_result in zip(batch, results_list):
                     raw_score = llm_result.score

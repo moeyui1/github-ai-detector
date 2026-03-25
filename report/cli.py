@@ -20,6 +20,7 @@ from config import get_config
 from engine import AnalysisResult, analyze_repo, parse_repo_url
 from engine.cache import CacheData, load_cache, save_cache
 from engine.github_api import fetch_trending_repos
+from engine.stats import get_stats
 from log import get_logger
 from providers import get_provider
 
@@ -176,6 +177,9 @@ def main() -> None:
 
     print(f"\nReport saved → {json_path}")
     print(f"Cache saved  → {cache_path}")
+
+    # Print request summary table
+    get_stats().print_summary()
 
 
 if __name__ == "__main__":

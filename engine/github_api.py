@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 import httpx
 
 from log import get_logger
+from engine.stats import get_stats
 
 _log = get_logger("engine.github_api")
 
@@ -74,9 +75,11 @@ def _gh_get(path: str, token: str, params: dict | None = None) -> list[dict]:
             resp.raise_for_status()
             data = resp.json()
             _log.info("GitHub API GET %s → %d items", path, len(data) if isinstance(data, list) else 1)
+            get_stats().record_gh(path, success=True)
             return data
         except (httpx.TimeoutException, httpx.NetworkError) as exc:
             if attempt >= _MAX_RETRIES - 1:
+                get_stats().record_gh(path, success=False)
                 raise
             delay = _RETRY_DELAY * (2 ** attempt)
             _log.warning("Retry %s (%d/%d) in %.1fs: %s", path, attempt + 1, _MAX_RETRIES, delay, exc)
@@ -87,6 +90,7 @@ def _gh_get(path: str, token: str, params: dict | None = None) -> list[dict]:
                 _log.warning("Retry %s (%d/%d) in %.1fs: HTTP %d", path, attempt + 1, _MAX_RETRIES, delay, exc.response.status_code)
                 time.sleep(delay)
             else:
+                get_stats().record_gh(path, success=False)
                 raise
     return []  # unreachable
 
@@ -101,9 +105,11 @@ def _gh_get_one(path: str, token: str, params: dict | None = None) -> dict:
             resp.raise_for_status()
             data = resp.json()
             _log.info("GitHub API GET %s → ok", path)
+            get_stats().record_gh(path, success=True)
             return data
         except (httpx.TimeoutException, httpx.NetworkError) as exc:
             if attempt >= _MAX_RETRIES - 1:
+                get_stats().record_gh(path, success=False)
                 raise
             delay = _RETRY_DELAY * (2 ** attempt)
             _log.warning("Retry %s (%d/%d) in %.1fs: %s", path, attempt + 1, _MAX_RETRIES, delay, exc)
@@ -114,6 +120,7 @@ def _gh_get_one(path: str, token: str, params: dict | None = None) -> dict:
                 _log.warning("Retry %s (%d/%d) in %.1fs: HTTP %d", path, attempt + 1, _MAX_RETRIES, delay, exc.response.status_code)
                 time.sleep(delay)
             else:
+                get_stats().record_gh(path, success=False)
                 raise
     return {}  # unreachable
 
@@ -223,10 +230,12 @@ def fetch_trending_repos(token: str, count: int = 10) -> list[str]:
                 if not item.get("name", "").lower().startswith("awesome")
             ]
             _log.info("fetch_trending_repos: %d repos (query: pushed>=%s)", len(repos), today)
+            get_stats().record_gh("/search/repositories", success=True)
             return repos
         except (httpx.TimeoutException, httpx.NetworkError) as exc:
             if attempt >= _MAX_RETRIES - 1:
                 _log.warning("fetch_trending_repos failed: %s", exc)
+                get_stats().record_gh("/search/repositories", success=False)
                 return []
             delay = _RETRY_DELAY * (2 ** attempt)
             time.sleep(delay)
@@ -236,6 +245,7 @@ def fetch_trending_repos(token: str, count: int = 10) -> list[str]:
                 time.sleep(delay)
             else:
                 _log.warning("fetch_trending_repos failed: HTTP %d", exc.response.status_code)
+                get_stats().record_gh("/search/repositories", success=False)
                 return []
     return []
 
