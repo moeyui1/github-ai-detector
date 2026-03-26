@@ -301,8 +301,24 @@ def analyze_repo(
     result.bot_rate = (bot_events / total_events) if total_events else 0.0
 
     # AII = (w_commit*S_commit + w_pr*S_pr + w_review*S_review) * (1 - Bot_Rate)
+    # Dynamically redistribute weights: only dimensions with data get weight
     w = get_config().analysis.weights
-    raw_aii = w.commit * result.s_commit + w.pr * result.s_pr + w.review * result.s_review
+    active = {}
+    if commit_scores:
+        active['commit'] = w.commit
+    if pr_scores:
+        active['pr'] = w.pr
+    if result.review_total:
+        active['review'] = w.review
+
+    if active:
+        total_w = sum(active.values())
+        wc = active.get('commit', 0) / total_w if total_w else 0
+        wp = active.get('pr', 0) / total_w if total_w else 0
+        wr = active.get('review', 0) / total_w if total_w else 0
+        raw_aii = wc * result.s_commit + wp * result.s_pr + wr * result.s_review
+    else:
+        raw_aii = 0.0
     result.aii = round(raw_aii * (1 - result.bot_rate), 4)
 
     # ── Count-based metrics ───────────────────────────────────
