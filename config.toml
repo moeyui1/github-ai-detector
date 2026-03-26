@@ -21,8 +21,8 @@ trending_count = 10
 # LLM Provider: "none" | "openai" | "github" (override via LLM_PROVIDER env var)
 provider = "github"
 # Model identifier
-# model = "DeepSeek-V3.2"
-model = "gpt-4.1"
+model = "DeepSeek-V3.2"
+# model = "gpt-4.1"
 # OpenAI-compatible endpoint (set via OPENAI_BASE_URL env var)
 base_url = ""
 # LLM concurrency for L3 scoring
