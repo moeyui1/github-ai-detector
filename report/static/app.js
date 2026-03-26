@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+  window.scrollTo(0, 0);
   var sidebar = document.getElementById('sidebar');
   var links = sidebar ? sidebar.querySelectorAll('nav a[data-repo]') : [];
   var sections = document.querySelectorAll('.repo-section');
@@ -122,8 +123,14 @@ document.addEventListener('DOMContentLoaded', function() {
 function shareRanking() {
   var btn = document.getElementById('share-btn');
   if (!btn || btn.disabled) return;
-  btn.disabled = true;
-  btn.classList.add('loading', 'loading-spinner');
+
+  // Open modal with loading state
+  var modal = document.getElementById('share-modal');
+  var loading = document.getElementById('share-loading');
+  var preview = document.getElementById('share-preview');
+  loading.classList.remove('hidden');
+  preview.classList.add('hidden');
+  modal.showModal();
 
   var siteUrlEl = document.getElementById('share-site-url');
   var siteUrl = siteUrlEl ? siteUrlEl.getAttribute('data-url') : 'http://localhost:8080';
@@ -433,10 +440,18 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
   ctx.fillText(siteUrl, padX, footerY + 80 * dpr);
 
   // Download
-  var link = document.createElement('a');
-  link.download = 'ai-ranking-' + dateStr + '.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
+  var dataUrl = canvas.toDataURL('image/png');
+  var modal = document.getElementById('share-modal');
+  var loading = document.getElementById('share-loading');
+  var preview = document.getElementById('share-preview');
+  var imgEl = document.getElementById('share-img');
+  var dlLink = document.getElementById('share-download');
+
+  imgEl.src = dataUrl;
+  dlLink.href = dataUrl;
+  dlLink.download = 'ai-ranking-' + dateStr + '.png';
+  loading.classList.add('hidden');
+  preview.classList.remove('hidden');
 
   btn.disabled = false;
   btn.classList.remove('loading', 'loading-spinner');

@@ -12,6 +12,27 @@
   <p class="text-sm opacity-50 mb-6">Tracking AI-generated code across open-source repositories · {{ date_str }} · {{ repos|length }} repos</p>
   <div id="share-site-url" data-url="{{ site_url }}" class="hidden"></div>
 
+  {#- Share modal -#}
+  <dialog id="share-modal" class="modal">
+    <div class="modal-box max-w-lg p-5">
+      <div id="share-loading" class="flex flex-col items-center gap-3 py-12">
+        <span class="loading loading-spinner loading-lg text-primary"></span>
+        <p class="text-sm opacity-50">Generating image…</p>
+      </div>
+      <div id="share-preview" class="hidden">
+        <img id="share-img" class="w-full rounded-lg shadow" alt="Ranking">
+        <div class="modal-action">
+          <a id="share-download" download class="btn btn-primary gap-1.5 rounded-xl">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5 6 5-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12"/></svg>
+            Download
+          </a>
+          <form method="dialog"><button class="btn btn-ghost rounded-xl">Close</button></form>
+        </div>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button>close</button></form>
+  </dialog>
+
   {#- Ranking cards (show first 8, rest collapsed) -#}
   <div class="space-y-2 mb-8">
     {% for r in sorted_repos %}

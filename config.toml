@@ -30,7 +30,7 @@ concurrency = 3
 
 [site]
 # Website URL used for QR code in share images
-site_url = "https://moeyui1.github.io/github-ai-detector/"
+site_url = "https://github-ai-detector.vercel.app/"
 
 [analysis]
 # Max items to fetch per event type (latest N commits, most recently updated N issues/PRs)
