@@ -32,7 +32,7 @@ GitHub 事件 ──→ L1: 系统 Bot 过滤 ──→ L2: AI Bot 匹配 ──
 1. **L1** — 通过用户名过滤系统 Bot（CI/CD、dependabot 等）
 2. **L2** — 通过用户名识别已知 AI 编程助手（Copilot、Codex 等）
 3. **L3** — 显式模式检测（PR 描述中的 AI 协作声明、Commit 中的 Git trailer 如 `Assisted-by`）+ LLM 文本风格审计
-4. **AII** — 汇总 Commit、PR 两个维度的评分，生成 0–1 综合指数（Issue 仅供参考，不纳入总分）
+4. **AII** — 动态加权：只有有实际数据的维度才参与计算（例如无 PR 的仓库会将 100% 权重分配给 Commit）
 
 ## 功能特性
 
@@ -65,6 +65,7 @@ cp .env.example .env
 |------|------|------|
 | `GITHUB_TOKEN` | 推荐 | GitHub PAT — 无 Token 时 API 限制为 60 次/h |
 | `LLM_PROVIDER` | 可选 | LLM 后端：`none`、`openai` 或 `github`（默认取 config.toml） |
+| `LLM_MODEL` | 可选 | 模型名称，如 `gpt-4.1`（默认取 config.toml） |
 | `OPENAI_API_KEY` | 可选 | 使用 OpenAI provider 时必填 |
 | `OPENAI_BASE_URL` | 可选 | OpenAI 兼容端点（Azure、GitHub Models 等） |
 
@@ -94,6 +95,14 @@ python -m report.html --input reports --out site
 
 # 本地预览（打开 http://localhost:8000）
 python -m http.server 8000 -d site
+```
+
+**生成 Mock 数据用于本地开发：**
+
+```bash
+python scripts/mock_reports.py       # 生成 7 天的 Mock 报告 → reports/
+python -m report.html --input reports --out site
+python -m http.server 8000 -d site   # 访问 http://localhost:8000 预览
 ```
 
 ## 通过 GitHub Actions 部署

@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Assign section IDs from data attributes (deferred to prevent browser anchor jump)
+  document.querySelectorAll('[data-section-id]').forEach(function(el) {
+    el.id = el.getAttribute('data-section-id');
+  });
   window.scrollTo(0, 0);
+
   var sidebar = document.getElementById('sidebar');
   var links = sidebar ? sidebar.querySelectorAll('nav a[data-repo]') : [];
   var sections = document.querySelectorAll('.repo-section');
@@ -56,8 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (push) {
       history.pushState({ section: id }, '', '#' + id);
-    } else {
-      history.replaceState({ section: id }, '', '#' + id);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
     closeMobile();

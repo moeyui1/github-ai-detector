@@ -33,7 +33,7 @@ GitHub Events ──→ L1: System Bot Filter ──→ L2: AI Bot Match ──�
 1. **L1** — Filters out system bots (CI/CD, dependabot) by username
 2. **L2** — Identifies known AI coding assistants (Copilot, Codex) by username
 3. **L3** — Explicit pattern detection (PR AI collaboration mentions, commit Git trailers like `Assisted-by`) + LLM text style audit
-4. **AII** — Aggregates scores across commits and PRs into a single 0–1 index (issues tracked but excluded from score)
+4. **AII** — Dynamically weighted: only dimensions with actual data receive weight (e.g. a repo with no PRs assigns 100% weight to commits)
 
 ## Features
 
@@ -66,6 +66,7 @@ cp .env.example .env
 |----------|----------|-------------|
 | `GITHUB_TOKEN` | Recommended | GitHub PAT — without it, API is limited to 60 req/h |
 | `LLM_PROVIDER` | Optional | LLM backend: `none`, `openai`, or `github` (default: config.toml) |
+| `LLM_MODEL` | Optional | Model name, e.g. `gpt-4.1` (default: config.toml) |
 | `OPENAI_API_KEY` | Optional | Required when using the OpenAI provider |
 | `OPENAI_BASE_URL` | Optional | OpenAI-compatible endpoint (Azure, GitHub Models, etc.) |
 
@@ -95,6 +96,14 @@ python -m report.html --input reports --out site
 
 # Preview locally (open http://localhost:8000)
 python -m http.server 8000 -d site
+```
+
+**Generate mock data for local development:**
+
+```bash
+python scripts/mock_reports.py       # 7 days of mock reports → reports/
+python -m report.html --input reports --out site
+python -m http.server 8000 -d site   # preview at http://localhost:8000
 ```
 
 ## Deploy with GitHub Actions

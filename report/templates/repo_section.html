@@ -15,7 +15,7 @@
 {% set events = r.events|default([]) %}
 {% set sorted_events = events|sort(attribute='ai_score', reverse=true) %}
 
-<div id="{{ slug }}" class="repo-section">
+<div data-section-id="{{ slug }}" class="repo-section">
   <div class="flex items-center gap-2 mb-1">
     <img class="w-7 h-7 rounded-lg object-cover shrink-0 bg-beige-200" src="{{ r._avatar }}" alt="" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
     <h1 class="text-2xl font-bold tracking-tight">{{ name }}</h1>
