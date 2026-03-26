@@ -22,6 +22,8 @@ class GitHubConfig:
     repos: list[str] = field(default_factory=list)
     token: str = ""
     trending_count: int = 0
+    trending_ai_count: int = 0
+    trending_ai_topics: list[str] = field(default_factory=lambda: ["artificial-intelligence", "machine-learning", "llm", "generative-ai", "deep-learning"])
 
 
 @dataclass

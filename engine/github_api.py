@@ -204,15 +204,23 @@ def fetch_pulls_and_issues(
 
 # ── Trending repos ────────────────────────────────────────────
 
-def fetch_trending_repos(token: str, count: int = 10) -> list[str]:
+def fetch_trending_repos(token: str, count: int = 10, topic: str | None = None) -> list[str]:
     """Fetch today's trending repos via GitHub Search API.
 
     Uses ``/search/repositories`` with ``pushed:>=TODAY`` sorted by stars.
+    If *topic* is given, adds ``topic:<topic>`` to the query.
     Returns a list of ``owner/repo`` strings (up to *count*).
     """
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    q = f"pushed:>={today}"
+    if topic:
+        q += f" topic:{topic}"
     params: dict = {
-        "q": f"pushed:>={today}",
+        "q": q,
+        "sort": "stars",
+        "order": "desc",
+        "per_page": count,
+    }
         "sort": "stars",
         "order": "desc",
         "per_page": count,

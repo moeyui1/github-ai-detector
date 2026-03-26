@@ -113,9 +113,31 @@ def main() -> None:
         for r in trending:
             if r.lower() not in existing:
                 repo_urls.append(r)
+                existing.add(r.lower())
                 print(f"  + {r} (trending)")
             else:
                 print(f"  • {r} (already configured)")
+
+    # Append trending AI repos (deduplicated, across all configured topics)
+    if cfg.github.trending_ai_count > 0:
+        topics = cfg.github.trending_ai_topics
+        print(f"Fetching up to {cfg.github.trending_ai_count} trending AI repos (topics: {', '.join(topics)}) …")
+        existing = {u.rstrip("/").split("github.com/")[-1].lower() for u in repo_urls}
+        ai_added = 0
+        for topic in topics:
+            if ai_added >= cfg.github.trending_ai_count:
+                break
+            ai_trending = fetch_trending_repos(cfg.github.token, cfg.github.trending_ai_count, topic=topic)
+            for r in ai_trending:
+                if ai_added >= cfg.github.trending_ai_count:
+                    break
+                if r.lower() not in existing:
+                    repo_urls.append(r)
+                    existing.add(r.lower())
+                    ai_added += 1
+                    print(f"  + {r} (trending: {topic})")
+
+    if repo_urls:
         print(f"Total repos to analyse: {len(repo_urls)}")
 
     out_dir = Path(args.out)

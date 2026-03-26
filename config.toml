@@ -16,6 +16,10 @@ repos = [
 ]
 # Number of today's trending repos to pull automatically per run (0 = disabled)
 trending_count = 10
+# Number of trending AI repos to pull additionally (0 = disabled)
+trending_ai_count = 10
+# Topics to search for AI trending repos
+trending_ai_topics = ["artificial-intelligence", "machine-learning", "llm", "generative-ai", "deep-learning"]
 
 [llm]
 # LLM Provider: "none" | "openai" | "github" (override via LLM_PROVIDER env var)
