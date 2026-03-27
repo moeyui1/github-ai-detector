@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="corporate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub AI Radar — 2026-03-24</title>
+<meta name="description" content="AI Involvement Index ranking for 3 GitHub repositories on 2026-03-24. Tracking AI-generated commits, PRs, and reviews.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#f0ebe4">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GitHub AI Radar — 2026-03-24">
+<meta property="og:description" content="AI Involvement Index ranking for 3 repos on 2026-03-24.">
+<meta property="og:site_name" content="GitHub AI Radar">
+<meta property="og:url" content="https://github-ai-detector.immyk.workers.dev"><meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitHub AI Radar — 2026-03-24">
+<meta name="twitter:description" content="AI Involvement Index ranking for 3 repos on 2026-03-24.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['DM Sans', 'sans-serif'], mono: ['DM Mono', 'monospace'] }, colors: { beige: { 50: '#faf7f4', 100: '#f0ebe4', 200: '#e2dace', 300: '#cdc3b5' } } } } }</script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<link rel="stylesheet" href="../style.css">
+<style>html{scroll-behavior:auto!important}</style>
+</head>
+<body class="bg-beige-100 font-sans text-base-content min-h-screen">
+<button id="menu-toggle" class="fixed top-3 left-3 z-[60] btn btn-sm btn-square btn-ghost md:hidden" aria-label="Toggle menu">
+  <svg class="w-5 h-5 icon-menu" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  <svg class="w-5 h-5 icon-close hidden" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
+<div class="sidebar-overlay fixed inset-0 bg-black/30 z-40 hidden md:hidden" id="sidebar-overlay"></div><aside class="fixed top-0 left-0 h-screen w-[272px] bg-beige-100 border-r border-beige-200 flex flex-col z-50 overflow-y-auto transition-transform duration-300 max-md:-translate-x-full max-md:shadow-xl" id="sidebar">
+  <div class="px-5 pt-5 pb-3 border-b border-beige-200">
+    <h2 class="text-[15px] font-bold flex items-center gap-2">🛸 AI Radar</h2>
+    <p class="text-[11px] opacity-40 mt-0.5">How much code is AI-generated?</p>
+  </div>
+  <div class="px-5 py-2.5 text-[11px] uppercase tracking-wider opacity-40 border-b border-beige-200 font-medium">
+    Report · 2026-03-24
+  </div>
+  <nav class="py-1 flex-1">
+    <a href="#summary" data-repo="summary" class="flex items-center gap-2 px-5 py-2 text-sm font-medium border-l-2 border-transparent hover:bg-beige-200/60 transition-colors active">
+      📊 Ranking
+    </a>
+    <div class="nav-item">
+      <a href="#openclaw-openclaw" data-repo="openclaw-openclaw"
+         class="flex items-center gap-2 px-5 py-2 text-sm opacity-60 hover:opacity-100 hover:bg-beige-200/60 border-l-2 border-transparent transition-all">
+        <img class="w-5 h-5 rounded bg-beige-200 shrink-0" src="https://avatars.githubusercontent.com/openclaw?size=80" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+        <span class="truncate">openclaw/openclaw</span>
+        <span class="badge badge-success badge-xs font-mono ml-auto">21.5%</span>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="#hkuds-nanobot" data-repo="hkuds-nanobot"
+         class="flex items-center gap-2 px-5 py-2 text-sm opacity-60 hover:opacity-100 hover:bg-beige-200/60 border-l-2 border-transparent transition-all">
+        <img class="w-5 h-5 rounded bg-beige-200 shrink-0" src="https://avatars.githubusercontent.com/HKUDS?size=80" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+        <span class="truncate">HKUDS/nanobot</span>
+        <span class="badge badge-success badge-xs font-mono ml-auto">8.7%</span>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="#ollama-ollama" data-repo="ollama-ollama"
+         class="flex items-center gap-2 px-5 py-2 text-sm opacity-60 hover:opacity-100 hover:bg-beige-200/60 border-l-2 border-transparent transition-all">
+        <img class="w-5 h-5 rounded bg-beige-200 shrink-0" src="https://avatars.githubusercontent.com/ollama?size=80" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+        <span class="truncate">ollama/ollama</span>
+        <span class="badge badge-success badge-xs font-mono ml-auto">2.7%</span>
+      </a>
+    </div>
+  </nav>
+  <div class="px-5 py-3 border-t border-beige-200 text-xs opacity-40">
+    <a href="history.html" class="hover:opacity-80">📅 All Reports</a>
+  </div>
+</aside><div class="md:ml-[272px] min-h-screen">
+<main class="max-w-5xl mx-auto p-4 pt-14 md:p-8 md:pt-8">
+<div data-section-id="summary" class="repo-section">
+  <div class="flex items-center justify-between mb-1">
+    <h1 class="text-2xl font-bold tracking-tight">🛸 AI Involvement Ranking</h1>
+    <button id="share-btn" onclick="shareRanking()" class="btn btn-sm btn-outline btn-primary gap-1.5 rounded-xl" title="Share ranking as image">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5-6 5 6"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12"/></svg>
+      Share
+    </button>
+  </div>
+  <p class="text-sm opacity-50 mb-6">Tracking AI-generated code across open-source repositories · 2026-03-24 · 3 repos</p>
+  <div id="share-site-url" data-url="https://github-ai-detector.immyk.workers.dev" class="hidden"></div><dialog id="share-modal" class="modal">
+    <div class="modal-box max-w-lg p-5">
+      <div id="share-loading" class="flex flex-col items-center gap-3 py-12">
+        <span class="loading loading-spinner loading-lg text-primary"></span>
+        <p class="text-sm opacity-50">Generating image…</p>
+      </div>
+      <div id="share-preview" class="hidden">
+        <img id="share-img" class="w-full rounded-lg shadow" alt="Ranking">
+        <div class="modal-action">
+          <a id="share-download" download class="btn btn-primary gap-1.5 rounded-xl">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5 6 5-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12"/></svg>
+            Download
+          </a>
+          <form method="dialog"><button class="btn btn-ghost rounded-xl">Close</button></form>
+        </div>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button>close</button></form>
+  </dialog><div class="space-y-2 mb-8">
+    <div class="bg-white border border-beige-200 rounded-xl px-4 py-3 cursor-pointer hover:border-primary hover:bg-primary/5 transition-all shadow-sm"
+     onclick="document.querySelector('a[data-repo=&quot;openclaw-openclaw&quot;]').click()"><div class="flex items-center gap-3">
+    <span class="font-mono text-base w-8 text-center shrink-0 text-amber-600 font-extrabold">
+      #1
+    </span>
+    <img class="w-10 h-10 rounded-lg object-cover shrink-0 bg-beige-200"
+         src="https://avatars.githubusercontent.com/openclaw?size=80" alt="" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+    <div class="min-w-0 flex-1">
+      <div class="text-[10px] uppercase tracking-wider opacity-40">Repository</div>
+      <div class="font-bold text-sm truncate">openclaw/openclaw</div>
+    </div>
+      <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">AI Commits</div>
+    <div class="font-bold font-mono text-sm">0/100</div>
+  </div>
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">AI PRs</div>
+    <div class="font-bold font-mono text-sm">7/100</div>
+  </div>
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">AI Reviews</div>
+    <div class="font-bold font-mono text-sm">69/71</div>
+  </div>
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">Bot Rate</div>
+    <div class="font-bold font-mono text-sm">0.0%</div>
+  </div>
+    <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">      <div class="text-[10px] uppercase tracking-wider opacity-40">Trend</div>
+      <div class="font-bold text-sm"><span class="text-error font-mono">↑12.3%</span></div>      <div class="mt-1">  <div class="rank-trend">
+    <svg viewBox="0 0 120 36" preserveAspectRatio="none">
+      <polygon class="sparkline-area" points="3.0,33.0 17.2,8.6 31.5,9.6 45.8,9.6 60.0,9.9 74.2,15.3 88.5,4.9 102.8,3.0 117.0,10.6 117.0,33 3.0,33" fill="#16a34a"/>
+      <polyline class="sparkline-line" points="3.0,33.0 17.2,8.6 31.5,9.6 45.8,9.6 60.0,9.9 74.2,15.3 88.5,4.9 102.8,3.0 117.0,10.6" stroke="#16a34a"/>
+      <circle class="sparkline-dot" cx="117.0" cy="10.6" fill="#16a34a"/>
+    </svg>
+  </div></div>    </div>    <div class="border-l border-beige-200 pl-3 shrink-0">
+      <div class="text-[10px] uppercase tracking-wider opacity-40">AI Score</div>
+      <div class="font-extrabold font-mono text-lg bg-success/10 text-success rounded px-1.5 py-0.5 inline-block mt-0.5">
+        21.5%
+      </div>
+    </div>
+  </div>  <div class="flex gap-4 mt-2 pl-[52px] flex-wrap sm:hidden text-[11px] text-base-content/50">
+    <div>
+      <span class="opacity-50">C</span>
+      <span class="font-mono">0/100</span>
+    </div>
+    <div>
+      <span class="opacity-50">PR</span>
+      <span class="font-mono">7/100</span>
+    </div>
+    <div>
+      <span class="opacity-50">R</span>
+      <span class="font-mono">69/71</span>
+    </div>
+    <div>
+      <span class="opacity-50">Bot</span>
+      <span class="font-mono">0.0%</span>
+    </div>
+  </div>
+
+</div>
+
+    <div class="bg-white border border-beige-200 rounded-xl px-4 py-3 cursor-pointer hover:border-primary hover:bg-primary/5 transition-all shadow-sm"
+     onclick="document.querySelector('a[data-repo=&quot;hkuds-nanobot&quot;]').click()"><div class="flex items-center gap-3">
+    <span class="font-mono text-base w-8 text-center shrink-0 text-gray-400 font-bold">
+      #2
+    </span>
+    <img class="w-10 h-10 rounded-lg object-cover shrink-0 bg-beige-200"
+         src="https://avatars.githubusercontent.com/HKUDS?size=80" alt="" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+    <div class="min-w-0 flex-1">
+      <div class="text-[10px] uppercase tracking-wider opacity-40">Repository</div>
+      <div class="font-bold text-sm truncate">HKUDS/nanobot</div>
+    </div>
+      <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">AI Commits</div>
+    <div class="font-bold font-mono text-sm">11/100</div>
+  </div>
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">AI PRs</div>
+    <div class="font-bold font-mono text-sm">1/100</div>
+  </div>
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">AI Reviews</div>
+    <div class="font-bold font-mono text-sm">0/0</div>
+  </div>
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">Bot Rate</div>
+    <div class="font-bold font-mono text-sm">0.0%</div>
+  </div>
+    <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">      <div class="text-[10px] uppercase tracking-wider opacity-40">Trend</div>
+      <div class="font-bold text-sm"><span class="text-error font-mono">↑2.8%</span></div>      <div class="mt-1">  <div class="rank-trend">
+    <svg viewBox="0 0 120 36" preserveAspectRatio="none">
+      <polygon class="sparkline-area" points="3.0,33.0 17.2,6.4 31.5,8.3 45.8,9.0 60.0,4.8 74.2,13.8 88.5,19.8 102.8,3.0 117.0,6.6 117.0,33 3.0,33" fill="#16a34a"/>
+      <polyline class="sparkline-line" points="3.0,33.0 17.2,6.4 31.5,8.3 45.8,9.0 60.0,4.8 74.2,13.8 88.5,19.8 102.8,3.0 117.0,6.6" stroke="#16a34a"/>
+      <circle class="sparkline-dot" cx="117.0" cy="6.6" fill="#16a34a"/>
+    </svg>
+  </div></div>    </div>    <div class="border-l border-beige-200 pl-3 shrink-0">
+      <div class="text-[10px] uppercase tracking-wider opacity-40">AI Score</div>
+      <div class="font-extrabold font-mono text-lg bg-success/10 text-success rounded px-1.5 py-0.5 inline-block mt-0.5">
+        8.7%
+      </div>
+    </div>
+  </div>  <div class="flex gap-4 mt-2 pl-[52px] flex-wrap sm:hidden text-[11px] text-base-content/50">
+    <div>
+      <span class="opacity-50">C</span>
+      <span class="font-mono">11/100</span>
+    </div>
+    <div>
+      <span class="opacity-50">PR</span>
+      <span class="font-mono">1/100</span>
+    </div>
+    <div>
+      <span class="opacity-50">R</span>
+      <span class="font-mono">0/0</span>
+    </div>
+    <div>
+      <span class="opacity-50">Bot</span>
+      <span class="font-mono">0.0%</span>
+    </div>
+  </div>
+
+</div>
+
+    <div class="bg-white border border-beige-200 rounded-xl px-4 py-3 cursor-pointer hover:border-primary hover:bg-primary/5 transition-all shadow-sm"
+     onclick="document.querySelector('a[data-repo=&quot;ollama-ollama&quot;]').click()"><div class="flex items-center gap-3">
+    <span class="font-mono text-base w-8 text-center shrink-0 text-orange-700 font-bold">
+      #3
+    </span>
+    <img class="w-10 h-10 rounded-lg object-cover shrink-0 bg-beige-200"
+         src="https://avatars.githubusercontent.com/ollama?size=80" alt="" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+    <div class="min-w-0 flex-1">
+      <div class="text-[10px] uppercase tracking-wider opacity-40">Repository</div>
+      <div class="font-bold text-sm truncate">ollama/ollama</div>
+    </div>
+      <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">AI Commits</div>
+    <div class="font-bold font-mono text-sm">1/100</div>
+  </div>
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">AI PRs</div>
+    <div class="font-bold font-mono text-sm">3/100</div>
+  </div>
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">AI Reviews</div>
+    <div class="font-bold font-mono text-sm">0/6</div>
+  </div>
+  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="text-[10px] uppercase tracking-wider opacity-40">Bot Rate</div>
+    <div class="font-bold font-mono text-sm">0.0%</div>
+  </div>
+    <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">      <div class="text-[10px] uppercase tracking-wider opacity-40">Trend</div>
+      <div class="font-bold text-sm"><span class="opacity-30">→</span></div>      <div class="mt-1">  <div class="rank-trend">
+    <svg viewBox="0 0 120 36" preserveAspectRatio="none">
+      <polygon class="sparkline-area" points="3.0,33.0 17.2,3.0 31.5,7.4 45.8,8.9 60.0,8.9 74.2,26.0 88.5,27.2 102.8,25.3 117.0,14.6 117.0,33 3.0,33" fill="#16a34a"/>
+      <polyline class="sparkline-line" points="3.0,33.0 17.2,3.0 31.5,7.4 45.8,8.9 60.0,8.9 74.2,26.0 88.5,27.2 102.8,25.3 117.0,14.6" stroke="#16a34a"/>
+      <circle class="sparkline-dot" cx="117.0" cy="14.6" fill="#16a34a"/>
+    </svg>
+  </div></div>    </div>    <div class="border-l border-beige-200 pl-3 shrink-0">
+      <div class="text-[10px] uppercase tracking-wider opacity-40">AI Score</div>
+      <div class="font-extrabold font-mono text-lg bg-success/10 text-success rounded px-1.5 py-0.5 inline-block mt-0.5">
+        2.7%
+      </div>
+    </div>
+  </div>  <div class="flex gap-4 mt-2 pl-[52px] flex-wrap sm:hidden text-[11px] text-base-content/50">
+    <div>
+      <span class="opacity-50">C</span>
+      <span class="font-mono">1/100</span>
+    </div>
+    <div>
+      <span class="opacity-50">PR</span>
+      <span class="font-mono">3/100</span>
+    </div>
+    <div>
+      <span class="opacity-50">R</span>
+      <span class="font-mono">0/6</span>
+    </div>
+    <div>
+      <span class="opacity-50">Bot</span>
+      <span class="font-mono">0.0%</span>
+    </div>
+  </div>
+
+</div>
+
+  </div><div class="mb-8">
+    <h2 class="text-lg font-bold mb-3">📋 Detail</h2>
+    <div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+    <table class="table table-sm">
+    <thead class="bg-beige-50"><tr>
+      <th class="text-xs uppercase tracking-wide opacity-50"></th>
+      <th class="text-xs uppercase tracking-wide opacity-50">Repository</th>
+      <th class="text-xs uppercase tracking-wide opacity-50">AII</th>
+      <th class="text-xs uppercase tracking-wide opacity-50">Trend</th>
+      <th class="text-xs uppercase tracking-wide opacity-50">Bot Rate</th>
+      <th class="text-xs uppercase tracking-wide opacity-50">AI Commits</th>
+      <th class="text-xs uppercase tracking-wide opacity-50">AI PRs</th>
+      <th class="text-xs uppercase tracking-wide opacity-50">AI Reviews</th>
+      <th class="text-xs uppercase tracking-wide opacity-50">Events</th>
+    </tr></thead>
+    <tbody>
+      <tr class="hover">
+        <td><img src="https://avatars.githubusercontent.com/openclaw?size=80" class="w-5 h-5 rounded" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'"></td>
+        <td>
+          <a href="#openclaw-openclaw" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2 font-medium">
+            openclaw/openclaw
+          </a>
+        </td>
+        <td><span class="badge badge-success badge-sm font-mono">21.5%</span></td>
+        <td><span class="text-error font-mono text-xs">↑12.3%</span></td>
+        <td class="font-mono text-xs">0.0%</td>
+        <td class="font-mono text-xs">0/100</td>
+        <td class="font-mono text-xs">7/100</td>
+        <td class="font-mono text-xs">69/71</td>
+        <td class="font-mono text-xs">200</td>
+      </tr>
+      <tr class="hover">
+        <td><img src="https://avatars.githubusercontent.com/HKUDS?size=80" class="w-5 h-5 rounded" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'"></td>
+        <td>
+          <a href="#hkuds-nanobot" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2 font-medium">
+            HKUDS/nanobot
+          </a>
+        </td>
+        <td><span class="badge badge-success badge-sm font-mono">8.7%</span></td>
+        <td><span class="text-error font-mono text-xs">↑2.8%</span></td>
+        <td class="font-mono text-xs">0.0%</td>
+        <td class="font-mono text-xs">11/100</td>
+        <td class="font-mono text-xs">1/100</td>
+        <td class="font-mono text-xs">0/0</td>
+        <td class="font-mono text-xs">200</td>
+      </tr>
+      <tr class="hover">
+        <td><img src="https://avatars.githubusercontent.com/ollama?size=80" class="w-5 h-5 rounded" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'"></td>
+        <td>
+          <a href="#ollama-ollama" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2 font-medium">
+            ollama/ollama
+          </a>
+        </td>
+        <td><span class="badge badge-success badge-sm font-mono">2.7%</span></td>
+        <td><span class="opacity-30">→</span></td>
+        <td class="font-mono text-xs">0.0%</td>
+        <td class="font-mono text-xs">1/100</td>
+        <td class="font-mono text-xs">3/100</td>
+        <td class="font-mono text-xs">0/6</td>
+        <td class="font-mono text-xs">200</td>
+      </tr>
+    </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<div data-section-id="hkuds-nanobot" class="repo-section">
+  <div class="flex items-center gap-2 mb-1">
+    <img class="w-7 h-7 rounded-lg object-cover shrink-0 bg-beige-200" src="https://avatars.githubusercontent.com/HKUDS?size=80" alt="" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+    <h1 class="text-2xl font-bold tracking-tight">HKUDS/nanobot</h1>
+    <a href="https://github.com/HKUDS/nanobot" target="_blank" class="opacity-40 hover:opacity-80 transition-opacity" title="View on GitHub">
+      <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+  </div>
+  <p class="text-sm opacity-50 mb-6">Analysis report — 2026-03-24</p>  <div class="bg-white border border-beige-200 rounded-xl p-5 shadow-sm mb-8">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">AII Trend</h2>    <div class="flex items-center gap-2">      <span class="text-sm font-mono font-bold text-red-500">↑2.8%</span>    </div>  </div>
+  <div id="echart-1" class="echart-container"
+       data-dates='["2026-03-19", "2026-03-20", "2026-03-21", "2026-03-22", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27"]'
+       data-values='[5.0, 10.06, 9.7, 9.57, 10.36, 8.66, 7.52, 10.71, 10.02]'
+       data-color="#16a34a"
+       data-name="HKUDS/nanobot">
+  </div>
+</div>
+
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">8.7%</div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Score</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">0.0%</div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">Bot Rate</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">11<span class="text-xs opacity-40">/100</span></div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Commits</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">1<span class="text-xs opacity-40">/100</span></div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI PRs</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">0<span class="text-xs opacity-40">/0</span></div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Reviews</div>
+    </div>
+  </div><div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="opacity-60">Commit</span>
+        <span class="font-mono text-xs font-semibold">11/100</span>
+      </div>
+      <progress class="progress progress-info w-full h-2" value="11" max="100"></progress>
+    </div>
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="opacity-60">PR</span>
+        <span class="font-mono text-xs font-semibold">1/100</span>
+      </div>
+      <progress class="progress progress-success w-full h-2" value="1" max="100"></progress>
+    </div>
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="opacity-60">Review</span>
+        <span class="font-mono text-xs font-semibold">0/0</span>
+      </div>
+      <progress class="progress progress-primary w-full h-2" value="0" max="100"></progress>
+    </div>
+  </div><div class="mb-8">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-lg font-bold">Events (200)</h2>
+    </div>
+      <div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+<table class="table table-sm">
+<thead class="bg-beige-50"><tr>
+  <th class="text-xs uppercase tracking-wide opacity-50">Type</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">AI Score</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Description</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Actor</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Reason</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Date</th>
+</tr></thead>
+<tbody>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/556b21d01168cbc1e8cf5ebd508cad863536cd37" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">refactor(channels): abstract login() into BaseChannel, unify</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/chengyongru.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/chengyongru" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">chengyongru</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-23</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/11e1bbbab74c3060c2aab4200d4b186c16cebce3" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(weixin): add outbound media file sending via CDN upload</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/ZhangYuanhan-AI.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/ZhangYuanhan-AI" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ZhangYuanhan-AI</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-23</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/ebc4c2ec3516e0807dcb576a77ae038f6edd5fc4" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(weixin): add personal WeChat channel via ilinkai HTTP l</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/ZhangYuanhan-AI.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/ZhangYuanhan-AI" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ZhangYuanhan-AI</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-22</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/2db2cc18f1a40fb79b76cc137b71e5d277ce2205" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(qq): fix local file outbound and add svg as image type (</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/ddadaal.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/ddadaal" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ddadaal</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-20</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/d7373db41958893ac0c1031f85c0bf1a72223b45" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(qq): bot can send and receive images and files (#1667)</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/ddadaal.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/ddadaal" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ddadaal</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-20</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/8b971a7827fcedece6e9d5c6e797ebd077e78264" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(custom_provider): show raw API error instead of JSONDeco</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/unknown.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/unknown" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">unknown</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-20</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/67528deb4c570a44b91fdc628853df5fbd1cb051" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(tests): use --no-interactive for non-interactive onboard</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/chengyongru.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/chengyongru" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">chengyongru</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-17</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/0b1beb0e9f11861a8a34c9e34268488b5c6cc11f" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Fix TypeError for MCP tools with nullable JSON Schema params</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/rreben.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/rreben" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">rreben</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-18</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/4e56481f0ba59ce53bfed03e01c941722fdcae20" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">add one-time migration for legacy global cron store</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/MiguelPF.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/MiguelPF" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">MiguelPF</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-18</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/c33e01ee621aece07d2d1f614a261c02628fb4cf" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(cron): scope cron job store to workspace instead of glob</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/MiguelPF.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/MiguelPF" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">MiguelPF</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-18</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/commit/12aa7d7acaa1bdf5e1ec3ad638d766d5acc8a9d5" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">test(cron): add unit tests for _format_timing and _format_st</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/pjhoberman.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/pjhoberman" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">pjhoberman</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-17</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/pull/2430" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: make heartbeat stateless by default</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/xiwuqi.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/xiwuqi" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">xiwuqi</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.50</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/pull/2425" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Fix environment variable handling and add setup wizard for d</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/holk26.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/holk26" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">holk26</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Somewhat formal phrasing and generic, bu</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.30</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/pull/1861" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Endpoint channel</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/dmahurin.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/dmahurin" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">dmahurin</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Technical, but slightly formal; no clear</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-11</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.30</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/HKUDS/nanobot/pull/1748" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Webchat</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/dmahurin.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/dmahurin" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">dmahurin</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Technical, slightly formal, but lacks AI</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-08</td>
+  </tr>
+  <tr><td colspan="6" class="text-center py-3">
+    <a href="events-hkuds-nanobot.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Show more …</a>
+  </td></tr>
+</tbody>
+</table>
+</div>
+
+  </div>
+</div>
+
+<div data-section-id="openclaw-openclaw" class="repo-section">
+  <div class="flex items-center gap-2 mb-1">
+    <img class="w-7 h-7 rounded-lg object-cover shrink-0 bg-beige-200" src="https://avatars.githubusercontent.com/openclaw?size=80" alt="" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+    <h1 class="text-2xl font-bold tracking-tight">openclaw/openclaw</h1>
+    <a href="https://github.com/openclaw/openclaw" target="_blank" class="opacity-40 hover:opacity-80 transition-opacity" title="View on GitHub">
+      <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+  </div>
+  <p class="text-sm opacity-50 mb-6">Analysis report — 2026-03-24</p>  <div class="bg-white border border-beige-200 rounded-xl p-5 shadow-sm mb-8">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">AII Trend</h2>    <div class="flex items-center gap-2">      <span class="text-sm font-mono font-bold text-red-500">↑12.3%</span>    </div>  </div>
+  <div id="echart-2" class="echart-container"
+       data-dates='["2026-03-19", "2026-03-20", "2026-03-21", "2026-03-22", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27"]'
+       data-values='[6.0, 27.38, 26.53, 26.5, 26.24, 21.54, 30.65, 32.29, 25.66]'
+       data-color="#16a34a"
+       data-name="openclaw/openclaw">
+  </div>
+</div>
+
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">21.5%</div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Score</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">0.0%</div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">Bot Rate</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">0<span class="text-xs opacity-40">/100</span></div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Commits</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">7<span class="text-xs opacity-40">/100</span></div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI PRs</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">69<span class="text-xs opacity-40">/71</span></div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Reviews</div>
+    </div>
+  </div><div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="opacity-60">Commit</span>
+        <span class="font-mono text-xs font-semibold">0/100</span>
+      </div>
+      <progress class="progress progress-info w-full h-2" value="0" max="100"></progress>
+    </div>
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="opacity-60">PR</span>
+        <span class="font-mono text-xs font-semibold">7/100</span>
+      </div>
+      <progress class="progress progress-success w-full h-2" value="7" max="100"></progress>
+    </div>
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="opacity-60">Review</span>
+        <span class="font-mono text-xs font-semibold">69/71</span>
+      </div>
+      <progress class="progress progress-primary w-full h-2" value="97" max="100"></progress>
+    </div>
+  </div><div class="mb-8">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-lg font-bold">Events (200)</h2>
+    </div>
+      <div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+<table class="table table-sm">
+<thead class="bg-beige-50"><tr>
+  <th class="text-xs uppercase tracking-wide opacity-50">Type</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">AI Score</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Description</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Actor</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Reason</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Date</th>
+</tr></thead>
+<tbody>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/pull/53520" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(cli): add migrate export/import for cross-device migrat</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/shenli.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/shenli" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">shenli</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/pull/50146" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(android): finalize sms.search end-to-end with policy, U</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/scaryshark124.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/scaryshark124" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">scaryshark124</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-19</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/pull/53944" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(gateway): pin channel registry at startup to survive reg</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/affsantos.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/affsantos" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">affsantos</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/pull/53736" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat: add tools.exec.denyPatterns config for blocking comman</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/TechFath3r.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/TechFath3r" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">TechFath3r</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/pull/52079" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: auto-switch to imageModel when images detected in Dashb</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/yujuntea.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/yujuntea" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">yujuntea</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-22</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/pull/53957" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(slack): trim DM reply overhead and restore Codex auto tr</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/vincentkoc.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/vincentkoc" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">vincentkoc</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/pull/53988" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat: allow opt-out for image optimization in Slack</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/jhawpetoss6-collab.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/jhawpetoss6-collab" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">jhawpetoss6-collab</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/commit/fee9d4cf379051e343f074c46447967d28be46bc" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: dedupe stale child completion announces</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/Takhoffman.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/Takhoffman" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">Takhoffman</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="opacity-30">—</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/commit/2c5c5acb1b48e654b4afaed921be3873a7b5c492" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: ignore stale rows in subagent admin kill</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/Takhoffman.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/Takhoffman" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">Takhoffman</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="opacity-30">—</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/commit/c90ae1ee7f63672ca0d7a4e2fdd8b6a43f13899c" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: prefer latest subagent rows for session control</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/Takhoffman.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/Takhoffman" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">Takhoffman</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="opacity-30">—</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/commit/b8a0258618c16eee4bb19aa56d675f18ca210811" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: ignore stale rows in subagent activity checks</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/Takhoffman.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/Takhoffman" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">Takhoffman</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="opacity-30">—</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/commit/40ab7aca3d3f08cd9110596b7ac30fe026e5e9c7" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">test: speed up slack monitor suites</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/steipete.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/steipete" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">steipete</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="opacity-30">—</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/commit/d28266732162d31526f5a77ab72288c793525e95" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">test: speed up cli and command suites</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/steipete.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/steipete" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">steipete</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="opacity-30">—</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/commit/3dc139b0c0fc92b4eb4b894339bf7362cd8cc68a" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">test: speed up discord monitor suites</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/steipete.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/steipete" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">steipete</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="opacity-30">—</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/openclaw/openclaw/commit/e28b516fb5b3557097a1ec3676c81682c3381196" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(slack): trim DM reply overhead and restore Codex auto tr</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/vincentkoc.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/vincentkoc" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">vincentkoc</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="opacity-30">—</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr><td colspan="6" class="text-center py-3">
+    <a href="events-openclaw-openclaw.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Show more …</a>
+  </td></tr>
+</tbody>
+</table>
+</div>
+
+  </div>
+</div>
+
+<div data-section-id="ollama-ollama" class="repo-section">
+  <div class="flex items-center gap-2 mb-1">
+    <img class="w-7 h-7 rounded-lg object-cover shrink-0 bg-beige-200" src="https://avatars.githubusercontent.com/ollama?size=80" alt="" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+    <h1 class="text-2xl font-bold tracking-tight">ollama/ollama</h1>
+    <a href="https://github.com/ollama/ollama" target="_blank" class="opacity-40 hover:opacity-80 transition-opacity" title="View on GitHub">
+      <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+  </div>
+  <p class="text-sm opacity-50 mb-6">Analysis report — 2026-03-24</p>  <div class="bg-white border border-beige-200 rounded-xl p-5 shadow-sm mb-8">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">AII Trend</h2>    <div class="flex items-center gap-2">      <span class="text-sm font-mono font-bold text-gray-400">→ Flat</span>    </div>  </div>
+  <div id="echart-3" class="echart-container"
+       data-dates='["2026-03-19", "2026-03-20", "2026-03-21", "2026-03-22", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27"]'
+       data-values='[1.6, 6.39, 5.69, 5.45, 5.44, 2.72, 2.52, 2.83, 4.54]'
+       data-color="#16a34a"
+       data-name="ollama/ollama">
+  </div>
+</div>
+
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">2.7%</div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Score</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">0.0%</div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">Bot Rate</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">1<span class="text-xs opacity-40">/100</span></div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Commits</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">3<span class="text-xs opacity-40">/100</span></div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI PRs</div>
+    </div>
+    <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+      <div class="stat-value text-2xl font-mono">0<span class="text-xs opacity-40">/6</span></div>
+      <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Reviews</div>
+    </div>
+  </div><div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="opacity-60">Commit</span>
+        <span class="font-mono text-xs font-semibold">1/100</span>
+      </div>
+      <progress class="progress progress-info w-full h-2" value="1" max="100"></progress>
+    </div>
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="opacity-60">PR</span>
+        <span class="font-mono text-xs font-semibold">3/100</span>
+      </div>
+      <progress class="progress progress-success w-full h-2" value="3" max="100"></progress>
+    </div>
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="opacity-60">Review</span>
+        <span class="font-mono text-xs font-semibold">0/6</span>
+      </div>
+      <progress class="progress progress-primary w-full h-2" value="0" max="100"></progress>
+    </div>
+  </div><div class="mb-8">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-lg font-bold">Events (200)</h2>
+    </div>
+      <div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+<table class="table table-sm">
+<thead class="bg-beige-50"><tr>
+  <th class="text-xs uppercase tracking-wide opacity-50">Type</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">AI Score</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Description</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Actor</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Reason</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Date</th>
+</tr></thead>
+<tbody>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/commit/810d4f9c22319491cd3ac360afed6d2cae6be99a" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">runner: fix swallowed error in allocModel graph reservation</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/unknown.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/unknown" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">unknown</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-14</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/14950" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">api: check error from json.Unmarshal in checkError</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/LincolnBurrows2017.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/LincolnBurrows2017" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">LincolnBurrows2017</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Explicitly states AI contribution in the</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-19</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/14945" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Add Trepan as a new VS Code extension</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/dsadsadsadsadas.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/dsadsadsadsadas" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">dsadsadsadsadas</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-18</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold text-red-600">0.60</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/14992" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: remove duplicate TopLogprobs validation in GenerateHand</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/HEETMEHTA18.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/HEETMEHTA18" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">HEETMEHTA18</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Generic overview section is formal and v</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-21</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.30</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/14361" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">docs: fix broken markdown links, convert GitHub-style callou</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/maternion.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/maternion" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">maternion</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Partially formal, but plenty of domain r</span></td>
+    <td class="font-mono text-xs opacity-50">2026-02-22</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.20</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/14172" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Add reranking support</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/manx98.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/manx98" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">manx98</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Some formal phrasing, but contains domai</span></td>
+    <td class="font-mono text-xs opacity-50">2026-02-09</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.20</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/14938" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">docs: add multilingual quick-start README</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/guicybercode.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/guicybercode" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">guicybercode</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Slightly polished, but strong domain con</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-18</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.15</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/12030" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Add /api/tokenize and /api/detokenize endpoints for model-al</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/icedmoca.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/icedmoca" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">icedmoca</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Detailed but technical and domain-approp</span></td>
+    <td class="font-mono text-xs opacity-50">2025-08-22</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.15</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/14995" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">tools: warn when model tool call names don't match registere</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/MoonMao42.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/MoonMao42" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">MoonMao42</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Informal tone and domain-specific conten</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-21</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.12</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/15008" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">docs: fix Linux uninstall command that mangles paths with tr</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/r266-tech.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/r266-tech" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">r266-tech</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Technical, example-driven, and informal—</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-22</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.10</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/commit/288077c3a3b69d717e7bf1af576d28885657826a" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">build: smarter docker parallelism (#14653)</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/dhiltgen.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/dhiltgen" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">dhiltgen</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Structured explanation, minor polish, mo</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-07</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td class="font-mono text-sm font-semibold ">0.10</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/commit/8207e55ec7eb3a2cf4cb20917518514d981a6a01" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">don't require pulling stubs for cloud models (#14574)</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/drifkin.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/drifkin" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">drifkin</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Detailed, technical PR with domain terms</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-03</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.10</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/15000" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">add MoltenVK support for Intel macs</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/jamfor999.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/jamfor999" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">jamfor999</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Informal tone, domain knowledge, minor t</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-22</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.10</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/15022" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">model/parsers: Close think block if tool block starts in Qwe</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/amatas.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/amatas" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">amatas</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Technical and experience-based, informal</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-23</td>
+  </tr>
+  <tr class="hover">
+    <td><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td class="font-mono text-sm font-semibold ">0.10</td>
+    <td class="max-w-[200px] truncate"><a href="https://github.com/ollama/ollama/pull/15010" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: install.sh no longer reports success on sudo failure</a></td>
+    <td>
+      <div class="flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200" src="https://github.com/r266-tech.png?size=32" loading="lazy" onerror="this.style.display='none'">        <a href="https://github.com/r266-tech" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">r266-tech</a>      </div>
+    </td>
+    <td class="max-w-[160px] truncate"><span class="text-xs opacity-60">Clear, technical explanation with natura</span></td>
+    <td class="font-mono text-xs opacity-50">2026-03-22</td>
+  </tr>
+  <tr><td colspan="6" class="text-center py-3">
+    <a href="events-ollama-ollama.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Show more …</a>
+  </td></tr>
+</tbody>
+</table>
+</div>
+
+  </div>
+</div>
+<p class="text-center text-sm opacity-60 mt-12 pb-4 flex items-center justify-center gap-1.5">
+  Powered by <a href="https://github.com/moeyui1/github-ai-detector" target="_blank"
+    class="inline-flex items-center gap-1 text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2 font-medium">
+    <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    AI Intrusion Report</a>
+</p>
+
+</main>
+</div>
+<script src="../app.js"></script>
+<script>
+// Initialize all ECharts trend charts
+document.querySelectorAll('.echart-container').forEach(function(el) {
+  var chart = echarts.init(el, null, {renderer: 'canvas'});
+  var dates = JSON.parse(el.getAttribute('data-dates'));
+  var values = JSON.parse(el.getAttribute('data-values'));
+  var color = el.getAttribute('data-color');
+  var name = el.getAttribute('data-name') || 'AII';
+  chart.setOption({
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#fffdf9',
+      borderColor: '#d9cfc3',
+      borderRadius: 8,
+      padding: [10, 14],
+      textStyle: { color: '#1f2937', fontSize: 13, fontFamily: 'DM Sans, sans-serif' },
+      formatter: function(params) {
+        var p = params[0];
+        return '<b>' + p.name + '</b><br/><span style="color:' + color + '">●</span> ' + name + ': <b>' + p.value.toFixed(2) + '%</b>';
+      }
+    },
+    grid: { left: 48, right: 16, top: 16, bottom: 32 },
+    xAxis: {
+      type: 'category',
+      data: dates,
+      axisLine: { lineStyle: { color: '#e2dace' } },
+      axisTick: { show: false },
+      axisLabel: {
+        color: '#9ca3af',
+        fontSize: 11,
+        fontFamily: 'DM Mono, monospace',
+        interval: Math.max(0, Math.floor(dates.length / 6) - 1),
+        formatter: function(v) { return v.slice(5); }
+      }
+    },
+    yAxis: {
+      type: 'value',
+      splitLine: { lineStyle: { color: '#f0ebe4', type: 'dashed' } },
+      axisLabel: {
+        color: '#9ca3af',
+        fontSize: 11,
+        fontFamily: 'DM Mono, monospace',
+        formatter: '{value}%'
+      }
+    },
+    series: [{
+      type: 'line',
+      data: values,
+      smooth: 0.3,
+      symbol: 'circle',
+      symbolSize: 7,
+      lineStyle: { color: color, width: 2.5 },
+      itemStyle: { color: color, borderColor: '#fff', borderWidth: 2 },
+      emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 8, shadowColor: color + '44' } },
+      areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+        { offset: 0, color: color + '30' },
+        { offset: 0.6, color: color + '10' },
+        { offset: 1, color: color + '02' }
+      ]) }
+    }]
+  });
+  new ResizeObserver(function() { chart.resize(); }).observe(el);
+});
+</script>
+</body>
+</html>
