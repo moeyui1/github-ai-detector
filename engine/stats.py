@@ -152,8 +152,7 @@ class RequestStats:
         lines.append(sep)
 
         table = "\n".join(lines)
-        print(f"\n📊 Request Summary\n{table}")
-        _log.info("Request summary:\n%s", table)
+        _log.info("\n📊 Request Summary\n%s", table)
 
 
 def _fmt_cell(c: _Counter) -> str:

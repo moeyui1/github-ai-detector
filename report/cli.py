@@ -105,10 +105,12 @@ def main() -> None:
         print("No repos specified. Use --repos or set github.repos in config.toml.", file=sys.stderr)
         sys.exit(1)
 
+    active_days = cfg.analysis.inactive_days or 14
+
     # Append trending repos (deduplicated)
     if cfg.github.trending_count > 0:
-        print(f"Fetching {cfg.github.trending_count} trending repos …")
-        trending = fetch_trending_repos(cfg.github.token, cfg.github.trending_count)
+        print(f"Fetching {cfg.github.trending_count} trending repos (active within {active_days}d) …")
+        trending = fetch_trending_repos(cfg.github.token, cfg.github.trending_count, active_days=active_days)
         existing = {u.rstrip("/").split("github.com/")[-1].lower() for u in repo_urls}
         for r in trending:
             if r.lower() not in existing:
@@ -127,7 +129,7 @@ def main() -> None:
         for topic in topics:
             if ai_added >= cfg.github.trending_ai_count:
                 break
-            ai_trending = fetch_trending_repos(cfg.github.token, cfg.github.trending_ai_count, topic=topic)
+            ai_trending = fetch_trending_repos(cfg.github.token, cfg.github.trending_ai_count, topic=topic, active_days=active_days)
             for r in ai_trending:
                 if ai_added >= cfg.github.trending_ai_count:
                     break

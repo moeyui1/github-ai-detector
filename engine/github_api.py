@@ -5,7 +5,7 @@ GitHub REST API helpers for data fetching.
 from __future__ import annotations
 
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import httpx
 
@@ -204,15 +204,19 @@ def fetch_pulls_and_issues(
 
 # ── Trending repos ────────────────────────────────────────────
 
-def fetch_trending_repos(token: str, count: int = 10, topic: str | None = None) -> list[str]:
-    """Fetch today's trending repos via GitHub Search API.
+def fetch_trending_repos(token: str, count: int = 10, topic: str | None = None,
+                         min_stars: int = 500, active_days: int = 14) -> list[str]:
+    """Fetch trending repos via GitHub Search API.
 
-    Uses ``/search/repositories`` with ``pushed:>=TODAY`` sorted by stars.
+    Uses ``/search/repositories`` with ``pushed:>=<date>`` sorted by stars.
     If *topic* is given, adds ``topic:<topic>`` to the query.
+    *min_stars* filters out repos below the star threshold (default 500).
+    *active_days* limits to repos pushed within the last N days.
     Returns a list of ``owner/repo`` strings (up to *count*).
     """
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    q = f"pushed:>={today}"
+    today = datetime.now(timezone.utc)
+    since = (today - timedelta(days=active_days)).strftime("%Y-%m-%d")
+    q = f"pushed:>={since} stars:>={min_stars}"
     if topic:
         q += f" topic:{topic}"
     params: dict = {
@@ -233,7 +237,7 @@ def fetch_trending_repos(token: str, count: int = 10, topic: str | None = None) 
                 for item in data.get("items", [])
                 if not item.get("name", "").lower().startswith("awesome")
             ]
-            _log.info("fetch_trending_repos: %d repos (query: pushed>=%s)", len(repos), today)
+            _log.info("fetch_trending_repos: %d repos (query: pushed>=%s)", len(repos), since)
             get_stats().record_gh("/search/repositories", success=True)
             return repos
         except (httpx.TimeoutException, httpx.NetworkError) as exc:
@@ -368,7 +372,8 @@ _TEMPLATE_PATHS = {
 def fetch_repo_templates(owner: str, repo: str, token: str) -> dict[str, str]:
     """Fetch PR/Issue template files from the repo. Returns {'pr': '...', 'issue': '...'}.
 
-    Uses GitHub Contents API. Missing templates are silently skipped.
+    Uses GitHub Contents API. Missing templates (404) are expected and silently skipped
+    without counting as failures in request stats.
     """
     import base64
 
@@ -378,12 +383,18 @@ def fetch_repo_templates(owner: str, repo: str, token: str) -> dict[str, str]:
             continue
         for path in paths:
             try:
-                data = _gh_get_one(f"/repos/{owner}/{repo}/contents/{path}", token)
+                url = f"{_GH_API}/repos/{owner}/{repo}/contents/{path}"
+                resp = httpx.get(url, headers=_gh_headers(token), timeout=15)
+                if resp.status_code == 404:
+                    continue  # expected — most repos don't have templates
+                resp.raise_for_status()
+                data = resp.json()
                 content = data.get("content", "")
                 if content and data.get("encoding") == "base64":
                     templates[kind] = base64.b64decode(content).decode("utf-8", errors="replace")
                     _log.info("Fetched %s template: %s (%d chars)", kind, path, len(templates[kind]))
+                    get_stats().record_gh("/repos/contents/", success=True)
                     break
-            except httpx.HTTPStatusError:
+            except (httpx.HTTPStatusError, httpx.TimeoutException, httpx.NetworkError):
                 continue
     return templates
