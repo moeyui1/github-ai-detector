@@ -16,8 +16,7 @@ from providers.base import BaseProvider
 
 from engine.cache import CacheRepo, event_key, event_updated_at, cache_is_fresh
 from engine.commits import analyze_single_commit, build_commit_events
-from engine.github_api import _gh_get_one, fetch_commits, fetch_issue_comments_batch, fetch_pulls_and_issues, fetch_pr_reviews_batch, fetch_repo_templates
-from engine.issues import analyze_single_issue, build_issue_events
+from engine.github_api import _gh_get_one, fetch_commits, fetch_pulls, fetch_pr_reviews_batch, fetch_repo_templates
 from engine.models import (
     ActorKind,
     AnalysisResult,
@@ -46,27 +45,26 @@ def parse_item_url(url: str) -> tuple[str, str, str, str]:
 
     Supported formats:
       https://github.com/owner/repo/pull/123
-      https://github.com/owner/repo/issues/456
       https://github.com/owner/repo/commit/abc123
-      owner/repo#123  (treated as issue/PR)
+      owner/repo#123  (treated as PR)
     """
     url = url.strip().rstrip("/")
 
     # Full URL patterns
     m = re.match(
         r"https?://github\.com/([A-Za-z0-9_.\-]+)/([A-Za-z0-9_.\-]+)/"
-        r"(pull|issues|commit)/([A-Za-z0-9]+)",
+        r"(pull|commit)/([A-Za-z0-9]+)",
         url,
     )
     if m:
         owner, repo, kind, ident = m.group(1), m.group(2), m.group(3), m.group(4)
-        kind_map = {"pull": "pr", "issues": "issue", "commit": "commit"}
+        kind_map = {"pull": "pr", "commit": "commit"}
         return owner, repo, kind_map[kind], ident
 
     # Shorthand: owner/repo#123
     m = re.match(r"([A-Za-z0-9_.\-]+)/([A-Za-z0-9_.\-]+)#(\d+)", url)
     if m:
-        return m.group(1), m.group(2), "issue_or_pr", m.group(3)
+        return m.group(1), m.group(2), "pr", m.group(3)
 
     raise ValueError(f"Cannot parse item URL: {url}")
 
@@ -126,9 +124,9 @@ def analyze_repo(
     raw_commits = fetch_commits(owner, repo, token, max_items=max_items,
                                 max_pages=get_config().analysis.max_pages)
     _log.info("Fetched %d commits", len(raw_commits))
-    _update("Fetching pull requests & issues …")
-    raw_prs, raw_issues = fetch_pulls_and_issues(owner, repo, token, max_items=max_items)
-    _log.info("Fetched %d pull requests, %d issues", len(raw_prs), len(raw_issues))
+    _update("Fetching pull requests …")
+    raw_prs = fetch_pulls(owner, repo, token, max_items=max_items)
+    _log.info("Fetched %d pull requests", len(raw_prs))
 
     # ── Fetch repo templates (for PR/Issue accuracy) ──────
     templates: dict[str, str] = {}
@@ -141,7 +139,6 @@ def analyze_repo(
     # ── Build events & collect LLM tasks ───────────────────
     commit_scores: list[float] = []
     pr_scores: list[float] = []
-    issue_scores: list[float] = []
 
     llm_tasks: list[tuple[EventRecord, str, list[float], dict | None]] = []
 
@@ -176,32 +173,12 @@ def analyze_repo(
     result.review_total = rv_total
     result.review_ai = rv_ai
 
-    comments_map: dict[int, list[dict]] = {}
-    if raw_issues:
-        comment_numbers = [
-            iss["number"] for iss in raw_issues
-            if iss.get("number") and iss.get("comments", 0) > 0
-        ]
-        if comment_numbers:
-            _update(f"Fetching comments for {len(comment_numbers)} issues …")
-            comments_map = fetch_issue_comments_batch(owner, repo, token, comment_numbers)
-
-    t, b, ic_total, ic_ai = build_issue_events(raw_issues, provider, issue_scores, result.events, llm_tasks,
-                              template=templates.get("issue", ""), comments_by_issue=comments_map)
-    total_events += t
-    bot_events += b
-    result.issue_comment_total = ic_total
-    result.issue_comment_ai = ic_ai
-
     # ── Apply cache: skip unchanged events ────────────────────
     _raw_lookup: dict[str, tuple[dict, str]] = {}
     for c in raw_commits:
         _raw_lookup[event_key("commit", c)] = (c, "commit")
     for pr in raw_prs:
         _raw_lookup[event_key("pr", pr)] = (pr, "pr")
-    for iss in raw_issues:
-        if "pull_request" not in iss:
-            _raw_lookup[event_key("issue", iss)] = (iss, "issue")
 
     cached_count = 0
     remaining_tasks: list[tuple[EventRecord, str, list[float], dict | None]] = []
@@ -284,20 +261,16 @@ def analyze_repo(
     # ── Rebuild per-dimension scores ──────────────────────────
     commit_scores.clear()
     pr_scores.clear()
-    issue_scores.clear()
     for ev in result.events:
         if ev.kind == "commit":
             commit_scores.append(ev.ai_score)
         elif ev.kind == "pr":
             pr_scores.append(ev.ai_score)
-        elif ev.kind == "issue":
-            issue_scores.append(ev.ai_score)
 
     # ── Aggregate scores ──────────────────────────────────────
     result.s_commit = (sum(commit_scores) / len(commit_scores)) if commit_scores else 0.0
     result.s_pr = (sum(pr_scores) / len(pr_scores)) if pr_scores else 0.0
     result.s_review = (result.review_ai / result.review_total) if result.review_total else 0.0
-    result.s_issue = (sum(issue_scores) / len(issue_scores)) if issue_scores else 0.0
     result.bot_rate = (bot_events / total_events) if total_events else 0.0
 
     # AII = (w_commit*S_commit + w_pr*S_pr + w_review*S_review) * (1 - Bot_Rate)
@@ -364,21 +337,18 @@ def analyze_single(
 
     _log.info("analyze_single START | %s/%s | type=%s | id=%s", owner, repo, item_type, identifier)
 
-    # For owner/repo#N shorthand, determine if it's a PR or issue
-    if item_type == "issue_or_pr":
+    # For owner/repo#N shorthand, determine if it's a PR
+    if item_type == "pr":
         _update("Detecting item type …")
         try:
             _gh_get_one(f"/repos/{owner}/{repo}/pulls/{identifier}", token)
-            item_type = "pr"
         except httpx.HTTPStatusError:
-            item_type = "issue"
-        _log.info("Resolved item_type=%s for #%s", item_type, identifier)
+            raise ValueError(f"PR #{identifier} not found in {owner}/{repo}")
+        _log.info("Resolved item_type=pr for #%s", identifier)
 
     if item_type == "commit":
         return analyze_single_commit(owner, repo, identifier, token, provider, _update, concurrency)
     elif item_type == "pr":
         return analyze_single_pr(owner, repo, int(identifier), token, provider, _update, concurrency)
-    elif item_type == "issue":
-        return analyze_single_issue(owner, repo, int(identifier), token, provider, _update, concurrency)
     else:
         raise ValueError(f"Unknown item type: {item_type}")

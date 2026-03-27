@@ -27,6 +27,72 @@ from providers import get_provider
 _log = get_logger("report_cli")
 
 
+def _print_detection_summary(results: list[dict], threshold: float) -> None:
+    """Print a per-repo table showing L1/L2/L3 detection rates by event kind."""
+    if not results:
+        return
+
+    # Collect stats: repo → kind → {total, l1, l2, l3}
+    rows: list[tuple[str, dict[str, dict[str, int]]]] = []
+    for r in results:
+        repo = r["repo_name"]
+        by_kind: dict[str, dict[str, int]] = {}
+        for ev in r.get("events", []):
+            kind = ev["kind"]
+            if kind not in by_kind:
+                by_kind[kind] = {"total": 0, "l1": 0, "l2": 0, "l3": 0}
+            by_kind[kind]["total"] += 1
+            ak = ev.get("actor_kind", "human")
+            if ak == "system_bot":
+                by_kind[kind]["l1"] += 1
+            elif ak == "ai_bot":
+                by_kind[kind]["l2"] += 1
+            elif ev.get("ai_score", 0) >= threshold:
+                by_kind[kind]["l3"] += 1
+        rows.append((repo, by_kind))
+
+    # Determine all event kinds present
+    all_kinds = sorted({k for _, bk in rows for k in bk})
+    if not all_kinds:
+        return
+
+    # Build table
+    # Columns: Repo | kind1 (L1/L2/L3/Total) | kind2 ... | ALL
+    def _fmt(stats: dict[str, int]) -> str:
+        t = stats["total"]
+        if t == 0:
+            return "-"
+        detected = stats["l1"] + stats["l2"] + stats["l3"]
+        pct = detected / t * 100 if t else 0
+        return f"{stats['l1']}/{stats['l2']}/{stats['l3']} ({pct:.0f}%)"
+
+    # Header
+    col_headers = [k.upper() for k in all_kinds] + ["ALL"]
+    repo_width = max(len(r[0]) for r in rows)
+    repo_width = max(repo_width, 10)
+    col_width = max(18, *(len(h) for h in col_headers))
+
+    header = "| " + "REPO".ljust(repo_width) + " | " + " | ".join(h.center(col_width) for h in col_headers) + " |"
+    sep = "+" + "-" * (repo_width + 2) + "+" + (("-" * (col_width + 2) + "+") * len(col_headers))
+
+    lines = ["\n🔍 Detection Summary (L1: System Bot / L2: AI Bot / L3: LLM)", sep, header, sep]
+
+    for repo, by_kind in rows:
+        cells = []
+        all_stats = {"total": 0, "l1": 0, "l2": 0, "l3": 0}
+        for kind in all_kinds:
+            stats = by_kind.get(kind, {"total": 0, "l1": 0, "l2": 0, "l3": 0})
+            cells.append(_fmt(stats).center(col_width))
+            for k in all_stats:
+                all_stats[k] += stats[k]
+        cells.append(_fmt(all_stats).center(col_width))
+        line = "| " + repo.ljust(repo_width) + " | " + " | ".join(cells) + " |"
+        lines.append(line)
+
+    lines.append(sep)
+    print("\n".join(lines))
+
+
 def _build_provider():
     """Build an LLM provider from config (returns None when provider == 'none')."""
     cfg = get_config()
@@ -49,7 +115,6 @@ def _serialize_result(result: AnalysisResult) -> dict:
         "s_commit": round(result.s_commit, 4),
         "s_pr": round(result.s_pr, 4),
         "s_review": round(result.s_review, 4),
-        "s_issue": round(result.s_issue, 4),
         "bot_rate": round(result.bot_rate, 4),
         "aii": round(result.aii, 4),
         "commit_total": result.commit_total,
@@ -58,8 +123,6 @@ def _serialize_result(result: AnalysisResult) -> dict:
         "pr_ai": result.pr_ai,
         "review_total": result.review_total,
         "review_ai": result.review_ai,
-        "issue_comment_total": result.issue_comment_total,
-        "issue_comment_ai": result.issue_comment_ai,
         "events": [
             {
                 "kind": e.kind,
@@ -216,6 +279,9 @@ def main() -> None:
 
     print(f"\nReport saved → {json_path}")
     print(f"Cache saved  → {cache_path}")
+
+    # Print per-repo detection layer summary
+    _print_detection_summary(serialised_results, cfg.analysis.high_risk_threshold)
 
     # Print request summary table
     get_stats().print_summary()

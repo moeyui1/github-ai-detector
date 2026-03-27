@@ -33,7 +33,7 @@
 │  │  │L1 Bot│→│L2 AI │→│L3 LLM│                      │  │
 │  │  │Filter│  │Match │  │Audit │  (concurrent)       │  │
 │  │  └──────┘  └──────┘  └──┬───┘                      │  │
-│  │  commits.py / pulls.py / issues.py / scoring.py    │  │
+│  │  commits.py / pulls.py / scoring.py              │  │
 │  └──────────────────────────┼─────────────────────────┘  │
 │                             │                            │
 │  ┌──────────────────────────▼─────────────────────────┐  │
@@ -53,7 +53,7 @@
             ▼                 ▼                 ▼
    GitHub REST API     OpenAI API      GitHub Models API
    (commits/PRs/       (chat/          (chat/
-    issues)            completions)     completions)
+    trending)          completions)     completions)
 ```
 
 ### 关键设计原则
@@ -74,7 +74,7 @@
 
 | 文件 | 职责 | 对外暴露 |
 |------|------|----------|
-| `analyze.py` | 单项分析 CLI 工具（一行命令分析 PR/Issue/Commit） | `main()` |
+| `analyze.py` | 单项分析 CLI 工具（一行命令分析 PR/Commit） | `main()` |
 | `config.py` | 配置加载器；读取 config.toml 并提供类型化 Config 单例 | `Config`, `load_config()`, `get_config()` |
 | `config.toml` | 集中式 TOML 配置文件 | — |
 | `log.py` | 日志模块，默认启用（INFO），通过 `LOG_LEVEL` 环境变量控制 | `get_logger()` |
@@ -119,12 +119,11 @@
 |------|------|----------|
 | `__init__.py` | 包入口，re-export 所有公共接口 | 见下方各模块 |
 | `models.py` | 数据模型 + Bot 分类逻辑 | `ActorKind`, `EventRecord`, `LLMLogEntry`, `AnalysisResult`, `SingleItemResult`, `classify_actor()` |
-| `github_api.py` | GitHub REST API 请求（带重试、并发批量获取） | `fetch_commits()`, `fetch_pulls_and_issues()`, `fetch_pr_reviews_batch()`, `fetch_issue_comments_batch()`, 单项 fetch 系列 |
+| `github_api.py` | GitHub REST API 请求（带重试、并发批量获取） | `fetch_commits()`, `fetch_pulls()`, `fetch_pr_reviews_batch()`, 单项 fetch 系列 |
 | `cache.py` | 事件级缓存 — 跟踪已分析事件，避免对未变更事件重复调用 LLM | `CacheData`, `CacheRepo`, `load_cache()`, `save_cache()`, `event_key()`, `event_updated_at()` |
 | `scoring.py` | LLM 评分辅助 — rebase 纠偏、安全调用（单项 + 批量）、并发执行 | `_run_llm_tasks()`, `_safe_llm_score()`, `_safe_llm_score_batch()`, `_rebase_penalty()` |
 | `commits.py` | Commit 处理 — 批量事件构建 + 单 commit 分析 | `build_commit_events()`, `analyze_single_commit()` |
 | `pulls.py` | PR 处理 — 批量事件构建（reviews 作为上下文附加，非独立事件）+ 单 PR 分析 | `build_pr_events()` → 4-tuple, `analyze_single_pr()` |
-| `issues.py` | Issue 处理 — 批量事件构建（comments 作为上下文附加，非独立事件）+ 单 issue 分析 | `build_issue_events()` → 4-tuple, `analyze_single_issue()` |
 | `analysis.py` | 主管线 — `analyze_repo()` / `analyze_single()` / URL 解析 | `analyze_repo()`, `analyze_single()`, `parse_repo_url()`, `parse_item_url()` |
 
 ---
@@ -144,18 +143,15 @@ report/cli.py: for url in repo_list:
 engine.analyze_repo(owner, repo, token, provider, max_items, cache)
          │
          ├── github_api.fetch_commits(max_items, max_pages) ──→ GitHub API（分页拉取，过滤 merge commit）
-         └── github_api.fetch_pulls_and_issues(max_items) ─→ 分别调用 /pulls 和 /issues 端点
-               └→ 返回 (prs: list[dict], issues: list[dict])（各自独立 max_items）
+         └── github_api.fetch_pulls(max_items) ─→ 调用 /pulls 端点获取 PR
+               └→ 返回 prs: list[dict]
          │
          ├── fetch_pr_reviews_batch()       ──→ 并发批量获取 PR reviews
-         └── fetch_issue_comments_batch()   ──→ 并发批量获取 Issue comments
          │
          ▼
     commits.build_commit_events() → (total, bots)
     pulls.build_pr_events(reviews_by_pr=...)
         → (total, bots, review_total, review_ai)   # reviews 内容附加到 PR，AI 计数仅靠 L1/L2
-    issues.build_issue_events(comments_by_issue=...)
-        → (total, bots, comment_total, comment_ai)  # comments 内容附加到 Issue，AI 计数仅靠 L1/L2
     对每个事件执行三层过滤：
          │
          ├── models.classify_actor(login) → ActorKind
@@ -315,14 +311,13 @@ get_provider(name: str, **kwargs) -> BaseProvider
 | 函数 | 说明 |
 |------|------|
 | `fetch_commits(owner, repo, token, max_items=50, max_pages=10)` | 分页获取最新非 merge commit。自动过滤 `Merge ...` 开头的合并提交，持续翻页直到凑够 `max_items` 条有效 commit 或达到 `max_pages` 上限 |
-| `fetch_pulls_and_issues(owner, repo, token, max_items=50)` | 分别调用 `/pulls` 和 `/issues` 端点独立获取 PR 和 Issue（按 `updated_at` 降序）。PR 和 Issue 各自享有 `max_items` 配额，不再互相抢占。对于禁用了 PR 功能的仓库（如 torvalds/linux），`/pulls` 返回 404 时自动跳过。返回 `(prs, issues)` 元组 |
+| `fetch_pulls(owner, repo, token, max_items=50)` | 调用 `/pulls` 端点获取 PR（按 `updated_at` 降序）。对于禁用了 PR 功能的仓库（如 torvalds/linux），`/pulls` 返回 404 时自动跳过 |
 
 **并发批量获取：**
 
 | 函数 | 说明 |
 |------|------|
 | `fetch_pr_reviews_batch(owner, repo, token, pr_numbers)` | 并发批量获取多个 PR 的 reviews，返回 `dict[int, list[dict]]` |
-| `fetch_issue_comments_batch(owner, repo, token, issue_numbers)` | 并发批量获取多个 Issue 的 comments，返回 `dict[int, list[dict]]` |
 
 **单项 Fetch：**
 
@@ -330,11 +325,9 @@ get_provider(name: str, **kwargs) -> BaseProvider
 |------|------|
 | `fetch_single_commit(owner, repo, sha, token)` | 单个 commit |
 | `fetch_single_pr(owner, repo, number, token)` | 单个 PR |
-| `fetch_single_issue(owner, repo, number, token)` | 单个 issue |
 | `fetch_pr_comments(owner, repo, number, token)` | PR 的 review comments + issue comments |
 | `fetch_pr_reviews(owner, repo, number, token)` | PR 的 reviews |
 | `fetch_pr_commits(owner, repo, number, token)` | PR 包含的 commits |
-| `fetch_issue_comments(owner, repo, number, token)` | Issue 的 comments |
 
 ### 5.2.1 事件级缓存（cache.py）
 
@@ -344,7 +337,7 @@ get_provider(name: str, **kwargs) -> BaseProvider
 | `CacheData = dict[str, CacheRepo]` | 全局缓存：`repo_name → CacheRepo` |
 | `load_cache(path)` | 从 `reports/cache.json` 加载缓存（缺失或损坏时返回空 dict） |
 | `save_cache(data, path)` | 覆盖写入缓存文件 |
-| `event_key(kind, raw)` | 生成稳定缓存键：`commit:sha` / `pr:number` / `issue:number` |
+| `event_key(kind, raw)` | 生成稳定缓存键：`commit:sha` / `pr:number` |
 | `event_updated_at(kind, raw)` | 提取事件的 `updated_at`（commit 取 `commit.author.date`） |
 
 **缓存工作流**：
@@ -392,7 +385,6 @@ def _run_llm_tasks(llm_tasks, provider, concurrency, update) -> list[LLMLogEntry
 |------|----------|--------|----------|
 | `commits.py` | `build_commit_events()` | `(total, bots)` | `analyze_single_commit()` |
 | `pulls.py` | `build_pr_events()` | `(total, bots, review_total, review_ai)` | `analyze_single_pr()` — 含 commits + comments + reviews |
-| `issues.py` | `build_issue_events()` | `(0, 0, comment_total, comment_ai)` | `analyze_single_issue()` — 含 comments |
 
 **PR / Commit 显式 AI 检测（L3 前置）：**
 
@@ -400,15 +392,11 @@ def _run_llm_tasks(llm_tasks, provider, concurrency, update) -> list[LLMLogEntry
 - **PR**：扫描 PR body 是否含 "contributed by ... AI assistant"、"AI-generated" 等模式 → 命中则 `ai_score = 1.0`，跳过 LLM
 - **Commit**：检测 Git trailer 如 `Assisted-by: Gemini`、`Co-authored-by: ... Copilot` → 命中则 `ai_score = 1.0`，跳过 LLM
 
-**Issue 处理策略：**
+**Reviews 处理策略（关键优化）：**
 
-Issue 本身**不再作为事件**分析（不进入 LLM 评分），仅统计 issue comments 中的 AI Bot 参与（L1/L2 作者名判定）。`build_issue_events()` 返回的事件计数恒为 `(0, 0, ...)`。
-
-**Reviews / Comments 处理策略（关键优化）：**
-
-Reviews 和 Issue comments **不再**作为独立事件生成，而是：
-1. **内容附加**：Review/comment 的文本片段附加到父 PR/Issue 的 LLM 评分文本中（格式：`[login(kind)/state]: body[:200]`，总量上限 500 字符），作为 LLM 评分的上下文参考
-2. **AI 计数**：review_total/review_ai 和 comment_total/comment_ai 由 `classify_actor()` 的 L1/L2 规则**纯按作者名**判定，不需要 LLM 调用
+Reviews **不再**作为独立事件生成，而是：
+1. **内容附加**：Review 的文本片段附加到父 PR 的 LLM 评分文本中（格式：`[login(kind)/state]: body[:200]`，总量上限 500 字符），作为 LLM 评分的上下文参考
+2. **AI 计数**：review_total/review_ai 由 `classify_actor()` 的 L1/L2 规则**纯按作者名**判定，不需要 LLM 调用
 3. **效果**：大幅减少 LLM 调用量（如 openclaw 从 1280 个事件降至 180 个）
 
 每个模块遵循相同模式：
@@ -448,9 +436,9 @@ def analyze_repo(
 
 **处理顺序**：
 1. `fetch_commits(max_items, max_pages)` 分页获取最新非 merge commit（自动过滤合并提交）
-2. `fetch_pulls_and_issues(max_items)` 分别通过 `/pulls` 和 `/issues` 端点独立获取 PR 和 Issue（各自 max_items）
-3. 并发批量获取 PR reviews（`fetch_pr_reviews_batch()`）和 Issue comments（`fetch_issue_comments_batch()`）
-4. `build_commit_events()` / `build_pr_events()` / `build_issue_events()` 构建事件列表
+2. `fetch_pulls(max_items)` 通过 `/pulls` 端点获取 PR
+3. 并发批量获取 PR reviews（`fetch_pr_reviews_batch()`）
+4. `build_commit_events()` / `build_pr_events()` 构建事件列表
 5. **缓存查找**：将每个 HUMAN 事件与原始 API 数据匹配（`_find_event_key()`），若事件的 `updated_at` 与缓存一致，直接复用缓存的 `ai_score` 和 `reason`
 6. **批量 LLM 评分（L3）**：仅对未命中缓存的事件，按 `batch_size=10` 分组调用 `_safe_llm_score_batch()`
 7. 所有事件的结果写入 `new_cache`，与 `AnalysisResult` 一起返回
@@ -458,7 +446,7 @@ def analyze_repo(
 **计数指标**：
 - `commit_ai`：使用 LLM 分数（≥ `high_risk_threshold`）或 `actor_kind == AI_BOT` 或被 AI trailer 正则命中
 - `pr_ai`：使用 LLM 分数（≥ `high_risk_threshold`）或 `actor_kind == AI_BOT` 或被显式 AI 声明正则命中
-- `review_ai`、`issue_comment_ai`：由 `build_pr_events` / `build_issue_events` 的 4-tuple 返回值直接设置（仅 L1/L2 判定）
+- `review_ai`：由 `build_pr_events` 的 4-tuple 返回值直接设置（仅 L1/L2 判定）
 
 ### 5.6 analyze_single()（单项分析）
 
@@ -466,7 +454,7 @@ def analyze_repo(
 def analyze_single(owner, repo, item_type, identifier, token, ...) -> SingleItemResult
 ```
 
-根据 `item_type` 分发到 `analyze_single_commit()` / `analyze_single_pr()` / `analyze_single_issue()`，支持 `owner/repo#N` 简写自动检测 PR vs Issue。
+根据 `item_type` 分发到 `analyze_single_commit()` / `analyze_single_pr()`。
 
 ---
 
@@ -508,10 +496,10 @@ def analyze_single(owner, repo, item_type, identifier, token, ...) -> SingleItem
 7. **仅对 Commit**：减去 `_rebase_penalty`（0 或 0.3），结果 clamp 到 ≥ 0
 8. `reason` 写入 `EventRecord.reason`，贯穿整条数据管道至 UI 展示
 
-**PR/Issue 的 Review/Comment 上下文**：
-- Reviews 和 issue comments 的文本片段作为上下文附加到父 PR/Issue 的评分文本中（上限 500 字符）
-- 这些内容帮助 LLM 更准确判断 PR/Issue 的 AI 参与度
-- Review/comment 的 AI 计数**不使用 LLM**，而是由 L1/L2 纯按作者名判定
+**PR 的 Review 上下文**：
+- Reviews 的文本片段作为上下文附加到父 PR 的评分文本中（上限 500 字符）
+- 这些内容帮助 LLM 更准确判断 PR 的 AI 参与度
+- Review 的 AI 计数**不使用 LLM**，而是由 L1/L2 纯按作者名判定
 
 **批量评分容错**：
 - `_safe_llm_score_batch` 捕获所有异常，批量调用失败时返回全零分数
@@ -534,7 +522,7 @@ def analyze_single(owner, repo, item_type, identifier, token, ...) -> SingleItem
 
 ### 分维度得分
 
-$$S_{dim} = \frac{1}{N_{dim}} \sum_{i=1}^{N_{dim}} score_i \quad \text{where } dim \in \{commit, pr, issue\}$$
+$$S_{dim} = \frac{1}{N_{dim}} \sum_{i=1}^{N_{dim}} score_i \quad \text{where } dim \in \{commit, pr\}$$
 
 每个维度独立计算所有事件 AI 得分的算术平均。空维度（无事件）得分为 0。
 
@@ -546,13 +534,12 @@ $$Bot\_Rate = \frac{N_{system\_bot} + N_{ai\_bot}}{N_{total}}$$
 
 ### AI Involvement Index
 
-$$AII = \bigl(0.5 \times S_{commit} + 0.3 \times S_{pr} + 0.2 \times S_{review} + 0.0 \times S_{issue}\bigr) \times (1 - Bot\_Rate)$$
+$$AII = \bigl(0.5 \times S_{commit} + 0.3 \times S_{pr} + 0.2 \times S_{review}\bigr) \times (1 - Bot\_Rate)$$
 
 **权重分配理由**：
 - Commit 权重最高 (0.5)：代码提交是最直接的 AI 辅助场景
 - PR 次之 (0.3)：PR 描述可能由 AI 生成但代码本身可能是人写的
 - Review (0.2)：代码审查中的 AI 参与（基于 L1/L2 作者名判定，`s_review = review_ai / review_total`）
-- Issue 不纳入 AII (0.0)：Issue 仅靠 title + body 判断 AI 太武断，误报率高，Issue 分数仅供参考不纳入总分
 
 **乘以 `(1 - Bot_Rate)` 的原因**：如果一个仓库 90% 的事件来自 Bot，其余人类事件即使 AI 分数很高，实际"人类使用 AI"的影响面也被压缩了。
 
@@ -574,7 +561,7 @@ class ActorKind(str, Enum):
 ```python
 @dataclass
 class EventRecord:
-    kind: str           # "commit" | "pr" | "issue"
+    kind: str           # "commit" | "pr"
     title: str          # 截断至 120 字符的标题/首行
     actor: str          # GitHub login
     actor_kind: ActorKind
@@ -612,7 +599,6 @@ class AnalysisResult:
     s_commit: float             # Commit 维度平均分
     s_pr: float                 # PR 维度平均分
     s_review: float             # Review 维度得分（review_ai / review_total）
-    s_issue: float              # Issue 维度平均分
     bot_rate: float             # Bot 事件占总事件比例
     aii: float                  # AI Involvement Index (最终指数)
     commit_total: int           # Commit 总数
@@ -621,8 +607,6 @@ class AnalysisResult:
     pr_ai: int                  # AI PR 数（LLM score ≥ threshold 或显式 AI 协作标记）
     review_total: int           # PR Review 总数
     review_ai: int              # AI Review 数（L1/L2 作者名判定）
-    issue_comment_total: int    # Issue Comment 总数
-    issue_comment_ai: int       # AI Issue Comment 数（L1/L2 作者名判定）
 ```
 
 ### SingleItemResult (dataclass)
@@ -630,7 +614,7 @@ class AnalysisResult:
 ```python
 @dataclass
 class SingleItemResult:
-    item_type: str              # "pr" | "issue" | "commit"
+    item_type: str              # "pr" | "commit"
     item_title: str
     item_url: str
     repo_name: str
@@ -663,13 +647,12 @@ class SingleItemResult:
 | `llm.api_key` | str | `""` | OpenAI API Key |
 | `llm.base_url` | str | `"https://api.openai.com/v1"` | OpenAI 兼容端点 |
 | `llm.concurrency` | int | `30` | L3 阶段 LLM 并发调用数 |
-| `analysis.max_items` | int | `50` | 每类事件最大拉取条数（commit 取最新 N 条非 merge，issue/PR 取最近更新的 N 条） |
+| `analysis.max_items` | int | `50` | 每类事件最大拉取条数（commit 取最新 N 条非 merge，PR 取最近更新的 N 条） |
 | `analysis.max_pages` | int | `10` | commit 拉取的最大分页次数（merge commit 较多时需要多页才能凑够 max_items） |
 | `analysis.high_risk_threshold` | float | `0.6` | 高风险事件阈值 |
 | `analysis.weights.commit` | float | `0.5` | AII 公式中 Commit 权重 |
 | `analysis.weights.pr` | float | `0.3` | AII 公式中 PR 权重 |
 | `analysis.weights.review` | float | `0.2` | AII 公式中 Review 权重（基于 L1/L2 作者名判定） |
-| `analysis.weights.issue` | float | `0.0` | AII 公式中 Issue 权重（不纳入 AII 总分） |
 | `bots.system` | list[str] | *(30+ 条内置列表)* | L1 系统 Bot 登录名列表（小写） |
 | `bots.ai` | list[str] | *(20+ 条内置列表)* | L2 AI Bot 登录名列表（小写） |
 | `database.path` | str | `"ai_radar.db"` | SQLite 数据库文件路径（仅单项分析时使用，待清理） |
@@ -719,7 +702,7 @@ def get_provider(name, **kwargs):
 
 ### 10.3 添加新的事件维度
 
-当前 reviews 和 issue comments 不作为独立事件维度，而是通过 L1/L2 作者名匹配统计 AI 计数，内容附加为父事件的 LLM 上下文。如需添加全新维度：
+When current reviews and issue comments not serve as independent event dimensions, but instead count AI participation through L1/L2 author name matching, with content appended as parent event LLM context. To add a completely new dimension:
 
 1. 在 `engine/github_api.py` 中添加 fetch 函数
 2. 在 `engine/` 下创建新模块，实现 `build_xxx_events()`
@@ -733,7 +716,7 @@ def get_provider(name, **kwargs):
 系统使用事件级缓存（`engine/cache.py`）避免跨运行的重复 LLM 调用：
 
 - 缓存文件位于 `reports/cache.json`，结构为 `{repo_name: {event_key: {updated_at, ai_score, reason}}}`
-- 每个事件通过稳定键标识（`commit:sha` 或 `pr:number` / `issue:number`）
+- 每个事件通过稳定键标识（`commit:sha` 或 `pr:number`）
 - 重新分析时，若事件的 `updated_at` 未变更，直接复用缓存的 `ai_score` 和 `reason`，否则重新 LLM 评分
 - 通过 `--force` CLI 参数可忽略缓存，强制重新评分所有事件
 
@@ -747,7 +730,7 @@ def get_provider(name, **kwargs):
 2. **并发执行**：批量任务通过 `concurrent.futures.ThreadPoolExecutor` 并发提交，并发度通过 `config.toml` 的 `llm.concurrency` 配置（默认 30）
 
 GitHub API 访问也使用并发批量获取（`_GH_CONCURRENCY=10`）：
-- `fetch_pr_reviews_batch()` / `fetch_issue_comments_batch()` 并发批量获取 reviews/comments
+- `fetch_pr_reviews_batch()` 并发批量获取 reviews
 
 如需进一步优化，可迁移到 `httpx.AsyncClient` + `asyncio.gather`。
 

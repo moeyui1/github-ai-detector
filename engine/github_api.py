@@ -158,20 +158,14 @@ def fetch_commits(
     return collected
 
 
-def fetch_pulls_and_issues(
+def fetch_pulls(
     owner: str, repo: str, token: str,
     max_items: int = 50,
-) -> tuple[list[dict], list[dict]]:
-    """Fetch the most recent PRs and issues separately.
+) -> list[dict]:
+    """Fetch the most recent pull requests.
 
-    PRs are fetched from ``/pulls`` endpoint; issues from ``/issues``
-    endpoint (filtering out pull requests).  Each category independently
-    respects *max_items*, so the caller always gets up to *max_items* PRs
-    **and** up to *max_items* issues.
-
-    Returns ``(full_pr_objects, issues)``.
+    Returns up to *max_items* PRs sorted by ``updated_at`` descending.
     """
-    # ── PRs via /pulls endpoint ──────────────────────────────
     pr_params: dict = {
         "per_page": min(max_items, 100),
         "state": "all",
@@ -188,18 +182,8 @@ def fetch_pulls_and_issues(
         else:
             raise
 
-    # ── Issues via /issues endpoint (skip PRs) ───────────────
-    issue_params: dict = {
-        "per_page": min(max_items, 100),
-        "state": "all",
-        "sort": "updated",
-        "direction": "desc",
-    }
-    all_items = _gh_get(f"/repos/{owner}/{repo}/issues", token, issue_params)
-    issues = [item for item in all_items if "pull_request" not in item][:max_items]
-
-    _log.info("fetch_pulls_and_issues: %d PRs, %d issues", len(prs), len(issues))
-    return prs, issues
+    _log.info("fetch_pulls: %d PRs", len(prs))
+    return prs
 
 
 # ── Trending repos ────────────────────────────────────────────
@@ -232,10 +216,12 @@ def fetch_trending_repos(token: str, count: int = 10, topic: str | None = None,
             resp = httpx.get(url, headers=_gh_headers(token), params=params, timeout=30)
             resp.raise_for_status()
             data = resp.json()
+            _EXCLUDE_TOPICS = {"education", "tutorial", "tutorials", "awesome", "awesome-list"}
             repos = [
                 item["full_name"]
                 for item in data.get("items", [])
                 if not item.get("name", "").lower().startswith("awesome")
+                and not _EXCLUDE_TOPICS.intersection(t.lower() for t in item.get("topics", []))
             ]
             _log.info("fetch_trending_repos: %d repos (query: pushed>=%s)", len(repos), since)
             get_stats().record_gh("/search/repositories", success=True)
@@ -299,14 +285,7 @@ def fetch_pr_commits(owner: str, repo: str, number: int, token: str) -> list[dic
     return _gh_get(f"/repos/{owner}/{repo}/pulls/{number}/commits", token, {"per_page": 100})
 
 
-def fetch_single_issue(owner: str, repo: str, number: int, token: str) -> dict:
-    """Fetch a single issue."""
-    return _gh_get_one(f"/repos/{owner}/{repo}/issues/{number}", token)
 
-
-def fetch_issue_comments(owner: str, repo: str, number: int, token: str) -> list[dict]:
-    """Fetch comments on an issue."""
-    return _gh_get(f"/repos/{owner}/{repo}/issues/{number}/comments", token, {"per_page": 100})
 
 
 # ── Batch concurrent fetchers ─────────────────────────────────
@@ -331,24 +310,7 @@ def fetch_pr_reviews_batch(
     return results
 
 
-def fetch_issue_comments_batch(
-    owner: str, repo: str, token: str, issue_numbers: list[int],
-) -> dict[int, list[dict]]:
-    """Fetch comments for multiple issues sequentially with inter-request delay."""
-    results: dict[int, list[dict]] = {}
-    if not issue_numbers:
-        return results
-    _log.info("Fetching comments for %d issues sequentially (gap=%.1fs)", len(issue_numbers), _REQUEST_GAP)
-    for i, num in enumerate(issue_numbers):
-        try:
-            results[num] = _gh_get(f"/repos/{owner}/{repo}/issues/{num}/comments", token, {"per_page": 100})
-        except Exception as exc:
-            _log.warning("Failed to fetch comments for issue #%d: %s", num, exc)
-        if i < len(issue_numbers) - 1:
-            time.sleep(_REQUEST_GAP)
-    _log.info("Fetched comments for %d/%d issues (total %d comments)",
-              len(results), len(issue_numbers), sum(len(v) for v in results.values()))
-    return results
+
 
 
 # ── Repo template helpers ─────────────────────────────────────

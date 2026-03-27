@@ -1,10 +1,9 @@
 """
-CLI tool for analysing a single GitHub PR, issue, or commit.
+CLI tool for analysing a single GitHub PR or commit.
 
 Usage:
     python analyze.py https://github.com/owner/repo/commit/abc123
     python analyze.py https://github.com/owner/repo/pull/42
-    python analyze.py https://github.com/owner/repo/issues/10
     python analyze.py owner/repo#123
 """
 
@@ -20,9 +19,9 @@ from providers import get_provider
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Analyse a single GitHub PR / Issue / Commit for AI involvement.",
+        description="Analyse a single GitHub PR / Commit for AI involvement.",
     )
-    parser.add_argument("url", help="GitHub URL (commit/PR/issue) or owner/repo#N shorthand")
+    parser.add_argument("url", help="GitHub URL (commit/PR) or owner/repo#N shorthand")
     parser.add_argument("--no-llm", action="store_true", help="Skip LLM analysis (L3)")
     args = parser.parse_args()
 

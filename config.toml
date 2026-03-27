@@ -37,22 +37,20 @@ concurrency = 3
 site_url = "https://github-ai-detector.vercel.app/"
 
 [analysis]
-# Max items to fetch per event type (latest N commits, most recently updated N issues/PRs)
+# Max items to fetch per event type (latest N commits, most recently updated N PRs)
 max_items = 100
 # Max pagination pages (commits are filtered for merge commits, may need multiple pages)
 max_pages = 10
 # High-risk threshold (events with AI score >= this value are flagged)
 high_risk_threshold = 0.6
 # Skip repos with no push activity in the last N days (0 = disabled)
-inactive_days = 14
+inactive_days = 10
 
 [analysis.weights]
 # Dimension weights for AII formula
-# Issues are informational only and excluded from AII (title+body alone is too unreliable)
 commit = 0.5
 pr = 0.3
 review = 0.2
-issue = 0.0
 
 [bots]
 # System bot logins (lowercase) — filtered by L1, ai_score = 0

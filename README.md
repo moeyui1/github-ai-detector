@@ -2,7 +2,7 @@
 
 **How much of the code on GitHub is actually written by AI?**
 
-GitHub AI Radar scans any GitHub repository and tells you exactly how much of its development is AI-generated. It analyzes Commits, Pull Requests, and Issues through a three-layer detection pipeline — bot identity filtering, known AI bot matching, and LLM-powered text style auditing — producing an **AI Involvement Index (AII)** score from 0% to 100%.
+GitHub AI Radar scans any GitHub repository and tells you exactly how much of its development is AI-generated. It analyzes Commits and Pull Requests through a three-layer detection pipeline — bot identity filtering, known AI bot matching, and LLM-powered text style auditing — producing an **AI Involvement Index (AII)** score from 0% to 100%.
 
 English | [中文](README_ZH.md)
 
@@ -74,7 +74,7 @@ You can also configure repos, LLM settings, and bot lists in `config.toml`.
 
 ### 3. Run
 
-**Analyze a single PR / Issue / Commit:**
+**Analyze a single PR / Commit:**
 
 ```bash
 python analyze.py https://github.com/owner/repo/pull/42

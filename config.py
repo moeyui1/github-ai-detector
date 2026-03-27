@@ -40,7 +40,6 @@ class WeightsConfig:
     commit: float = 0.5
     pr: float = 0.3
     review: float = 0.2
-    issue: float = 0.0
 
 
 @dataclass

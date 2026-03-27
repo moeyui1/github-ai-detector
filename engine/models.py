@@ -40,7 +40,7 @@ def classify_actor(login: str) -> ActorKind:
 
 @dataclass
 class EventRecord:
-    kind: str  # "commit" | "pr" | "issue"
+    kind: str  # "commit" | "pr"
     title: str
     actor: str
     actor_kind: ActorKind
@@ -74,7 +74,6 @@ class AnalysisResult:
     s_commit: float = 0.0
     s_pr: float = 0.0
     s_review: float = 0.0
-    s_issue: float = 0.0
     bot_rate: float = 0.0
     aii: float = 0.0
     # Count-based metrics — AI participation from multiple angles
@@ -84,14 +83,12 @@ class AnalysisResult:
     pr_ai: int = 0
     review_total: int = 0
     review_ai: int = 0
-    issue_comment_total: int = 0
-    issue_comment_ai: int = 0
 
 
 @dataclass
 class SingleItemResult:
-    """Result of analysing a single PR / issue / commit."""
-    item_type: str   # "pr" | "issue" | "commit"
+    """Result of analysing a single PR / commit."""
+    item_type: str   # "pr" | "commit"
     item_title: str
     item_url: str
     repo_name: str

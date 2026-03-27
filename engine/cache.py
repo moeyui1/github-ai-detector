@@ -2,7 +2,7 @@
 Event cache — tracks previously analysed events to avoid redundant LLM calls.
 
 Stores a single JSON file with per-repo event records.  Each event is keyed
-by a stable identifier (commit SHA or issue/PR number) and remembers its
+by a stable identifier (commit SHA or PR number) and remembers its
 ``updated_at`` timestamp plus the LLM result.  On re-analysis the cache is
 consulted: if the event hasn't been updated since last run the cached score
 is reused; otherwise the event is re-scored.
@@ -11,8 +11,7 @@ Cache structure (``reports/cache.json``):
 {
     "owner/repo": {
         "commit:abc123": {"updated_at": "...", "ai_score": 0.05, "reason": "..."},
-        "pr:42":         {"updated_at": "...", "ai_score": 0.10, "reason": "..."},
-        "issue:99":      {"updated_at": "...", "ai_score": 0.00, "reason": "..."}
+        "pr:42":         {"updated_at": "...", "ai_score": 0.10, "reason": "..."}
     }
 }
 """
@@ -58,7 +57,7 @@ def event_key(kind: str, raw: dict) -> str:
     """Build a stable cache key for an event.
 
     - commit  → ``commit:<sha>``
-    - pr/issue → ``pr:<number>`` / ``issue:<number>``
+    - pr → ``pr:<number>``
     """
     if kind == "commit":
         sha = raw.get("sha", "")

@@ -2,7 +2,7 @@
 
 **GitHub 上的代码，究竟有多少是 AI 写的？**
 
-GitHub AI Radar 扫描任意 GitHub 仓库，精确告诉你其开发中有多少是 AI 生成的。它通过三层检测管线——系统 Bot 过滤、已知 AI Bot 匹配、LLM 文本风格审计——分析仓库的 Commit、Pull Request 和 Issue，为每个仓库生成 **AI Involvement Index (AII)** 综合指数（0%–100%）。
+GitHub AI Radar 扫描任意 GitHub 仓库，精确告诉你其开发中有多少是 AI 生成的。它通过三层检测管线——系统 Bot 过滤、已知 AI Bot 匹配、LLM 文本风格审计——分析仓库的 Commit 和 Pull Request，为每个仓库生成 **AI Involvement Index (AII)** 综合指数（0%–100%）。
 
 [English](README.md) | 中文
 
@@ -73,7 +73,7 @@ cp .env.example .env
 
 ### 3. 运行
 
-**分析单个 PR / Issue / Commit：**
+**分析单个 PR / Commit：**
 
 ```bash
 python analyze.py https://github.com/owner/repo/pull/42

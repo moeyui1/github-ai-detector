@@ -19,7 +19,7 @@ REPOS = [
     "EbookFoundation/free-programming-books",
 ]
 
-KINDS = ["commit", "pr", "issue"]
+KINDS = ["commit", "pr"]
 ACTORS_HUMAN = ["alice", "bob", "charlie", "diana", "eve", "frank"]
 ACTORS_AI = ["copilot[bot]", "codex[bot]", "sweep-ai[bot]"]
 ACTORS_BOT = ["dependabot[bot]", "github-actions[bot]", "renovate[bot]"]
@@ -44,14 +44,6 @@ PR_TITLES = [
     "Refactor state management",
 ]
 
-ISSUE_TITLES = [
-    "Bug: intermittent timeout on login",
-    "Feature request: export to CSV",
-    "Discussion: migration strategy for v2",
-    "Performance degradation after update",
-]
-
-
 def rand_events(repo_name, date_str, count=20):
     events = []
     for i in range(count):
@@ -74,8 +66,6 @@ def rand_events(repo_name, date_str, count=20):
             title = random.choice(COMMIT_TITLES)
         elif kind == "pr":
             title = random.choice(PR_TITLES)
-        else:
-            title = random.choice(ISSUE_TITLES)
 
         events.append({
             "kind": kind,
@@ -95,12 +85,10 @@ def make_repo(repo_name, date_str):
 
     commit_scores = [e["ai_score"] for e in events if e["kind"] == "commit"]
     pr_scores = [e["ai_score"] for e in events if e["kind"] == "pr"]
-    issue_scores = [e["ai_score"] for e in events if e["kind"] == "issue"]
     bot_events = sum(1 for e in events if e["actor_kind"] == "system_bot")
 
     s_commit = round(sum(commit_scores) / len(commit_scores), 4) if commit_scores else 0
     s_pr = round(sum(pr_scores) / len(pr_scores), 4) if pr_scores else 0
-    s_issue = round(sum(issue_scores) / len(issue_scores), 4) if issue_scores else 0
     bot_rate = round(bot_events / len(events), 4) if events else 0
 
     review_total = random.randint(5, 40)
@@ -129,7 +117,6 @@ def make_repo(repo_name, date_str):
         "s_commit": s_commit,
         "s_pr": s_pr,
         "s_review": s_review,
-        "s_issue": s_issue,
         "bot_rate": bot_rate,
         "aii": aii,
         "commit_total": commit_total,
@@ -138,8 +125,6 @@ def make_repo(repo_name, date_str):
         "pr_ai": pr_ai,
         "review_total": review_total,
         "review_ai": review_ai,
-        "issue_comment_total": len(issue_scores),
-        "issue_comment_ai": sum(1 for s in issue_scores if s >= 0.6),
         "events": events,
         "llm_logs": [],
     }
