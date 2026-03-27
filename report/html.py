@@ -281,6 +281,76 @@ def build_site(report_data: dict, out_dir: Path, *,
         events_path.write_text(events_html, encoding="utf-8")
 
 
+# ── RSS feed ─────────────────────────────────────────────────
+
+def _build_rss(reports_dir: Path, out_dir: Path, site_url: str) -> None:
+    """Generate an RSS 2.0 feed with daily ranking + KPI data."""
+    from datetime import datetime, timezone
+    from xml.etree.ElementTree import Element, SubElement, tostring
+
+    report_files = sorted(reports_dir.glob("report-*.json"), reverse=True)[:30]
+    if not report_files:
+        return
+
+    site_url = site_url.rstrip("/")
+
+    rss = Element("rss", version="2.0")
+    channel = SubElement(rss, "channel")
+    SubElement(channel, "title").text = "GitHub AI Radar"
+    SubElement(channel, "link").text = site_url
+    SubElement(channel, "description").text = "Daily AI involvement rankings for GitHub repositories"
+    SubElement(channel, "language").text = "en"
+
+    for rfile in report_files:
+        data = json.loads(rfile.read_text(encoding="utf-8"))
+        date_str = data.get("date", rfile.stem.replace("report-", ""))
+        repos = data.get("repos", [])
+        if not repos:
+            continue
+
+        # Sort by AII descending for ranking
+        ranked = sorted(repos, key=lambda r: r.get("aii", 0), reverse=True)
+
+        # Build description text
+        lines = [f"📊 GitHub AI Radar — {date_str}", f"Repos analyzed: {len(ranked)}", ""]
+        lines.append("Rank | Repository | AII | Commit AI | PR AI | Review AI")
+        lines.append("-----|-----------|-----|-----------|-------|----------")
+        for i, r in enumerate(ranked, 1):
+            name = r.get("repo_name", "?")
+            aii = f"{r.get('aii', 0):.1%}"
+            c_ai = f"{r.get('commit_ai', 0)}/{r.get('commit_total', 0)}"
+            p_ai = f"{r.get('pr_ai', 0)}/{r.get('pr_total', 0)}"
+            rv_ai = f"{r.get('review_ai', 0)}/{r.get('review_total', 0)}"
+            lines.append(f"#{i} | {name} | {aii} | {c_ai} | {p_ai} | {rv_ai}")
+
+        # KPI summary
+        avg_aii = sum(r.get("aii", 0) for r in ranked) / len(ranked) if ranked else 0
+        total_events = sum(
+            r.get("commit_total", 0) + r.get("pr_total", 0) + r.get("review_total", 0)
+            for r in ranked
+        )
+        lines.extend([
+            "",
+            f"Average AII: {avg_aii:.1%}",
+            f"Total events analyzed: {total_events}",
+        ])
+
+        item = SubElement(channel, "item")
+        SubElement(item, "title").text = f"AI Radar Report — {date_str}"
+        SubElement(item, "link").text = f"{site_url}/{date_str}/"
+        SubElement(item, "guid").text = f"{site_url}/{date_str}/"
+        SubElement(item, "pubDate").text = datetime.strptime(
+            date_str, "%Y-%m-%d"
+        ).replace(tzinfo=timezone.utc).strftime("%a, %d %b %Y %H:%M:%S +0000")
+        SubElement(item, "description").text = "\n".join(lines)
+
+    xml_bytes = tostring(rss, encoding="unicode", xml_declaration=False)
+    rss_content = '<?xml version="1.0" encoding="UTF-8"?>\n' + xml_bytes
+    rss_path = out_dir / "feed.xml"
+    rss_path.write_text(rss_content, encoding="utf-8")
+    print(f"RSS feed → {rss_path}")
+
+
 # ── Build history index ──────────────────────────────────────
 
 def build_history_index(reports_dir: Path, out_dir: Path) -> None:
@@ -328,6 +398,11 @@ def build_history_index(reports_dir: Path, out_dir: Path) -> None:
     history_path = out_dir / "history.html"
     history_path.write_text(history_html, encoding="utf-8")
     print(f"History index → {history_path}")
+
+    # Generate RSS feed
+    from config import get_config
+    site_url = get_config().site.site_url
+    _build_rss(reports_dir, out_dir, site_url)
 
 
 # ── Main ─────────────────────────────────────────────────────

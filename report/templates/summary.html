@@ -4,10 +4,16 @@
 <div data-section-id="summary" class="repo-section">
   <div class="flex items-center justify-between mb-1">
     <h1 class="text-2xl font-bold tracking-tight">🛸 AI Involvement Ranking</h1>
-    <button id="share-btn" onclick="shareRanking()" class="btn btn-sm btn-outline btn-primary gap-1.5 rounded-xl" title="Share ranking as image">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5-6 5 6"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12"/></svg>
-      Share
-    </button>
+    <div class="flex gap-2">
+      <a href="/feed.xml" target="_blank" class="btn btn-sm btn-outline btn-secondary gap-1.5 rounded-xl" title="Subscribe via RSS">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+        RSS
+      </a>
+      <button id="share-btn" onclick="shareRanking()" class="btn btn-sm btn-outline btn-primary gap-1.5 rounded-xl" title="Share ranking as image">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5-6 5 6"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12"/></svg>
+        Share
+      </button>
+    </div>
   </div>
   <p class="text-sm opacity-50 mb-6">Tracking AI-generated code across open-source repositories · {{ date_str }} · {{ repos|length }} repos</p>
   <div id="share-site-url" data-url="{{ site_url }}" class="hidden"></div>

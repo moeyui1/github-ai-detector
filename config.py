@@ -63,12 +63,18 @@ class DatabaseConfig:
 
 
 @dataclass
+class SiteConfig:
+    site_url: str = ""
+
+
+@dataclass
 class Config:
     github: GitHubConfig = field(default_factory=GitHubConfig)
     llm: LLMConfig = field(default_factory=LLMConfig)
     analysis: AnalysisConfig = field(default_factory=AnalysisConfig)
     bots: BotsConfig = field(default_factory=BotsConfig)
     database: DatabaseConfig = field(default_factory=DatabaseConfig)
+    site: SiteConfig = field(default_factory=SiteConfig)
 
 
 def load_config(path: str | Path | None = None) -> Config:
@@ -91,6 +97,7 @@ def load_config(path: str | Path | None = None) -> Config:
     weights_raw = analysis_raw.pop("weights", {}) if isinstance(analysis_raw, dict) else {}
     bots_raw = raw.get("bots", {})
     db_raw = raw.get("database", {})
+    site_raw = raw.get("site", {})
 
     # Backward compat: old config may have `repo_url` (string) instead of `repos` (list)
     if "repo_url" in gh_raw and "repos" not in gh_raw:
@@ -115,6 +122,7 @@ def load_config(path: str | Path | None = None) -> Config:
         analysis=AnalysisConfig(weights=WeightsConfig(**weights_raw), **analysis_raw),
         bots=BotsConfig(**bots_raw),
         database=DatabaseConfig(**db_raw),
+        site=SiteConfig(**site_raw),
     )
 
     # Secrets: only from environment variables
