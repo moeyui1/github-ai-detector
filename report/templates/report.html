@@ -2,7 +2,20 @@
 {% extends "base.html" %}
 {% from "macros.html" import score_class, pct, badge_cls, rank_card, events_table, trend_chart, trend_html, kpi_cells_inline, kpi_cells_mobile, sparkline, trend_label, bar_cls %}
 
-{% block title %}AI Intrusion Report — {{ date_str }}{% endblock %}
+{% block title %}GitHub AI Radar — {{ date_str }}{% endblock %}
+
+{% block description %}AI Involvement Index ranking for {{ sorted_repos|length }} GitHub repositories on {{ date_str }}. Tracking AI-generated commits, PRs, and reviews.{% endblock %}
+
+{% block og %}
+<meta property="og:type" content="website">
+<meta property="og:title" content="GitHub AI Radar — {{ date_str }}">
+<meta property="og:description" content="AI Involvement Index ranking for {{ sorted_repos|length }} repos on {{ date_str }}.">
+<meta property="og:site_name" content="GitHub AI Radar">
+{% if site_url %}<meta property="og:url" content="{{ site_url }}">{% endif %}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitHub AI Radar — {{ date_str }}">
+<meta name="twitter:description" content="AI Involvement Index ranking for {{ sorted_repos|length }} repos on {{ date_str }}.">
+{% endblock %}
 
 {% block head_extra %}
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>

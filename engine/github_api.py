@@ -221,10 +221,6 @@ def fetch_trending_repos(token: str, count: int = 10, topic: str | None = None) 
         "order": "desc",
         "per_page": count,
     }
-        "sort": "stars",
-        "order": "desc",
-        "per_page": count,
-    }
     url = f"{_GH_API}/search/repositories"
     _log.debug("GitHub Search API %s params=%s", url, params)
     for attempt in range(_MAX_RETRIES):

@@ -5,8 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}AI Intrusion Report{% endblock %}</title>
+<title>{% block title %}GitHub AI Radar{% endblock %}</title>
+<meta name="description" content="{% block description %}Track AI-generated code across open-source GitHub repositories. Daily automated reports with AI Involvement Index scores.{% endblock %}">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#f0ebe4">
+{% block og %}
+<meta property="og:type" content="website">
+<meta property="og:title" content="GitHub AI Radar">
+<meta property="og:description" content="Track AI-generated code across open-source GitHub repositories.">
+<meta property="og:site_name" content="GitHub AI Radar">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitHub AI Radar">
+<meta name="twitter:description" content="Track AI-generated code across open-source GitHub repositories.">
+{% endblock %}
 <link rel="icon" type="image/svg+xml" href="{{ favicon_path }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
