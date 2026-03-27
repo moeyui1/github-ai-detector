@@ -25,8 +25,8 @@ trending_ai_topics = ["artificial-intelligence", "machine-learning", "llm", "gen
 # LLM Provider: "none" | "openai" | "github" (override via LLM_PROVIDER env var)
 provider = "github"
 # Model identifier
-model = "DeepSeek-V3.2"
-# model = "gpt-4.1"
+# model = "DeepSeek-V3.2"
+model = "gpt-4.1"
 # OpenAI-compatible endpoint (set via OPENAI_BASE_URL env var)
 base_url = ""
 # LLM concurrency for L3 scoring
@@ -34,7 +34,7 @@ concurrency = 3
 
 [site]
 # Website URL used for QR code in share images
-site_url = "https://github-ai-detector.vercel.app/"
+site_url = "https://github-ai-detector.immyk.workers.dev"
 
 [analysis]
 # Max items to fetch per event type (latest N commits, most recently updated N PRs)
