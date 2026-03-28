@@ -34,7 +34,7 @@ concurrency = 3
 
 [site]
 # Website URL used for QR code in share images
-site_url = "https://github-ai-detector.immyk.workers.dev"
+site_url = "https://aiintrusion.dpdns.org"
 
 [analysis]
 # Max items to fetch per event type (latest N commits, most recently updated N PRs)
