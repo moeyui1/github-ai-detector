@@ -1,3 +1,32 @@
+window.loadScriptOnce = (function() {
+  var pending = {};
+  return function(src, globalName) {
+    if (globalName && window[globalName]) return Promise.resolve(window[globalName]);
+    if (pending[src]) return pending[src];
+    pending[src] = new Promise(function(resolve, reject) {
+      var script = document.createElement('script');
+      function fail(message) {
+        delete pending[src];
+        reject(new Error(message));
+      }
+      script.async = true;
+      script.src = src;
+      script.onload = function() {
+        if (!globalName || window[globalName]) {
+          resolve(globalName ? window[globalName] : true);
+          return;
+        }
+        fail('Script loaded from ' + src + ' without expected global: ' + globalName);
+      };
+      script.onerror = function() {
+        fail('Failed to load script: ' + src);
+      };
+      document.head.appendChild(script);
+    });
+    return pending[src];
+  };
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
   // Assign section IDs from data attributes (deferred to prevent browser anchor jump)
   document.querySelectorAll('[data-section-id]').forEach(function(el) {
@@ -131,52 +160,66 @@ function shareRanking() {
   var modal = document.getElementById('share-modal');
   var loading = document.getElementById('share-loading');
   var preview = document.getElementById('share-preview');
+  if (!modal || !loading || !preview) return;
+  var loadingText = loading.querySelector('p');
+  var loadingSpinner = loading.querySelector('.loading');
+  btn.disabled = true;
+  btn.classList.add('loading', 'loading-spinner');
+  if (loadingSpinner) loadingSpinner.classList.remove('hidden');
   loading.classList.remove('hidden');
   preview.classList.add('hidden');
+  if (loadingText) loadingText.textContent = 'Generating image…';
   modal.showModal();
 
   var siteUrlEl = document.getElementById('share-site-url');
   var siteUrl = siteUrlEl ? siteUrlEl.getAttribute('data-url') : 'http://localhost:8080';
 
-  // Collect ranking data from visible cards
-  var cards = document.querySelectorAll('#summary .space-y-2.mb-8 > div:not(#rank-collapsed)');
-  var items = [];
-  cards.forEach(function(card) {
-    var rankEl = card.querySelector('.font-mono.text-base');
-    var nameEl = card.querySelector('.font-bold.text-sm.truncate');
-    var scoreEl = card.querySelector('.font-extrabold.font-mono.text-lg');
-    var avatarEl = card.querySelector('img.w-10');
-    if (rankEl && nameEl && scoreEl) {
-      items.push({
-        rank: rankEl.textContent.trim(),
-        name: nameEl.textContent.trim(),
-        score: scoreEl.textContent.trim(),
-        avatarUrl: avatarEl ? avatarEl.src : '',
-      });
+  window.loadScriptOnce('https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js', 'qrcode').then(function() {
+    // Collect ranking data from visible cards
+    var cards = document.querySelectorAll('#summary .space-y-2.mb-8 > div:not(#rank-collapsed)');
+    var items = [];
+    cards.forEach(function(card) {
+      var rankEl = card.querySelector('.font-mono.text-base');
+      var nameEl = card.querySelector('.font-bold.text-sm.truncate');
+      var scoreEl = card.querySelector('.font-extrabold.font-mono.text-lg');
+      var avatarEl = card.querySelector('img.w-10');
+      if (rankEl && nameEl && scoreEl) {
+        items.push({
+          rank: rankEl.textContent.trim(),
+          name: nameEl.textContent.trim(),
+          score: scoreEl.textContent.trim(),
+          avatarUrl: avatarEl ? avatarEl.src : '',
+        });
+      }
+    });
+
+    // Get date
+    var dateEl = document.querySelector('#summary p');
+    var dateMatch = dateEl ? dateEl.textContent.match(/\d{4}-\d{2}-\d{2}/) : null;
+    var dateStr = dateMatch ? dateMatch[0] : 'today';
+
+    // Preload avatar images, then draw
+    var loadCount = 0;
+    var totalToLoad = items.length;
+    items.forEach(function(item) {
+      if (!item.avatarUrl) { item.avatarImg = null; loadCount++; checkDraw(); return; }
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function() { item.avatarImg = img; loadCount++; checkDraw(); };
+      img.onerror = function() { item.avatarImg = null; loadCount++; checkDraw(); };
+      img.src = item.avatarUrl;
+    });
+    if (totalToLoad === 0) drawShareImage(items, dateStr, siteUrl, btn);
+
+    function checkDraw() {
+      if (loadCount >= totalToLoad) drawShareImage(items, dateStr, siteUrl, btn);
     }
+  }).catch(function() {
+    if (loadingSpinner) loadingSpinner.classList.add('hidden');
+    if (loadingText) loadingText.textContent = 'Unable to load sharing tools. Close this dialog and try again.';
+    btn.disabled = false;
+    btn.classList.remove('loading', 'loading-spinner');
   });
-
-  // Get date
-  var dateEl = document.querySelector('#summary p');
-  var dateMatch = dateEl ? dateEl.textContent.match(/\d{4}-\d{2}-\d{2}/) : null;
-  var dateStr = dateMatch ? dateMatch[0] : 'today';
-
-  // Preload avatar images, then draw
-  var loadCount = 0;
-  var totalToLoad = items.length;
-  items.forEach(function(item) {
-    if (!item.avatarUrl) { item.avatarImg = null; loadCount++; checkDraw(); return; }
-    var img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = function() { item.avatarImg = img; loadCount++; checkDraw(); };
-    img.onerror = function() { item.avatarImg = null; loadCount++; checkDraw(); };
-    img.src = item.avatarUrl;
-  });
-  if (totalToLoad === 0) drawShareImage(items, dateStr, siteUrl, btn);
-
-  function checkDraw() {
-    if (loadCount >= totalToLoad) drawShareImage(items, dateStr, siteUrl, btn);
-  }
 }
 
 function drawShareImage(items, dateStr, siteUrl, btn) {

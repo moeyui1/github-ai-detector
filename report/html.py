@@ -223,6 +223,17 @@ def _copy_static(out_dir: Path) -> None:
             shutil.copy2(src, out_dir / fname)
 
 
+def _site_url_for_path(site_url: str, path: Path) -> str:
+    index_suffix = "/index.html"
+    site_url = site_url.rstrip("/")
+    rel_path = path.as_posix()
+    if rel_path == "index.html":
+        return f"{site_url}/"
+    if rel_path.endswith(index_suffix):
+        return f"{site_url}/{rel_path[:-len(index_suffix)]}/"
+    return f"{site_url}/{rel_path}"
+
+
 # ── Build site ───────────────────────────────────────────────
 
 def build_site(report_data: dict, out_dir: Path, *,
@@ -351,6 +362,42 @@ def _build_rss(reports_dir: Path, out_dir: Path, site_url: str) -> None:
     print(f"RSS feed → {rss_path}")
 
 
+def _build_sitemap(out_dir: Path, site_url: str) -> None:
+    """Generate a sitemap.xml for all rendered HTML pages."""
+    from xml.etree.ElementTree import Element, SubElement, tostring
+
+    site_url = site_url.rstrip("/")
+    html_pages = sorted(out_dir.rglob("*.html"))
+    if not html_pages:
+        return
+
+    urlset = Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
+    for page in html_pages:
+        rel_path = page.relative_to(out_dir)
+        url = SubElement(urlset, "url")
+        SubElement(url, "loc").text = _site_url_for_path(site_url, rel_path)
+
+    xml_bytes = tostring(urlset, encoding="unicode", xml_declaration=False)
+    sitemap_content = '<?xml version="1.0" encoding="UTF-8"?>\n' + xml_bytes
+    sitemap_path = out_dir / "sitemap.xml"
+    sitemap_path.write_text(sitemap_content, encoding="utf-8")
+    print(f"Sitemap → {sitemap_path}")
+
+
+def _build_robots(out_dir: Path, site_url: str) -> None:
+    """Generate a robots.txt that points crawlers at the sitemap."""
+    site_url = site_url.rstrip("/")
+    robots_content = "\n".join([
+        "User-agent: *",
+        "Allow: /",
+        f"Sitemap: {site_url}/sitemap.xml",
+        "",
+    ])
+    robots_path = out_dir / "robots.txt"
+    robots_path.write_text(robots_content, encoding="utf-8")
+    print(f"Robots → {robots_path}")
+
+
 # ── Build history index ──────────────────────────────────────
 
 def build_history_index(reports_dir: Path, out_dir: Path) -> None:
@@ -399,10 +446,11 @@ def build_history_index(reports_dir: Path, out_dir: Path) -> None:
     history_path.write_text(history_html, encoding="utf-8")
     print(f"History index → {history_path}")
 
-    # Generate RSS feed
-    from config import get_config
-    site_url = get_config().site.site_url
+    # Generate discovery files
+    site_url = _get_site_url()
     _build_rss(reports_dir, out_dir, site_url)
+    _build_sitemap(out_dir, site_url)
+    _build_robots(out_dir, site_url)
 
 
 # ── Main ─────────────────────────────────────────────────────
