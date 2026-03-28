@@ -1,4 +1,4 @@
-window.loadScriptOnce = window.loadScriptOnce || (function() {
+window.loadScriptOnce = (function() {
   var pending = {};
   return function(src, globalName) {
     if (globalName && window[globalName]) return Promise.resolve(window[globalName]);
@@ -12,7 +12,7 @@ window.loadScriptOnce = window.loadScriptOnce || (function() {
           resolve(globalName ? window[globalName] : true);
           return;
         }
-        reject(new Error('Script loaded without expected global: ' + globalName));
+        reject(new Error('Script loaded from ' + src + ' without expected global: ' + globalName));
       };
       script.onerror = function() {
         reject(new Error('Failed to load script: ' + src));
@@ -156,9 +156,12 @@ function shareRanking() {
   var modal = document.getElementById('share-modal');
   var loading = document.getElementById('share-loading');
   var preview = document.getElementById('share-preview');
-  var loadingText = loading ? loading.querySelector('p') : null;
+  if (!modal || !loading || !preview) return;
+  var loadingText = loading.querySelector('p');
+  var loadingSpinner = loading.querySelector('.loading');
   btn.disabled = true;
   btn.classList.add('loading', 'loading-spinner');
+  if (loadingSpinner) loadingSpinner.classList.remove('hidden');
   loading.classList.remove('hidden');
   preview.classList.add('hidden');
   if (loadingText) loadingText.textContent = 'Generating image…';
@@ -208,7 +211,8 @@ function shareRanking() {
       if (loadCount >= totalToLoad) drawShareImage(items, dateStr, siteUrl, btn);
     }
   }).catch(function() {
-    if (loadingText) loadingText.textContent = 'Unable to load sharing tools. Please try again.';
+    if (loadingSpinner) loadingSpinner.classList.add('hidden');
+    if (loadingText) loadingText.textContent = 'Unable to load sharing tools. Close this dialog and try again.';
     btn.disabled = false;
     btn.classList.remove('loading', 'loading-spinner');
   });
