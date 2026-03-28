@@ -17,11 +17,6 @@
 <meta name="twitter:description" content="AI Involvement Index ranking for {{ sorted_repos|length }} repos on {{ date_str }}.">
 {% endblock %}
 
-{% block head_extra %}
-<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-{% endblock %}
-
 {% block body %}
 {#- Mobile hamburger -#}
 <button id="menu-toggle" class="fixed top-3 left-3 z-[60] btn btn-sm btn-square btn-ghost md:hidden" aria-label="Toggle menu">
@@ -85,70 +80,76 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ js_path }}"></script>
+<script src="{{ js_path }}" defer></script>
 <script>
-// Initialize all ECharts trend charts
-document.querySelectorAll('.echart-container').forEach(function(el) {
-  var chart = echarts.init(el, null, {renderer: 'canvas'});
-  var dates = JSON.parse(el.getAttribute('data-dates'));
-  var values = JSON.parse(el.getAttribute('data-values'));
-  var color = el.getAttribute('data-color');
-  var name = el.getAttribute('data-name') || 'AII';
-  chart.setOption({
-    backgroundColor: 'transparent',
-    tooltip: {
-      trigger: 'axis',
-      backgroundColor: '#fffdf9',
-      borderColor: '#d9cfc3',
-      borderRadius: 8,
-      padding: [10, 14],
-      textStyle: { color: '#1f2937', fontSize: 13, fontFamily: 'DM Sans, sans-serif' },
-      formatter: function(params) {
-        var p = params[0];
-        return '<b>' + p.name + '</b><br/><span style="color:' + color + '">●</span> ' + name + ': <b>' + p.value.toFixed(2) + '%</b>';
-      }
-    },
-    grid: { left: 48, right: 16, top: 16, bottom: 32 },
-    xAxis: {
-      type: 'category',
-      data: dates,
-      axisLine: { lineStyle: { color: '#e2dace' } },
-      axisTick: { show: false },
-      axisLabel: {
-        color: '#9ca3af',
-        fontSize: 11,
-        fontFamily: 'DM Mono, monospace',
-        interval: Math.max(0, Math.floor(dates.length / 6) - 1),
-        formatter: function(v) { return v.slice(5); }
-      }
-    },
-    yAxis: {
-      type: 'value',
-      splitLine: { lineStyle: { color: '#f0ebe4', type: 'dashed' } },
-      axisLabel: {
-        color: '#9ca3af',
-        fontSize: 11,
-        fontFamily: 'DM Mono, monospace',
-        formatter: '{value}%'
-      }
-    },
-    series: [{
-      type: 'line',
-      data: values,
-      smooth: 0.3,
-      symbol: 'circle',
-      symbolSize: 7,
-      lineStyle: { color: color, width: 2.5 },
-      itemStyle: { color: color, borderColor: '#fff', borderWidth: 2 },
-      emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 8, shadowColor: color + '44' } },
-      areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-        { offset: 0, color: color + '30' },
-        { offset: 0.6, color: color + '10' },
-        { offset: 1, color: color + '02' }
-      ]) }
-    }]
+document.addEventListener('DOMContentLoaded', function() {
+  var containers = document.querySelectorAll('.echart-container');
+  if (!containers.length) return;
+
+  window.loadScriptOnce('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js', 'echarts').then(function() {
+    containers.forEach(function(el) {
+      var chart = echarts.init(el, null, {renderer: 'canvas'});
+      var dates = JSON.parse(el.getAttribute('data-dates'));
+      var values = JSON.parse(el.getAttribute('data-values'));
+      var color = el.getAttribute('data-color');
+      var name = el.getAttribute('data-name') || 'AII';
+      chart.setOption({
+        backgroundColor: 'transparent',
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#fffdf9',
+          borderColor: '#d9cfc3',
+          borderRadius: 8,
+          padding: [10, 14],
+          textStyle: { color: '#1f2937', fontSize: 13, fontFamily: 'DM Sans, sans-serif' },
+          formatter: function(params) {
+            var p = params[0];
+            return '<b>' + p.name + '</b><br/><span style="color:' + color + '">●</span> ' + name + ': <b>' + p.value.toFixed(2) + '%</b>';
+          }
+        },
+        grid: { left: 48, right: 16, top: 16, bottom: 32 },
+        xAxis: {
+          type: 'category',
+          data: dates,
+          axisLine: { lineStyle: { color: '#e2dace' } },
+          axisTick: { show: false },
+          axisLabel: {
+            color: '#9ca3af',
+            fontSize: 11,
+            fontFamily: 'DM Mono, monospace',
+            interval: Math.max(0, Math.floor(dates.length / 6) - 1),
+            formatter: function(v) { return v.slice(5); }
+          }
+        },
+        yAxis: {
+          type: 'value',
+          splitLine: { lineStyle: { color: '#f0ebe4', type: 'dashed' } },
+          axisLabel: {
+            color: '#9ca3af',
+            fontSize: 11,
+            fontFamily: 'DM Mono, monospace',
+            formatter: '{value}%'
+          }
+        },
+        series: [{
+          type: 'line',
+          data: values,
+          smooth: 0.3,
+          symbol: 'circle',
+          symbolSize: 7,
+          lineStyle: { color: color, width: 2.5 },
+          itemStyle: { color: color, borderColor: '#fff', borderWidth: 2 },
+          emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 8, shadowColor: color + '44' } },
+          areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: color + '30' },
+            { offset: 0.6, color: color + '10' },
+            { offset: 1, color: color + '02' }
+          ]) }
+        }]
+      });
+      new ResizeObserver(function() { chart.resize(); }).observe(el);
+    });
   });
-  new ResizeObserver(function() { chart.resize(); }).observe(el);
 });
 </script>
 {% endblock %}
