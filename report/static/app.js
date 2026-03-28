@@ -5,17 +5,21 @@ window.loadScriptOnce = (function() {
     if (pending[src]) return pending[src];
     pending[src] = new Promise(function(resolve, reject) {
       var script = document.createElement('script');
+      function fail(message) {
+        delete pending[src];
+        reject(new Error(message));
+      }
+      script.async = true;
       script.src = src;
-      script.defer = true;
       script.onload = function() {
         if (!globalName || window[globalName]) {
           resolve(globalName ? window[globalName] : true);
           return;
         }
-        reject(new Error('Script loaded from ' + src + ' without expected global: ' + globalName));
+        fail('Script loaded from ' + src + ' without expected global: ' + globalName);
       };
       script.onerror = function() {
-        reject(new Error('Failed to load script: ' + src));
+        fail('Failed to load script: ' + src);
       };
       document.head.appendChild(script);
     });

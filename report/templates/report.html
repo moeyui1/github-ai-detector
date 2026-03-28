@@ -86,6 +86,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var containers = document.querySelectorAll('.echart-container');
   if (!containers.length) return;
 
+  function showChartFallback(el) {
+    el.innerHTML = '<p class="text-center text-sm text-base-content/60 py-10">Trend chart unavailable right now.</p>';
+  }
+
   window.loadScriptOnce('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js', 'echarts').then(function() {
     containers.forEach(function(el) {
       var chart = echarts.init(el, null, {renderer: 'canvas'});
@@ -149,6 +153,9 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       new ResizeObserver(function() { chart.resize(); }).observe(el);
     });
+  }).catch(function(err) {
+    console.error(err);
+    containers.forEach(showChartFallback);
   });
 });
 </script>
