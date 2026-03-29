@@ -18,15 +18,19 @@
 {% endblock %}
 
 {% block body %}
-{#- Mobile hamburger -#}
-<button id="menu-toggle" class="fixed top-3 left-3 z-[60] btn btn-sm btn-square btn-ghost md:hidden" aria-label="Toggle menu">
-  <svg class="w-5 h-5 icon-menu" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-  <svg class="w-5 h-5 icon-close hidden" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-</button>
+{#- Mobile top bar -#}
+<header class="fixed top-0 left-0 right-0 z-[60] h-12 flex items-center gap-2 px-3 bg-beige-100/95 backdrop-blur-sm border-b border-beige-200 md:hidden" id="mobile-header">
+  <button id="menu-toggle" class="btn btn-sm btn-square btn-ghost" aria-label="Toggle menu">
+    <svg class="w-5 h-5 icon-menu" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <svg class="w-5 h-5 icon-close hidden" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <span class="text-sm font-bold tracking-tight">🛸 AI Radar</span>
+  <span class="text-[11px] opacity-40 ml-auto font-mono">{{ date_str }}</span>
+</header>
 <div class="sidebar-overlay fixed inset-0 bg-black/30 z-40 hidden md:hidden" id="sidebar-overlay"></div>
 
 {#- Sidebar -#}
-<aside class="fixed top-0 left-0 h-screen w-[272px] bg-beige-100 border-r border-beige-200 flex flex-col z-50 overflow-y-auto transition-transform duration-300 max-md:-translate-x-full max-md:shadow-xl" id="sidebar">
+<aside class="fixed top-12 md:top-0 left-0 h-[calc(100vh-3rem)] md:h-screen w-[272px] bg-beige-100 border-r border-beige-200 flex flex-col z-50 overflow-y-auto transition-transform duration-300 max-md:-translate-x-full max-md:shadow-xl" id="sidebar">
   <div class="px-5 pt-5 pb-3 border-b border-beige-200">
     <h2 class="text-[15px] font-bold flex items-center gap-2">🛸 AI Radar</h2>
     <p class="text-[11px] opacity-40 mt-0.5">How much code is AI-generated?</p>
