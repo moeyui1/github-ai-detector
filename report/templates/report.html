@@ -31,11 +31,11 @@
 
 {#- Sidebar -#}
 <aside class="fixed top-12 md:top-0 left-0 h-[calc(100vh-3rem)] md:h-screen w-[272px] bg-beige-100 border-r border-beige-200 flex flex-col z-50 overflow-y-auto transition-transform duration-300 max-md:-translate-x-full max-md:shadow-xl" id="sidebar">
-  <div class="px-5 pt-5 pb-3 border-b border-beige-200">
+  <div class="px-5 pt-5 pb-3 border-b border-beige-200 hidden md:block">
     <h2 class="text-[15px] font-bold flex items-center gap-2">🛸 AI Radar</h2>
     <p class="text-[11px] opacity-40 mt-0.5">How much code is AI-generated?</p>
   </div>
-  <div class="px-5 py-2.5 text-[11px] uppercase tracking-wider opacity-40 border-b border-beige-200 font-medium">
+  <div class="px-5 py-2.5 text-[11px] uppercase tracking-wider opacity-40 border-b border-beige-200 font-medium hidden md:block">
     Report · {{ date_str }}
   </div>
   <nav class="py-1 flex-1">
