@@ -3,13 +3,13 @@
 
 <div data-section-id="summary" class="repo-section">
   <div class="flex items-center justify-between mb-1">
-    <h1 class="text-2xl font-bold tracking-tight">🛸 AI Involvement Ranking</h1>
-    <button id="share-btn" onclick="shareRanking()" class="btn btn-sm btn-outline btn-primary gap-1.5 rounded-xl shrink-0" title="Share ranking as image">
+    <h1 class="text-xl md:text-2xl font-bold tracking-tight">🛸 AI Involvement Ranking</h1>
+    <button id="share-btn" onclick="shareRanking()" class="btn btn-xs md:btn-sm btn-outline btn-primary gap-1 md:gap-1.5 rounded-xl shrink-0" title="Share ranking as image">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5-6 5 6"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12"/></svg>
       Share
     </button>
   </div>
-  <p class="text-sm opacity-50 mb-6">Tracking AI-generated code across open-source repositories · {{ date_str }} · {{ repos|length }} repos</p>
+  <p class="text-xs md:text-sm opacity-50 mb-4 md:mb-6">Tracking AI-generated code across open-source repositories · {{ date_str }} · {{ repos|length }} repos</p>
   <div id="share-site-url" data-url="{{ site_url }}" class="hidden"></div>
 
   {#- Share modal -#}
