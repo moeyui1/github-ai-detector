@@ -4,10 +4,17 @@
 <div data-section-id="summary" class="repo-section">
   <div class="flex items-center justify-between mb-1">
     <h1 class="text-xl md:text-2xl font-bold tracking-tight">🛸 AI Involvement Ranking</h1>
-    <button id="share-btn" onclick="shareRanking()" class="btn btn-xs md:btn-sm btn-outline btn-primary gap-1 md:gap-1.5 rounded-xl shrink-0" title="Share ranking as image">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5-6 5 6"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12"/></svg>
-      Share
-    </button>
+    <div class="flex gap-1.5 shrink-0">
+      <a href="https://github.com/moeyui1/github-ai-detector" target="_blank" rel="noopener"
+         class="btn btn-xs md:btn-sm btn-outline gap-1 md:gap-1.5 rounded-xl hover:bg-base-200" title="Star on GitHub">
+        <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg>
+        <span class="hidden sm:inline">Star</span>
+      </a>
+      <button id="share-btn" onclick="shareRanking()" class="btn btn-xs md:btn-sm btn-outline btn-primary gap-1 md:gap-1.5 rounded-xl" title="Share ranking as image">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5-6 5 6"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12"/></svg>
+        <span class="hidden sm:inline">Share</span>
+      </button>
+    </div>
   </div>
   <p class="text-xs md:text-sm opacity-50 mb-4 md:mb-6">Tracking AI-generated code across open-source repositories · {{ date_str }} · {{ repos|length }} repos</p>
   <div id="share-site-url" data-url="{{ site_url }}" class="hidden"></div>
