@@ -51,8 +51,17 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: package-lock.json
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          npm ci
 
       - name: Run analysis
         env:
@@ -72,7 +81,9 @@ jobs:
           overwrite: true
 
       - name: Generate static site
-        run: python -m report.html --input data/reports --out data/site
+        run: |
+          npm run build:css
+          python -m report.html --input data/reports --out data/site
 
       - name: Deploy to gh-pages
         env:

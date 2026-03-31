@@ -52,6 +52,7 @@ GitHub Events ──→ L1: System Bot Filter ──→ L2: AI Bot Match ──�
 
 ```bash
 pip install -r requirements.txt
+npm install
 ```
 
 ### 2. Configure
@@ -91,6 +92,9 @@ python -m report.cli --out reports
 # Force re-score all events (ignore cache)
 python -m report.cli --force
 
+# Build the compiled CSS bundle
+npm run build:css
+
 # Render JSON → static HTML site
 python -m report.html --input reports --out site
 
@@ -102,6 +106,7 @@ python -m http.server 8000 -d site
 
 ```bash
 python scripts/mock_reports.py       # 7 days of mock reports → reports/
+npm run build:css
 python -m report.html --input reports --out site
 python -m http.server 8000 -d site   # preview at http://localhost:8000
 ```

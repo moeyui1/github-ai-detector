@@ -51,6 +51,7 @@ GitHub 事件 ──→ L1: 系统 Bot 过滤 ──→ L2: AI Bot 匹配 ──
 
 ```bash
 pip install -r requirements.txt
+npm install
 ```
 
 ### 2. 配置
@@ -90,6 +91,9 @@ python -m report.cli --out reports
 # 强制重新评分所有事件（忽略缓存）
 python -m report.cli --force
 
+# 构建预编译 CSS
+npm run build:css
+
 # 渲染 JSON → 静态 HTML 站点
 python -m report.html --input reports --out site
 
@@ -101,6 +105,7 @@ python -m http.server 8000 -d site
 
 ```bash
 python scripts/mock_reports.py       # 生成 7 天的 Mock 报告 → reports/
+npm run build:css
 python -m report.html --input reports --out site
 python -m http.server 8000 -d site   # 访问 http://localhost:8000 预览
 ```

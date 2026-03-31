@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sidebar: collapsible date sub-items */
+.nav-dates {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease;
+}
+
+.nav-item.expanded .nav-dates {
+  max-height: 600px;
+}
+
+/* Hidden sections */
+.repo-section {
+  display: none;
+}
+
+.repo-section.active {
+  display: block;
+  animation: fadeIn .25s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Rank bar animation */
+.rank-bar-fill::-webkit-progress-value {
+  background: currentColor;
+  border-radius: 4px;
+  transition: width .8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rank-bar-fill::-moz-progress-bar {
+  background: currentColor;
+  border-radius: 4px;
+  transition: width .8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Sparkline */
+.rank-trend {
+  flex: 0 0 100px;
+  height: 32px;
+  position: relative;
+}
+
+.rank-trend svg {
+  width: 100%;
+  height: 100%;
+}
+
+.rank-trend .sparkline-line {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rank-trend .sparkline-area {
+  opacity: .08;
+}
+
+.rank-trend .sparkline-dot {
+  r: 2;
+}
+
+.rank-trend .sparkline-label {
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  right: 0;
+  font-size: 10px;
+  text-align: center;
+  white-space: nowrap;
+  font-family: 'SFMono-Regular', 'Cascadia Mono', 'Sarasa Mono SC', 'JetBrains Mono', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  color: oklch(var(--bc) / 0.4);
+}
+
+/* EChart container */
+.echart-container {
+  width: 100%;
+  height: 260px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--bc) / 0.15);
+  border-radius: 3px;
+}

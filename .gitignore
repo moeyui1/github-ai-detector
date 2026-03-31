@@ -6,3 +6,13 @@ __pycache__/
 logs/
 reports/
 site/
+.venv/
+venv/
+node_modules/
+.npm/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
