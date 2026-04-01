@@ -84,10 +84,6 @@
     <div class="font-bold font-mono text-sm">{{ val }}</div>
   </div>
   {% endfor %}
-  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
-    <div class="text-[10px] uppercase tracking-wider opacity-40">Bot Rate</div>
-    <div class="font-bold font-mono text-sm">{{ pct(r.bot_rate) }}</div>
-  </div>
 {% endmacro %}
 
 {#- KPI cells for ranking card mobile row (shown only on mobile) -#}
@@ -99,7 +95,7 @@
   {% set rv_ai = r.review_ai|default(0) %}
   {% set rv_total = r.review_total|default(0) %}
   <div class="flex gap-4 mt-2 pl-[52px] flex-wrap sm:hidden text-[11px] text-base-content/50">
-    {% for lbl, val in [("C", c_ai ~ "/" ~ c_total), ("PR", p_ai ~ "/" ~ p_total), ("R", rv_ai ~ "/" ~ rv_total), ("Bot", pct(r.bot_rate))] %}
+    {% for lbl, val in [("C", c_ai ~ "/" ~ c_total), ("PR", p_ai ~ "/" ~ p_total), ("R", rv_ai ~ "/" ~ rv_total)] %}
     <div>
       <span class="opacity-50">{{ lbl }}</span>
       <span class="font-mono">{{ val }}</span>

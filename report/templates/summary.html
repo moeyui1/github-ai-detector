@@ -67,7 +67,7 @@
     <div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
     <table class="table table-sm">
     <thead class="bg-beige-50"><tr>
-      {% for col in ["", "Repository", "AII", "Trend", "Bot Rate", "AI Commits", "AI PRs", "AI Reviews", "Events"] %}
+      {% for col in ["", "Repository", "AII", "Trend", "AI Commits", "AI PRs", "AI Reviews", "Events"] %}
       <th class="text-xs uppercase tracking-wide opacity-50">{{ col }}</th>
       {% endfor %}
     </tr></thead>
@@ -83,7 +83,6 @@
         </td>
         <td><span class="badge {{ badge_cls(cls) }} badge-sm font-mono">{{ pct(r.aii) }}</span></td>
         <td>{{ trend_html(r._trend) }}</td>
-        <td class="font-mono text-xs">{{ pct(r.bot_rate) }}</td>
         <td class="font-mono text-xs">{{ r.commit_ai|default(0) }}/{{ r.commit_total|default(0) }}</td>
         <td class="font-mono text-xs">{{ r.pr_ai|default(0) }}/{{ r.pr_total|default(0) }}</td>
         <td class="font-mono text-xs">{{ r.review_ai|default(0) }}/{{ r.review_total|default(0) }}</td>
