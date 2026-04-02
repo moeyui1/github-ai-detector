@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>GitHub AI Radar</title><link>https://aiintrusion.dpdns.org</link><description>Daily AI involvement rankings for GitHub repositories</description><language>en</language><item><title>AI Radar Report — 2026-04-02</title><link>https://aiintrusion.dpdns.org/2026-04-02/</link><guid>https://aiintrusion.dpdns.org/2026-04-02/</guid><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-04-02
+Repos analyzed: 20
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | thedotmack/claude-mem | 63.2% | 79/100 | 6/100 | 17/19
+#2 | openclaw/openclaw | 33.5% | 10/100 | 24/100 | 310/322
+#3 | Significant-Gravitas/AutoGPT | 32.3% | 36/100 | 0/100 | 64/135
+#4 | hacksider/Deep-Live-Cam | 26.8% | 8/100 | 4/100 | 4/4
+#5 | mem0ai/mem0 | 21.5% | 37/100 | 1/100 | 0/3
+#6 | FlowiseAI/Flowise | 16.4% | 18/100 | 7/100 | 2/36
+#7 | ollama/ollama | 13.8% | 2/100 | 2/100 | 1/2
+#8 | OpenHands/OpenHands | 11.7% | 1/100 | 27/100 | 3/44
+#9 | open-webui/open-webui | 11.3% | 0/100 | 38/100 | 0/2
+#10 | huggingface/transformers | 10.1% | 9/100 | 11/100 | 0/57
+#11 | HKUDS/nanobot | 5.9% | 4/100 | 4/100 | 0/4
+#12 | rasbt/LLMs-from-scratch | 5.8% | 0/100 | 0/100 | 0/0
+#13 | ItzCrazyKns/Vane | 4.7% | 3/100 | 2/100 | 0/3
+#14 | facebook/react | 4.2% | 1/100 | 2/100 | 0/3
+#15 | kamranahmedse/developer-roadmap | 3.6% | 1/100 | 11/100 | 0/0
+#16 | moeyui1/github-ai-detector | 3.0% | 1/43 | 0/10 | 0/0
+#17 | Kong/kong | 2.8% | 0/100 | 2/100 | 0/0
+#18 | jingyaogong/minimind | 1.8% | 0/100 | 0/81 | 0/0
+#19 | tensorflow/tensorflow | 0.2% | 0/100 | 0/100 | 0/0
+#20 | torvalds/linux | 0.0% | 0/100 | 0/0 | 0/0
+
+Average AII: 13.6%
+Total events analyzed: 4368</description></item><item><title>AI Radar Report — 2026-04-01</title><link>https://aiintrusion.dpdns.org/2026-04-01/</link><guid>https://aiintrusion.dpdns.org/2026-04-01/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-04-01
+Repos analyzed: 20
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | thedotmack/claude-mem | 65.9% | 79/100 | 7/100 | 5/5
+#2 | Significant-Gravitas/AutoGPT | 33.4% | 36/100 | 0/100 | 50/93
+#3 | hacksider/Deep-Live-Cam | 26.8% | 8/100 | 4/100 | 11/11
+#4 | openclaw/openclaw | 24.8% | 0/100 | 9/100 | 391/396
+#5 | ollama/ollama | 24.4% | 2/100 | 4/100 | 1/1
+#6 | mem0ai/mem0 | 22.6% | 39/100 | 1/100 | 0/2
+#7 | moeyui1/github-ai-detector | 20.6% | 1/43 | 0/9 | 2/2
+#8 | FlowiseAI/Flowise | 16.8% | 19/100 | 10/100 | 0/33
+#9 | open-webui/open-webui | 16.1% | 0/100 | 42/100 | 0/0
+#10 | OpenHands/OpenHands | 13.7% | 1/100 | 36/100 | 0/23
+#11 | huggingface/transformers | 12.5% | 10/100 | 17/100 | 0/58
+#12 | HKUDS/nanobot | 6.8% | 4/100 | 6/100 | 0/7
+#13 | rasbt/LLMs-from-scratch | 5.8% | 0/100 | 0/100 | 0/0
+#14 | facebook/react | 5.7% | 1/100 | 4/100 | 0/2
+#15 | ItzCrazyKns/Vane | 4.7% | 3/100 | 2/100 | 0/12
+#16 | kamranahmedse/developer-roadmap | 3.6% | 1/100 | 11/100 | 0/0
+#17 | Kong/kong | 2.8% | 0/100 | 2/100 | 0/0
+#18 | jingyaogong/minimind | 1.8% | 0/100 | 0/81 | 0/0
+#19 | torvalds/linux | 0.1% | 0/100 | 0/0 | 0/0
+#20 | tensorflow/tensorflow | 0.1% | 0/100 | 0/100 | 0/3
+
+Average AII: 15.4%
+Total events analyzed: 4381</description></item><item><title>AI Radar Report — 2026-03-31</title><link>https://aiintrusion.dpdns.org/2026-03-31/</link><guid>https://aiintrusion.dpdns.org/2026-03-31/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-31
+Repos analyzed: 19
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | thedotmack/claude-mem | 63.5% | 79/100 | 8/100 | 16/19
+#2 | Significant-Gravitas/AutoGPT | 31.1% | 36/100 | 0/100 | 107/260
+#3 | hacksider/Deep-Live-Cam | 28.0% | 9/100 | 4/100 | 5/5
+#4 | openclaw/openclaw | 26.7% | 0/100 | 16/100 | 299/307
+#5 | mem0ai/mem0 | 21.9% | 39/100 | 1/100 | 0/1
+#6 | FlowiseAI/Flowise | 18.3% | 21/100 | 11/100 | 0/32
+#7 | HKUDS/nanobot | 15.5% | 5/100 | 6/100 | 6/15
+#8 | open-webui/open-webui | 15.4% | 0/100 | 46/100 | 0/1
+#9 | OpenHands/OpenHands | 13.8% | 1/100 | 36/100 | 0/31
+#10 | huggingface/transformers | 12.8% | 10/100 | 18/100 | 0/35
+#11 | facebook/react | 6.2% | 1/100 | 4/100 | 0/2
+#12 | rasbt/LLMs-from-scratch | 5.9% | 0/100 | 0/100 | 0/0
+#13 | ollama/ollama | 4.7% | 2/100 | 4/100 | 0/1
+#14 | kamranahmedse/developer-roadmap | 3.7% | 1/100 | 11/100 | 0/0
+#15 | Kong/kong | 2.6% | 0/100 | 2/100 | 0/0
+#16 | moeyui1/github-ai-detector | 2.6% | 1/40 | 0/8 | 0/0
+#17 | jingyaogong/minimind | 1.8% | 0/100 | 0/81 | 0/0
+#18 | torvalds/linux | 0.1% | 0/100 | 0/0 | 0/0
+#19 | tensorflow/tensorflow | 0.1% | 0/100 | 0/100 | 0/0
+
+Average AII: 14.4%
+Total events analyzed: 4238</description></item><item><title>AI Radar Report — 2026-03-30</title><link>https://aiintrusion.dpdns.org/2026-03-30/</link><guid>https://aiintrusion.dpdns.org/2026-03-30/</guid><pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-30
+Repos analyzed: 19
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | thedotmack/claude-mem | 64.6% | 79/100 | 8/100 | 18/20
+#2 | Significant-Gravitas/AutoGPT | 34.3% | 36/100 | 2/100 | 24/43
+#3 | hacksider/Deep-Live-Cam | 28.0% | 9/100 | 4/100 | 10/10
+#4 | mem0ai/mem0 | 22.9% | 41/100 | 0/100 | 0/3
+#5 | openclaw/openclaw | 22.6% | 0/100 | 3/100 | 374/388
+#6 | FlowiseAI/Flowise | 19.4% | 21/100 | 13/100 | 0/18
+#7 | open-webui/open-webui | 19.1% | 0/100 | 45/100 | 0/0
+#8 | kamranahmedse/developer-roadmap | 14.9% | 1/100 | 11/100 | 1/1
+#9 | OpenHands/OpenHands | 14.6% | 2/100 | 35/100 | 0/122
+#10 | HKUDS/nanobot | 11.3% | 5/100 | 1/100 | 1/4
+#11 | ollama/ollama | 11.0% | 2/100 | 4/100 | 1/3
+#12 | huggingface/transformers | 10.8% | 8/100 | 12/100 | 3/76
+#13 | facebook/react | 6.0% | 1/100 | 5/100 | 0/1
+#14 | rasbt/LLMs-from-scratch | 5.9% | 0/100 | 0/100 | 0/0
+#15 | moeyui1/github-ai-detector | 2.6% | 1/39 | 0/8 | 0/0
+#16 | Kong/kong | 2.1% | 0/100 | 2/100 | 0/2
+#17 | jingyaogong/minimind | 1.8% | 0/100 | 0/81 | 0/0
+#18 | tensorflow/tensorflow | 0.2% | 0/100 | 0/100 | 0/2
+#19 | torvalds/linux | 0.1% | 0/100 | 0/0 | 0/0
+
+Average AII: 15.4%
+Total events analyzed: 4221</description></item><item><title>AI Radar Report — 2026-03-29</title><link>https://aiintrusion.dpdns.org/2026-03-29/</link><guid>https://aiintrusion.dpdns.org/2026-03-29/</guid><pubDate>Sun, 29 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-29
+Repos analyzed: 20
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | thedotmack/claude-mem | 66.3% | 79/100 | 8/100 | 2/2
+#2 | Significant-Gravitas/AutoGPT | 33.9% | 36/100 | 2/100 | 37/82
+#3 | openclaw/openclaw | 29.6% | 8/100 | 14/100 | 385/408
+#4 | hacksider/Deep-Live-Cam | 27.8% | 9/100 | 4/100 | 6/6
+#5 | mem0ai/mem0 | 23.1% | 41/100 | 2/100 | 0/1
+#6 | FlowiseAI/Flowise | 20.1% | 22/100 | 13/100 | 0/4
+#7 | open-webui/open-webui | 17.4% | 0/100 | 40/100 | 0/0
+#8 | HKUDS/nanobot | 16.1% | 5/100 | 3/100 | 5/12
+#9 | OpenHands/OpenHands | 13.4% | 2/100 | 35/100 | 0/12
+#10 | huggingface/transformers | 12.6% | 7/100 | 12/100 | 2/15
+#11 | ollama/ollama | 10.9% | 2/100 | 3/100 | 1/3
+#12 | rasbt/LLMs-from-scratch | 5.9% | 0/100 | 0/100 | 0/0
+#13 | facebook/react | 5.8% | 1/100 | 4/100 | 0/3
+#14 | moeyui1/github-ai-detector | 3.8% | 1/35 | 0/6 | 0/0
+#15 | Kong/kong | 2.6% | 0/100 | 2/100 | 0/0
+#16 | donnemartin/system-design-primer | 2.5% | 0/100 | 4/100 | 0/1
+#17 | kamranahmedse/developer-roadmap | 2.3% | 0/100 | 11/100 | 0/0
+#18 | jingyaogong/minimind | 1.8% | 0/100 | 0/81 | 0/0
+#19 | tensorflow/tensorflow | 0.4% | 1/100 | 0/100 | 0/1
+#20 | torvalds/linux | 0.1% | 0/100 | 0/0 | 0/0
+
+Average AII: 14.8%
+Total events analyzed: 4272</description></item><item><title>AI Radar Report — 2026-03-28</title><link>https://aiintrusion.dpdns.org/2026-03-28/</link><guid>https://aiintrusion.dpdns.org/2026-03-28/</guid><pubDate>Sat, 28 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-28
+Repos analyzed: 20
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | thedotmack/claude-mem | 66.6% | 79/100 | 9/100 | 8/8
+#2 | Significant-Gravitas/AutoGPT | 35.9% | 36/100 | 2/100 | 39/71
+#3 | HKUDS/nanobot | 28.2% | 5/100 | 6/100 | 2/2
+#4 | hacksider/Deep-Live-Cam | 27.7% | 9/100 | 4/100 | 9/9
+#5 | mem0ai/mem0 | 26.1% | 41/100 | 5/100 | 1/8
+#6 | openclaw/openclaw | 25.7% | 0/100 | 13/100 | 285/295
+#7 | facebook/react | 24.0% | 1/100 | 4/100 | 2/2
+#8 | moeyui1/github-ai-detector | 21.1% | 1/35 | 0/4 | 1/1
+#9 | FlowiseAI/Flowise | 20.0% | 22/100 | 13/100 | 0/4
+#10 | OpenHands/OpenHands | 17.8% | 2/100 | 38/100 | 0/0
+#11 | open-webui/open-webui | 16.2% | 0/100 | 37/100 | 0/0
+#12 | huggingface/transformers | 9.9% | 7/100 | 13/100 | 0/4
+#13 | rasbt/LLMs-from-scratch | 5.9% | 0/100 | 0/100 | 0/0
+#14 | Kong/kong | 4.6% | 0/100 | 2/100 | 3/22
+#15 | ollama/ollama | 4.5% | 2/100 | 4/100 | 0/1
+#16 | donnemartin/system-design-primer | 2.5% | 0/100 | 4/100 | 0/1
+#17 | kamranahmedse/developer-roadmap | 2.3% | 0/100 | 11/100 | 0/0
+#18 | jingyaogong/minimind | 1.8% | 0/100 | 0/81 | 0/0
+#19 | tensorflow/tensorflow | 0.6% | 3/100 | 0/100 | 0/3
+#20 | torvalds/linux | 0.3% | 0/100 | 0/0 | 0/0
+
+Average AII: 17.1%
+Total events analyzed: 4151</description></item><item><title>AI Radar Report — 2026-03-27</title><link>https://aiintrusion.dpdns.org/2026-03-27/</link><guid>https://aiintrusion.dpdns.org/2026-03-27/</guid><pubDate>Fri, 27 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-27
+Repos analyzed: 21
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | thedotmack/claude-mem | 66.2% | 79/100 | 8/100 | 6/6
+#2 | Significant-Gravitas/AutoGPT | 38.7% | 36/100 | 5/100 | 4/6
+#3 | mem0ai/mem0 | 33.8% | 41/100 | 6/100 | 1/2
+#4 | HKUDS/nanobot | 28.1% | 5/100 | 6/100 | 2/2
+#5 | hacksider/Deep-Live-Cam | 27.5% | 9/100 | 4/100 | 4/4
+#6 | openclaw/openclaw | 27.2% | 0/100 | 20/100 | 305/320
+#7 | FlowiseAI/Flowise | 19.9% | 22/100 | 13/100 | 0/5
+#8 | OpenHands/OpenHands | 14.9% | 2/100 | 40/100 | 0/8
+#9 | open-webui/open-webui | 14.0% | 0/100 | 32/100 | 0/0
+#10 | kamranahmedse/developer-roadmap | 11.7% | 0/100 | 11/100 | 1/1
+#11 | huggingface/transformers | 9.7% | 7/100 | 13/100 | 0/7
+#12 | public-apis/public-apis | 9.2% | 0/100 | 5/100 | 0/0
+#13 | rasbt/LLMs-from-scratch | 5.9% | 0/100 | 0/100 | 0/0
+#14 | ollama/ollama | 5.8% | 2/100 | 4/100 | 0/0
+#15 | facebook/react | 5.4% | 1/100 | 4/100 | 0/3
+#16 | ItzCrazyKns/Vane | 4.4% | 3/100 | 2/100 | 0/2
+#17 | moeyui1/github-ai-detector | 3.0% | 1/29 | 0/2 | 0/0
+#18 | donnemartin/system-design-primer | 2.6% | 0/100 | 4/100 | 0/1
+#19 | jingyaogong/minimind | 1.8% | 0/100 | 0/81 | 0/0
+#20 | tensorflow/tensorflow | 0.7% | 3/100 | 0/100 | 0/0
+#21 | torvalds/linux | 0.0% | 0/100 | 0/0 | 0/0
+
+Average AII: 15.7%
+Total events analyzed: 4279</description></item><item><title>AI Radar Report — 2026-03-26</title><link>https://aiintrusion.dpdns.org/2026-03-26/</link><guid>https://aiintrusion.dpdns.org/2026-03-26/</guid><pubDate>Thu, 26 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-26
+Repos analyzed: 14
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 33.5% | 36/100 | 2/100 | 2/4
+#2 | openclaw/openclaw | 32.3% | 10/100 | 19/100 | 13/14
+#3 | mem0ai/mem0 | 26.8% | 35/100 | 3/100 | 0/0
+#4 | n8n-io/n8n | 16.8% | 30/100 | 2/100 | 0/6
+#5 | open-webui/open-webui | 14.1% | 0/100 | 34/100 | 0/0
+#6 | HKUDS/nanobot | 10.7% | 7/100 | 4/100 | 0/0
+#7 | huggingface/transformers | 9.0% | 5/100 | 9/100 | 0/0
+#8 | ossu/computer-science | 2.9% | 0/100 | 0/100 | 0/0
+#9 | ollama/ollama | 2.8% | 1/100 | 2/100 | 0/1
+#10 | moeyui1/github-ai-detector | 2.6% | 1/23 | 0/1 | 0/0
+#11 | freeCodeCamp/freeCodeCamp | 2.5% | 3/100 | 1/100 | 0/4
+#12 | kamranahmedse/developer-roadmap | 2.1% | 0/100 | 11/100 | 0/0
+#13 | torvalds/linux | 2.0% | 2/100 | 0/0 | 0/0
+#14 | tensorflow/tensorflow | 0.6% | 1/100 | 0/100 | 0/0
+
+Average AII: 11.3%
+Total events analyzed: 2553</description></item><item><title>AI Radar Report — 2026-03-25</title><link>https://aiintrusion.dpdns.org/2026-03-25/</link><guid>https://aiintrusion.dpdns.org/2026-03-25/</guid><pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-25
+Repos analyzed: 14
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | openclaw/openclaw | 30.6% | 8/100 | 18/100 | 378/386
+#2 | mem0ai/mem0 | 20.1% | 32/100 | 6/100 | 0/1
+#3 | open-webui/open-webui | 15.5% | 1/100 | 46/100 | 0/1
+#4 | huggingface/transformers | 7.8% | 5/100 | 9/100 | 2/37
+#5 | HKUDS/nanobot | 7.5% | 7/100 | 5/100 | 0/0
+#6 | TheAlgorithms/Python | 5.3% | 2/100 | 0/100 | 0/26
+#7 | facebook/react | 5.1% | 1/100 | 1/100 | 0/0
+#8 | ollama/ollama | 2.5% | 1/100 | 2/100 | 0/3
+#9 | freeCodeCamp/freeCodeCamp | 2.4% | 3/100 | 0/100 | 0/5
+#10 | ossu/computer-science | 2.3% | 0/100 | 0/100 | 0/0
+#11 | kamranahmedse/developer-roadmap | 1.6% | 0/100 | 11/100 | 0/0
+#12 | torvalds/linux | 1.0% | 2/100 | 0/0 | 0/0
+#13 | tensorflow/tensorflow | 0.3% | 1/100 | 0/100 | 0/0
+#14 | moeyui1/github-ai-detector | 0.3% | 0/19 | 0/0 | 0/0
+
+Average AII: 7.3%
+Total events analyzed: 2978</description></item><item><title>AI Radar Report — 2026-03-24</title><link>https://aiintrusion.dpdns.org/2026-03-24/</link><guid>https://aiintrusion.dpdns.org/2026-03-24/</guid><pubDate>Tue, 24 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-24
+Repos analyzed: 3
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | openclaw/openclaw | 21.5% | 0/100 | 7/100 | 69/71
+#2 | HKUDS/nanobot | 8.7% | 11/100 | 1/100 | 0/0
+#3 | ollama/ollama | 2.7% | 1/100 | 3/100 | 0/6
+
+Average AII: 11.0%
+Total events analyzed: 677</description></item><item><title>AI Radar Report — 2026-03-23</title><link>https://aiintrusion.dpdns.org/2026-03-23/</link><guid>https://aiintrusion.dpdns.org/2026-03-23/</guid><pubDate>Mon, 23 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-23
+Repos analyzed: 15
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 38.3% | 38/100 | 1/100 | 244/393
+#2 | openclaw/openclaw | 26.2% | 0/100 | 14/100 | 383/388
+#3 | open-webui/open-webui | 20.1% | 1/100 | 51/100 | 4/24
+#4 | mem0ai/mem0 | 18.1% | 26/100 | 1/100 | 3/21
+#5 | langchain-ai/deepagents | 14.9% | 3/100 | 6/100 | 4/14
+#6 | n8n-io/n8n | 14.8% | 23/100 | 1/100 | 2/157
+#7 | kamranahmedse/developer-roadmap | 11.2% | 0/100 | 7/100 | 3/3
+#8 | HKUDS/nanobot | 10.4% | 9/100 | 1/100 | 1/8
+#9 | ollama/ollama | 5.4% | 1/100 | 3/100 | 4/38
+#10 | huggingface/transformers | 4.8% | 4/100 | 1/100 | 2/116
+#11 | flutter/flutter | 4.5% | 4/100 | 1/100 | 0/88
+#12 | freeCodeCamp/freeCodeCamp | 3.6% | 3/100 | 0/100 | 7/95
+#13 | ohmyzsh/ohmyzsh | 3.6% | 3/100 | 8/100 | 1/23
+#14 | torvalds/linux | 1.5% | 3/100 | 0/0 | 0/0
+#15 | tensorflow/tensorflow | 0.5% | 0/100 | 1/100 | 0/0
+
+Average AII: 11.9%
+Total events analyzed: 4268</description></item><item><title>AI Radar Report — 2026-03-22</title><link>https://aiintrusion.dpdns.org/2026-03-22/</link><guid>https://aiintrusion.dpdns.org/2026-03-22/</guid><pubDate>Sun, 22 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-22
+Repos analyzed: 14
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 37.6% | 38/100 | 1/100 | 244/409
+#2 | openclaw/openclaw | 26.5% | 0/100 | 17/100 | 400/419
+#3 | open-webui/open-webui | 18.9% | 1/100 | 45/100 | 5/26
+#4 | n8n-io/n8n | 15.4% | 26/100 | 2/100 | 4/151
+#5 | langchain-ai/deepagents | 14.9% | 3/100 | 4/100 | 5/15
+#6 | mem0ai/mem0 | 14.0% | 23/100 | 0/100 | 1/21
+#7 | HKUDS/nanobot | 9.6% | 9/100 | 3/100 | 1/14
+#8 | ollama/ollama | 5.5% | 1/100 | 3/100 | 4/41
+#9 | flutter/flutter | 4.5% | 4/100 | 0/100 | 0/74
+#10 | huggingface/transformers | 4.5% | 3/100 | 0/100 | 4/104
+#11 | freeCodeCamp/freeCodeCamp | 3.7% | 3/100 | 0/100 | 8/95
+#12 | ohmyzsh/ohmyzsh | 3.6% | 3/100 | 8/100 | 1/23
+#13 | torvalds/linux | 0.5% | 1/100 | 0/0 | 0/0
+#14 | tensorflow/tensorflow | 0.4% | 0/100 | 0/100 | 0/1
+
+Average AII: 11.4%
+Total events analyzed: 4093</description></item><item><title>AI Radar Report — 2026-03-21</title><link>https://aiintrusion.dpdns.org/2026-03-21/</link><guid>https://aiintrusion.dpdns.org/2026-03-21/</guid><pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-21
+Repos analyzed: 15
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | vinta/awesome-python | 49.8% | 88/100 | 4/100 | 2/19
+#2 | Significant-Gravitas/AutoGPT | 37.6% | 38/100 | 1/100 | 240/404
+#3 | openclaw/openclaw | 26.5% | 4/100 | 9/100 | 717/723
+#4 | open-webui/open-webui | 16.7% | 1/100 | 40/100 | 4/25
+#5 | n8n-io/n8n | 15.9% | 27/100 | 3/100 | 4/157
+#6 | langchain-ai/deepagents | 14.8% | 3/100 | 4/100 | 5/16
+#7 | mem0ai/mem0 | 12.7% | 19/100 | 1/100 | 1/22
+#8 | HKUDS/nanobot | 9.7% | 9/100 | 3/100 | 0/19
+#9 | twbs/bootstrap | 6.6% | 0/100 | 1/100 | 3/9
+#10 | ollama/ollama | 5.7% | 1/100 | 4/100 | 4/45
+#11 | huggingface/transformers | 5.1% | 3/100 | 2/100 | 4/135
+#12 | flutter/flutter | 4.7% | 4/100 | 1/100 | 0/85
+#13 | freeCodeCamp/freeCodeCamp | 3.8% | 3/100 | 0/100 | 8/96
+#14 | torvalds/linux | 0.5% | 1/100 | 0/0 | 0/0
+#15 | tensorflow/tensorflow | 0.2% | 0/100 | 0/100 | 0/3
+
+Average AII: 14.0%
+Total events analyzed: 4658</description></item><item><title>AI Radar Report — 2026-03-20</title><link>https://aiintrusion.dpdns.org/2026-03-20/</link><guid>https://aiintrusion.dpdns.org/2026-03-20/</guid><pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-20
+Repos analyzed: 16
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | vinta/awesome-python | 44.4% | 77/100 | 4/100 | 2/19
+#2 | Significant-Gravitas/AutoGPT | 37.4% | 38/100 | 1/100 | 253/431
+#3 | openclaw/openclaw | 27.4% | 3/100 | 18/100 | 418/450
+#4 | open-webui/open-webui | 16.1% | 1/100 | 38/100 | 4/25
+#5 | EbookFoundation/free-programming-books | 14.7% | 15/100 | 3/100 | 2/11
+#6 | langchain-ai/deepagents | 13.5% | 2/100 | 2/100 | 5/16
+#7 | mem0ai/mem0 | 11.5% | 16/100 | 1/100 | 1/22
+#8 | HKUDS/nanobot | 10.1% | 9/100 | 5/100 | 0/16
+#9 | kamranahmedse/developer-roadmap | 9.7% | 0/100 | 1/100 | 3/3
+#10 | facebook/react | 6.8% | 0/100 | 0/100 | 4/34
+#11 | ollama/ollama | 6.4% | 2/100 | 4/100 | 4/47
+#12 | huggingface/transformers | 5.5% | 3/100 | 2/100 | 5/143
+#13 | freeCodeCamp/freeCodeCamp | 3.8% | 3/100 | 0/100 | 9/102
+#14 | donnemartin/system-design-primer | 2.3% | 0/100 | 3/100 | 0/27
+#15 | tensorflow/tensorflow | 1.4% | 0/100 | 5/100 | 0/0
+#16 | torvalds/linux | 1.0% | 2/100 | 0/0 | 0/0
+
+Average AII: 13.2%
+Total events analyzed: 4446</description></item><item><title>AI Radar Report — 2026-03-19</title><link>https://aiintrusion.dpdns.org/2026-03-19/</link><guid>https://aiintrusion.dpdns.org/2026-03-19/</guid><pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-03-19
+Repos analyzed: 8
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | open-webui/open-webui | 14.7% | 1/100 | 36/100 | 0/21
+#2 | mem0ai/mem0 | 7.0% | 11/100 | 1/100 | 1/19
+#3 | openclaw/openclaw | 6.0% | 2/100 | 12/100 | 347/354
+#4 | HKUDS/nanobot | 5.0% | 7/100 | 2/100 | 0/12
+#5 | huggingface/transformers | 2.8% | 4/100 | 1/100 | 5/142
+#6 | langchain-ai/deepagents | 2.6% | 0/100 | 7/100 | 2/10
+#7 | ollama/ollama | 1.6% | 2/100 | 1/100 | 4/42
+#8 | torvalds/linux | 0.6% | 1/100 | 0/0 | 0/0
+
+Average AII: 5.0%
+Total events analyzed: 2100</description></item></channel></rss>
