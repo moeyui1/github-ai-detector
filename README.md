@@ -11,6 +11,8 @@ English | [中文](README_ZH.md)
 [![Daily AI Radar Report](https://github.com/moeyui1/github-ai-detector/actions/workflows/daily-report.yml/badge.svg)](https://github.com/moeyui1/github-ai-detector/actions/workflows/daily-report.yml)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Python](https://img.shields.io/badge/python-3.10%2B-brightgreen)
+![Last Commit](https://img.shields.io/github/last-commit/moeyui1/github-ai-detector)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Faiintrusion.dpdns.org)
 
 ## Why?
 
