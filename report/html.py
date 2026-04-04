@@ -398,8 +398,11 @@ def _build_robots(out_dir: Path, site_url: str) -> None:
     print(f"Robots → {robots_path}")
 
 
-def _build_deploy_config(out_dir: Path) -> None:
+def _build_deploy_config(out_dir: Path, config: dict | None = None) -> None:
     """Write Cloudflare Workers deploy files (.gitignore, wrangler.jsonc, .nojekyll)."""
+    data = config or _load_config()
+    deploy = data.get("deploy", {})
+
     gitignore_content = "\n".join([
         "# wrangler files",
         ".wrangler",
@@ -408,14 +411,18 @@ def _build_deploy_config(out_dir: Path) -> None:
         ".env*",
         "!.env.example",
         "",
+        "# dependencies",
+        "node_modules/",
+        ".npm/",
+        "",
     ])
     (out_dir / ".gitignore").write_text(gitignore_content, encoding="utf-8")
 
     wrangler_content = json.dumps({
         "$schema": "node_modules/wrangler/config-schema.json",
-        "name": "github-ai-detector",
-        "compatibility_date": "2026-04-03",
-        "observability": {"enabled": True},
+        "name": deploy.get("worker_name", "github-ai-detector"),
+        "compatibility_date": deploy.get("compatibility_date", "2026-04-03"),
+        "observability": {"enabled": deploy.get("observability", True)},
         "assets": {"directory": "."},
         "compatibility_flags": ["nodejs_compat"],
     }, indent=2) + "\n"

@@ -126,6 +126,12 @@ ai = [
 # SQLite database file path
 path = "ai_radar.db"
 
+[deploy]
+# Cloudflare Workers deployment settings
+worker_name = "github-ai-detector"
+compatibility_date = "2026-04-03"
+observability = true
+
 [icons]
 # Custom icons for repositories (optional).
 # Key = "owner/repo", value = icon image URL.
