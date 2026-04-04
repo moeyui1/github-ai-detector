@@ -398,6 +398,41 @@ def _build_robots(out_dir: Path, site_url: str) -> None:
     print(f"Robots → {robots_path}")
 
 
+def _build_deploy_config(out_dir: Path, config: dict | None = None) -> None:
+    """Write Cloudflare Workers deploy files (.gitignore, wrangler.jsonc, .nojekyll)."""
+    data = config or _load_config()
+    deploy = data.get("deploy", {})
+
+    gitignore_content = "\n".join([
+        "# wrangler files",
+        ".wrangler",
+        ".dev.vars*",
+        "!.dev.vars.example",
+        ".env*",
+        "!.env.example",
+        "",
+        "# dependencies",
+        "node_modules/",
+        ".npm/",
+        "",
+    ])
+    (out_dir / ".gitignore").write_text(gitignore_content, encoding="utf-8")
+
+    wrangler_content = json.dumps({
+        "$schema": "node_modules/wrangler/config-schema.json",
+        "name": deploy.get("worker_name", "github-ai-detector"),
+        "compatibility_date": deploy.get("compatibility_date", "2026-04-03"),
+        "observability": {"enabled": deploy.get("observability", True)},
+        "assets": {"directory": "."},
+        "compatibility_flags": ["nodejs_compat"],
+    }, indent=2) + "\n"
+    (out_dir / "wrangler.jsonc").write_text(wrangler_content, encoding="utf-8")
+
+    (out_dir / ".nojekyll").write_text("", encoding="utf-8")
+
+    print(f"Deploy config → {out_dir}/.gitignore, wrangler.jsonc, .nojekyll")
+
+
 # ── Build history index ──────────────────────────────────────
 
 def build_history_index(reports_dir: Path, out_dir: Path) -> None:
@@ -451,6 +486,9 @@ def build_history_index(reports_dir: Path, out_dir: Path) -> None:
     _build_rss(reports_dir, out_dir, site_url)
     _build_sitemap(out_dir, site_url)
     _build_robots(out_dir, site_url)
+
+    # Generate deploy configuration files
+    _build_deploy_config(out_dir)
 
 
 # ── Main ─────────────────────────────────────────────────────
