@@ -16,13 +16,14 @@ from providers.base import BaseProvider
 
 from engine.cache import CacheRepo, event_key, event_updated_at, cache_is_fresh
 from engine.commits import analyze_single_commit, build_commit_events
-from engine.github_api import _gh_get_one, fetch_commits, fetch_pulls, fetch_pr_reviews_batch, fetch_repo_templates
+from engine.github_api import _gh_get_one, fetch_commits, fetch_pulls_and_issues, fetch_pr_reviews_batch, fetch_repo_templates
 from engine.models import (
     ActorKind,
     AnalysisResult,
     EventRecord,
     LLMLogEntry,
     SingleItemResult,
+    get_ai_tool,
 )
 from engine.pulls import analyze_single_pr, build_pr_events
 from engine.scoring import _rebase_penalty, _safe_llm_score, _safe_llm_score_batch
@@ -125,7 +126,7 @@ def analyze_repo(
                                 max_pages=get_config().analysis.max_pages)
     _log.info("Fetched %d commits", len(raw_commits))
     _update("Fetching pull requests …")
-    raw_prs = fetch_pulls(owner, repo, token, max_items=max_items)
+    raw_prs, _ = fetch_pulls_and_issues(owner, repo, token, max_items=max_items)
     _log.info("Fetched %d pull requests", len(raw_prs))
 
     # ── Fetch repo templates (for PR/Issue accuracy) ──────
@@ -294,10 +295,16 @@ def analyze_repo(
         raw_aii = 0.0
     result.aii = round(raw_aii * (1 - result.bot_rate), 4)
 
-    # ── Count-based metrics ───────────────────────────────────
+    # ── Count-based metrics & AI tool tagging ─────────────────
     ai_threshold = get_config().analysis.high_risk_threshold
     for ev in result.events:
         is_ai = ev.ai_score >= ai_threshold or ev.actor_kind == ActorKind.AI_BOT
+        if is_ai:
+            tool = get_ai_tool(ev.actor, ev.reason, ev.title)
+            if tool:
+                ev.extra["ai_tool"] = tool
+            elif ev.actor_kind != ActorKind.AI_BOT:
+                ev.extra["ai_tool"] = "Unidentified AI"
         if ev.kind == "commit":
             result.commit_total += 1
             if is_ai:
@@ -342,8 +349,10 @@ def analyze_single(
         _update("Detecting item type …")
         try:
             _gh_get_one(f"/repos/{owner}/{repo}/pulls/{identifier}", token)
-        except httpx.HTTPStatusError:
-            raise ValueError(f"PR #{identifier} not found in {owner}/{repo}")
+        except httpx.HTTPStatusError as exc:
+            if exc.response.status_code == 404:
+                raise ValueError(f"PR #{identifier} not found in {owner}/{repo}")
+            raise
         _log.info("Resolved item_type=pr for #%s", identifier)
 
     if item_type == "commit":

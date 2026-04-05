@@ -108,6 +108,41 @@ def _build_provider():
     return get_provider(name, **kwargs)
 
 
+def _compute_ai_contributors(results: list[dict]) -> list[dict]:
+    """Aggregate commit/PR/review counts by AI tool across all repos."""
+    from collections import defaultdict
+    from engine.models import get_ai_tool_profile
+
+    tool_stats: dict[str, dict[str, int]] = defaultdict(lambda: {"commits": 0, "prs": 0, "reviews": 0})
+    for r in results:
+        for ev in r.get("events", []):
+            tool = ev.get("ai_tool")
+            if not tool or tool == "Unidentified AI":
+                continue
+            kind = ev["kind"]
+            if kind == "commit":
+                tool_stats[tool]["commits"] += 1
+            elif kind == "pr":
+                tool_stats[tool]["prs"] += 1
+            elif kind == "review":
+                tool_stats[tool]["reviews"] += 1
+    # Sort by total count descending
+    ranked = sorted(
+        tool_stats.items(),
+        key=lambda kv: kv[1]["commits"] + kv[1]["prs"] + kv[1]["reviews"],
+        reverse=True,
+    )
+    out = []
+    for tool, counts in ranked:
+        entry: dict = {"tool": tool, **counts}
+        profile = get_ai_tool_profile(tool)
+        if profile:
+            entry["github_url"] = profile[0]
+            entry["avatar_url"] = profile[1]
+        out.append(entry)
+    return out
+
+
 def _serialize_result(result: AnalysisResult) -> dict:
     """Convert AnalysisResult to a JSON-serialisable dict."""
     return {
@@ -133,6 +168,7 @@ def _serialize_result(result: AnalysisResult) -> dict:
                 "reason": e.reason,
                 "url": e.url,
                 "created_at": e.created_at,
+                **(({"ai_tool": e.extra["ai_tool"]} if "ai_tool" in e.extra else {})),
             }
             for e in result.events
         ],
@@ -266,9 +302,14 @@ def main() -> None:
 
     # Write report
     date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    # Compute AI contributors summary across all repos
+    ai_contributors = _compute_ai_contributors(serialised_results)
+
     meta = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "date": date_str,
+        "ai_contributors": ai_contributors,
         "repos": serialised_results,
     }
     json_path = out_dir / f"report-{date_str}.json"

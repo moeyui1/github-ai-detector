@@ -61,6 +61,48 @@
     {% endif %}
   </div>
 
+  {#- AI Contributors Breakdown -#}
+  {% if ai_contributors %}
+  <div class="mb-8">
+    <h2 class="text-lg font-bold mb-3">🤖 AI Contributors</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      {% for c in ai_contributors %}
+      {% set total = c.commits + c.prs + c.reviews %}
+      <div class="bg-white border border-beige-200 rounded-xl p-4 shadow-sm hover:border-primary/40 transition-colors">
+        <div class="flex items-center gap-2 mb-2">
+          {% if c.avatar_url %}
+          <a href="{{ c.github_url }}" target="_blank" rel="noopener" title="{{ c.tool }} on GitHub">
+            <img class="w-8 h-8 rounded-lg bg-beige-200 shrink-0 hover:ring-2 hover:ring-primary/40 transition-shadow"
+                 src="{{ c.avatar_url }}" alt="{{ c.tool }}" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+          </a>
+          {% endif %}
+          <div class="min-w-0">
+            {% if c.github_url %}
+            <a href="{{ c.github_url }}" target="_blank" rel="noopener"
+               class="font-bold text-sm truncate block hover:text-primary transition-colors" title="{{ c.tool }}">{{ c.tool }}</a>
+            {% else %}
+            <div class="font-bold text-sm truncate" title="{{ c.tool }}">{{ c.tool }}</div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="text-2xl font-extrabold font-mono text-primary mb-2">{{ total }}</div>
+        <div class="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-base-content/50">
+          {% if c.commits %}
+          <div><span class="opacity-50">Commits</span> <span class="font-mono font-medium">{{ c.commits }}</span></div>
+          {% endif %}
+          {% if c.prs %}
+          <div><span class="opacity-50">PRs</span> <span class="font-mono font-medium">{{ c.prs }}</span></div>
+          {% endif %}
+          {% if c.reviews %}
+          <div><span class="opacity-50">Reviews</span> <span class="font-mono font-medium">{{ c.reviews }}</span></div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
   {#- Detail table -#}
   <div class="mb-8">
     <h2 class="text-lg font-bold mb-3">📋 Detail</h2>

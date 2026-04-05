@@ -164,17 +164,44 @@ def fetch_pulls_and_issues(
     return prs, issues
 
 
+# ── Repo metadata ────────────────────────────────────────────
+
+def fetch_repo_pushed_at(owner: str, repo: str, token: str) -> str | None:
+    """Return the ``pushed_at`` ISO timestamp for a repo, or *None* on error."""
+    try:
+        data = _gh_get_one(f"/repos/{owner}/{repo}", token)
+        return data.get("pushed_at")
+    except (httpx.HTTPStatusError, httpx.TimeoutException, httpx.NetworkError) as exc:
+        _log.warning("fetch_repo_pushed_at %s/%s failed: %s", owner, repo, exc)
+        return None
+
+
 # ── Trending repos ────────────────────────────────────────────
 
-def fetch_trending_repos(token: str, count: int = 10) -> list[str]:
+def fetch_trending_repos(
+    token: str,
+    count: int = 10,
+    *,
+    active_days: int = 0,
+    topic: str | None = None,
+) -> list[str]:
     """Fetch today's trending repos via GitHub Search API.
 
-    Uses ``/search/repositories`` with ``pushed:>=TODAY`` sorted by stars.
+    Uses ``/search/repositories`` with ``pushed:>=DATE`` sorted by stars.
+    If *active_days* > 0, the pushed date filter uses ``today - active_days``.
+    If *topic* is given, adds ``topic:<topic>`` to the query.
     Returns a list of ``owner/repo`` strings (up to *count*).
     """
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    if active_days > 0:
+        from datetime import timedelta
+        pushed_since = (datetime.now(timezone.utc) - timedelta(days=active_days)).strftime("%Y-%m-%d")
+    else:
+        pushed_since = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    q = f"pushed:>={pushed_since}"
+    if topic:
+        q += f" topic:{topic}"
     params: dict = {
-        "q": f"pushed:>={today}",
+        "q": q,
         "sort": "stars",
         "order": "desc",
         "per_page": count,
@@ -191,7 +218,7 @@ def fetch_trending_repos(token: str, count: int = 10) -> list[str]:
                 for item in data.get("items", [])
                 if not item.get("name", "").lower().startswith("awesome")
             ]
-            _log.info("fetch_trending_repos: %d repos (query: pushed>=%s)", len(repos), today)
+            _log.info("fetch_trending_repos: %d repos (query: %s)", len(repos), q)
             return repos
         except (httpx.TimeoutException, httpx.NetworkError) as exc:
             if attempt >= _MAX_RETRIES - 1:

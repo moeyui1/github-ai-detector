@@ -44,6 +44,8 @@ def main() -> None:
             kwargs: dict = {"model": cfg.llm.model}
             if cfg.llm.provider == "openai":
                 kwargs["api_key"] = cfg.llm.api_key
+            elif cfg.llm.provider == "github":
+                kwargs["token"] = gh_token
             else:
                 kwargs["token"] = cfg.llm.api_key
             provider = get_provider(cfg.llm.provider, **kwargs)

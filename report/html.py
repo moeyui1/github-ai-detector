@@ -259,6 +259,7 @@ def build_site(report_data: dict, out_dir: Path, *,
 
     # Render main report page
     tmpl = _env.get_template("report.html")
+    ai_contributors = report_data.get("ai_contributors", [])
     page = tmpl.render(
         repos=repos,
         sorted_repos=sorted_repos,
@@ -267,6 +268,7 @@ def build_site(report_data: dict, out_dir: Path, *,
         js_path=js_path,
         favicon_path=favicon_path,
         site_url=site_url,
+        ai_contributors=ai_contributors,
     )
 
     out_dir.mkdir(parents=True, exist_ok=True)
