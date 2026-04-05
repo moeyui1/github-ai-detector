@@ -38,6 +38,8 @@ _AI_COLLAB_PATTERNS = re.compile(
     r"\bAI[- ](?:generated|assisted|authored|created|contributed|powered)\b"
     r"|"
     r"\b(?:copilot|GPT|claude|codex|cursor|aider|devin)\s+(?:generated|wrote|created|authored)\b"
+    r"|"
+    r"\bauto[- ]submitted\b"
 )
 
 
