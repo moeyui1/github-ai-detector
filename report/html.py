@@ -119,10 +119,10 @@ def _load_history(reports_dir: Path) -> dict[str, list[tuple[str, float]]]:
 # to each repo dict so templates can use them directly.
 
 def _compute_trend(series: list[tuple[str, float]]) -> dict | None:
-    """Compute trend direction and diff from history series (last 30 points)."""
+    """Compute trend direction and diff from history series (last 7 points)."""
     if len(series) < 2:
         return None
-    series = series[-30:]
+    series = series[-7:]
     first_avg = sum(v for _, v in series[:max(1, len(series)//4)]) / max(1, len(series)//4)
     last_avg = sum(v for _, v in series[-max(1, len(series)//4):]) / max(1, len(series)//4)
     diff = last_avg - first_avg
@@ -137,9 +137,9 @@ def _compute_trend(series: list[tuple[str, float]]) -> dict | None:
 def _compute_sparkline(series: list[tuple[str, float]], color_cls: str) -> dict:
     """Compute sparkline SVG data from history series."""
     empty = {"points": False}
-    if len(series) < 5:
+    if len(series) < 2:
         return empty
-    series = series[-30:]
+    series = series[-7:]
     values = [v for _, v in series]
     n = len(values)
     w, h, pad = 120, 36, 3
@@ -183,9 +183,9 @@ def _compute_sparkline(series: list[tuple[str, float]], color_cls: str) -> dict:
 
 def _compute_chart(series: list[tuple[str, float]], cls: str, counter: int) -> dict | None:
     """Compute ECharts data for a repo trend chart."""
-    if len(series) < 5:
+    if len(series) < 2:
         return None
-    series = series[-30:]
+    series = series[-7:]
     color_map = {"high": "#dc2626", "med": "#ca8a04", "low": "#16a34a"}
     return {
         "id": f"echart-{counter}",
