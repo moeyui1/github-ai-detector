@@ -119,9 +119,10 @@ def _load_history(reports_dir: Path) -> dict[str, list[tuple[str, float]]]:
 # to each repo dict so templates can use them directly.
 
 def _compute_trend(series: list[tuple[str, float]]) -> dict | None:
-    """Compute trend direction and diff from history series."""
+    """Compute trend direction and diff from history series (last 30 points)."""
     if len(series) < 2:
         return None
+    series = series[-30:]
     first_avg = sum(v for _, v in series[:max(1, len(series)//4)]) / max(1, len(series)//4)
     last_avg = sum(v for _, v in series[-max(1, len(series)//4):]) / max(1, len(series)//4)
     diff = last_avg - first_avg
