@@ -161,8 +161,15 @@
   {% set kind_colors = {"COMMIT": "badge-success", "PR": "badge-error", "ISSUE": "badge-info", "REVIEW": "badge-warning"} %}
   {% set kind_cls = kind_colors.get(kind, "badge-ghost") %}
   {% set actor = e.actor %}
-  {% set is_copilot = actor|lower == "copilot" %}
-  {% set actor_avatar = "https://avatars.githubusercontent.com/in/29110?s=32" if is_copilot else "https://github.com/" ~ actor ~ ".png?size=32" %}
+  {% set is_bot = "[bot]" in actor|lower %}
+  {% set bot_slug = actor|lower|replace("[bot]", "") if is_bot else "" %}
+  {% if is_bot %}
+    {% set actor_avatar = "https://github.com/" ~ bot_slug ~ ".png?size=32" %}
+    {% set actor_url = "https://github.com/apps/" ~ bot_slug %}
+  {% else %}
+    {% set actor_avatar = "https://github.com/" ~ actor ~ ".png?size=32" %}
+    {% set actor_url = "https://github.com/" ~ actor %}
+  {% endif %}
   {% set url = e.url|default("") %}
   {% set title = e.title[:60] %}
   {% set reason = (e.reason|default(""))[:40] %}
@@ -177,11 +184,7 @@
     <td>
       <div class="flex items-center gap-2">
         <img class="w-6 h-6 rounded-full bg-beige-200" src="{{ actor_avatar }}" loading="lazy" onerror="this.style.display='none'">
-        {%- if is_copilot %}
-        <span class="font-medium text-sm">{{ actor }}</span>
-        {%- else %}
-        <a href="https://github.com/{{ actor }}" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">{{ actor }}</a>
-        {%- endif %}
+        <a href="{{ actor_url }}" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">{{ actor }}</a>
       </div>
     </td>
     <td class="max-w-[160px] truncate">
