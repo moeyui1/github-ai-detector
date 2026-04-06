@@ -5,14 +5,14 @@
 [github]
 # Repositories to analyse (URL or owner/repo format, one per line)
 repos = [
-    "https://github.com/HKUDS/nanobot",
     "https://github.com/openclaw/openclaw",
     "ollama/ollama",
     "open-webui/open-webui",
     "huggingface/transformers",
     "mem0ai/mem0",
     "torvalds/linux",
-    "moeyui1/github-ai-detector"
+    "moeyui1/github-ai-detector",
+    "https://github.com/AstrBotDevs/AstrBot"
 ]
 # Number of today's trending repos to pull automatically per run (0 = disabled)
 trending_count = 10
