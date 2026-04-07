@@ -34,6 +34,10 @@ _env = Environment(
     lstrip_blocks=True,
 )
 
+# Expose bot avatar mapping to all templates
+from engine.models import BOT_AVATAR_MAP as _BOT_AVATAR_MAP
+_env.globals["bot_avatars"] = _BOT_AVATAR_MAP
+
 
 # ── Helpers ──────────────────────────────────────────────────
 

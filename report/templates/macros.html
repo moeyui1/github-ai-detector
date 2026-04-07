@@ -163,7 +163,10 @@
   {% set actor = e.actor %}
   {% set is_bot = "[bot]" in actor|lower %}
   {% set bot_slug = actor|lower|replace("[bot]", "") if is_bot else "" %}
-  {% if is_bot %}
+  {% if actor|lower in bot_avatars %}
+    {% set actor_avatar = bot_avatars[actor|lower] %}
+    {% set actor_url = "https://github.com/apps/" ~ bot_slug %}
+  {% elif is_bot %}
     {% set actor_avatar = "https://github.com/" ~ bot_slug ~ ".png?size=32" %}
     {% set actor_url = "https://github.com/apps/" ~ bot_slug %}
   {% else %}

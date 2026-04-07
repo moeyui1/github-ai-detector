@@ -122,7 +122,7 @@ def _normalise_tool(raw: str) -> str:
 # is_app=False → https://github.com/{slug}, avatar from github.com/{slug}.png
 AI_TOOL_GITHUB: dict[str, tuple[str, str]] = {
     "GitHub Copilot":    ("https://github.com/apps/copilot",      "https://avatars.githubusercontent.com/in/29110?s=80"),
-    "Claude":            ("https://github.com/apps/claude",       "https://avatars.githubusercontent.com/in/1167075?s=80"),
+    "Claude":            ("https://github.com/apps/claude",       "https://avatars.githubusercontent.com/in/1236702?s=80"),
     "ChatGPT":           ("https://github.com/apps/chatgpt-codex-connector", "https://avatars.githubusercontent.com/in/1144995?s=80"),
     "ChatGPT Codex":     ("https://github.com/apps/chatgpt-codex-connector", "https://avatars.githubusercontent.com/in/1144995?s=80"),
     "OpenAI Codex":      ("https://github.com/apps/chatgpt-codex-connector", "https://avatars.githubusercontent.com/in/1144995?s=80"),
@@ -147,6 +147,16 @@ AI_TOOL_GITHUB: dict[str, tuple[str, str]] = {
 def get_ai_tool_profile(tool_name: str) -> tuple[str, str] | None:
     """Return (github_url, avatar_url) for a known AI tool, or None."""
     return AI_TOOL_GITHUB.get(tool_name)
+
+
+# Pre-built mapping: bot login (lowercase) → avatar URL.
+# Derived from AI_TOOL_NAMES + AI_TOOL_GITHUB so templates can look up
+# the correct avatar for any known bot actor without redirects.
+BOT_AVATAR_MAP: dict[str, str] = {}
+for _login, _tool in AI_TOOL_NAMES.items():
+    _profile = AI_TOOL_GITHUB.get(_tool)
+    if _profile:
+        BOT_AVATAR_MAP[_login] = _profile[1]
 
 
 # ────────────────────────────────────────────────────────────────
