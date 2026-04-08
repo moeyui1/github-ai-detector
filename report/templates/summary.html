@@ -61,10 +61,10 @@
     {% endif %}
   </div>
 
-  {#- AI Contributors Breakdown -#}
+  {#- Top agents Breakdown -#}
   {% if ai_contributors %}
   <div class="mb-8">
-    <h2 class="text-lg font-bold mb-3">🤖 AI Contributors</h2>
+    <h2 class="text-lg font-bold mb-3">🏆 Top agents</h2>
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
       {% for c in ai_contributors %}
       {% set total = c.commits + c.prs + c.reviews %}

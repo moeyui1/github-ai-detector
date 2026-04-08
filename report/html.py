@@ -239,6 +239,49 @@ def _site_url_for_path(site_url: str, path: Path) -> str:
     return f"{site_url}/{rel_path}"
 
 
+# ── AI Contributors aggregation ──────────────────────────────
+
+def _aggregate_ai_contributors(reports_dir: Path, up_to_date: str | None = None, days: int = 7) -> list[dict]:
+    """Aggregate ai_contributors from the last *days* report files up to *up_to_date*."""
+    from collections import defaultdict
+    from engine.models import get_ai_tool_profile
+
+    report_files = sorted(reports_dir.glob("report-*.json"))
+    if up_to_date:
+        report_files = [f for f in report_files
+                        if f.stem.replace("report-", "") <= up_to_date]
+    report_files = report_files[-days:]
+
+    tool_stats: dict[str, dict[str, int]] = defaultdict(lambda: {"commits": 0, "prs": 0, "reviews": 0})
+    for rfile in report_files:
+        try:
+            data = json.loads(rfile.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for contrib in data.get("ai_contributors", []):
+            tool = contrib.get("tool", "")
+            if not tool:
+                continue
+            tool_stats[tool]["commits"] += contrib.get("commits", 0)
+            tool_stats[tool]["prs"] += contrib.get("prs", 0)
+            tool_stats[tool]["reviews"] += contrib.get("reviews", 0)
+
+    ranked = sorted(
+        tool_stats.items(),
+        key=lambda kv: kv[1]["commits"] + kv[1]["prs"] + kv[1]["reviews"],
+        reverse=True,
+    )
+    out = []
+    for tool, counts in ranked:
+        entry: dict = {"tool": tool, **counts}
+        profile = get_ai_tool_profile(tool)
+        if profile:
+            entry["github_url"] = profile[0]
+            entry["avatar_url"] = profile[1]
+        out.append(entry)
+    return out
+
+
 # ── Build site ───────────────────────────────────────────────
 
 def build_site(report_data: dict, out_dir: Path, *,
@@ -460,6 +503,7 @@ def build_history_index(reports_dir: Path, out_dir: Path) -> None:
     for rfile in report_files:
         data = json.loads(rfile.read_text(encoding="utf-8"))
         date_str = data.get("date", rfile.stem.replace("report-", ""))
+        data["ai_contributors"] = _aggregate_ai_contributors(reports_dir, up_to_date=date_str)
         day_dir = out_dir / date_str
         build_site(data, day_dir, history=history, available_dates=available_dates,
                    css_path="../style.css")
@@ -467,6 +511,7 @@ def build_history_index(reports_dir: Path, out_dir: Path) -> None:
     # Build root page — use the latest report
     root_file = report_files[0]
     root_data = json.loads(root_file.read_text(encoding="utf-8"))
+    root_data["ai_contributors"] = _aggregate_ai_contributors(reports_dir)
     build_site(root_data, out_dir, history=history, available_dates=available_dates)
 
     # Build history index page
