@@ -34,23 +34,37 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   window.scrollTo(0, 0);
 
+  var body = document.body;
   var sidebar = document.getElementById('sidebar');
-  var links = sidebar ? sidebar.querySelectorAll('nav a[data-repo]') : [];
-  var sections = document.querySelectorAll('.repo-section');
+  var links = sidebar ? Array.prototype.slice.call(sidebar.querySelectorAll('nav a[data-repo]')) : [];
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.repo-section'));
   var menuToggle = document.getElementById('menu-toggle');
   var overlay = document.getElementById('sidebar-overlay');
   var navItems = sidebar ? sidebar.querySelectorAll('.nav-item') : [];
+  var rankToggle = document.getElementById('rank-toggle');
+  var collapsedRankings = document.getElementById('rank-collapsed');
+  var sectionMarkupCache = {};
+  var sectionMarkupPromises = {};
+  var echartsPromise = null;
+
+  function setMenuExpanded(isExpanded) {
+    if (!menuToggle) return;
+    var menuIcon = menuToggle.querySelector('.icon-menu');
+    var closeIcon = menuToggle.querySelector('.icon-close');
+    menuToggle.setAttribute('aria-expanded', String(isExpanded));
+    if (menuIcon) menuIcon.classList.toggle('hidden', isExpanded);
+    if (closeIcon) closeIcon.classList.toggle('hidden', !isExpanded);
+  }
 
   // ── Mobile menu ──
   function closeMobile() {
     if (sidebar) sidebar.classList.add('max-md:-translate-x-full');
     if (overlay) overlay.classList.add('hidden');
-    if (menuToggle) {
-      menuToggle.querySelector('.icon-menu').classList.remove('hidden');
-      menuToggle.querySelector('.icon-close').classList.add('hidden');
-    }
+    body.classList.remove('overflow-hidden');
+    setMenuExpanded(false);
   }
   if (menuToggle) {
+    setMenuExpanded(false);
     menuToggle.addEventListener('click', function() {
       var isOpen = !sidebar.classList.contains('max-md:-translate-x-full');
       if (isOpen) {
@@ -58,8 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         sidebar.classList.remove('max-md:-translate-x-full');
         overlay.classList.remove('hidden');
-        menuToggle.querySelector('.icon-menu').classList.add('hidden');
-        menuToggle.querySelector('.icon-close').classList.remove('hidden');
+        body.classList.add('overflow-hidden');
+        setMenuExpanded(true);
       }
     });
   }
@@ -70,15 +84,11 @@ document.addEventListener('DOMContentLoaded', function() {
     navItems.forEach(function(ni) { ni.classList.remove('expanded'); });
   }
 
-  // ── Section switching ──
-  function show(id, push) {
-    sections.forEach(function(s) { s.classList.remove('active'); });
+  function setActiveLink(id, options) {
     links.forEach(function(l) {
       l.classList.remove('!opacity-100', '!border-l-blue-600', '!bg-beige-200/60');
       l.classList.add('opacity-60');
     });
-    var target = document.getElementById(id);
-    if (target) target.classList.add('active');
     var link = sidebar ? sidebar.querySelector('a[data-repo="' + id + '"]') : null;
     if (link) {
       link.classList.add('!opacity-100', '!border-l-blue-600', '!bg-beige-200/60');
@@ -86,12 +96,203 @@ document.addEventListener('DOMContentLoaded', function() {
       collapseAll();
       var parentNavItem = link.closest('.nav-item');
       if (parentNavItem) parentNavItem.classList.add('expanded');
-      link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      link.scrollIntoView({ block: 'nearest', behavior: options && options.instant ? 'auto' : 'smooth' });
     }
+  }
+
+  function getFragmentPath(section) {
+    return section ? section.getAttribute('data-fragment') || '' : '';
+  }
+
+  function fetchSectionMarkup(section) {
+    var fragmentPath = getFragmentPath(section);
+    if (!fragmentPath) return Promise.resolve('');
+    if (sectionMarkupCache[fragmentPath]) return Promise.resolve(sectionMarkupCache[fragmentPath]);
+    if (sectionMarkupPromises[fragmentPath]) return sectionMarkupPromises[fragmentPath];
+
+    sectionMarkupPromises[fragmentPath] = fetch(fragmentPath, { credentials: 'same-origin' }).then(function(response) {
+      if (!response.ok) {
+        throw new Error('Failed to load section fragment: ' + fragmentPath);
+      }
+      return response.text();
+    }).then(function(markup) {
+      sectionMarkupCache[fragmentPath] = markup;
+      delete sectionMarkupPromises[fragmentPath];
+      return markup;
+    }).catch(function(error) {
+      delete sectionMarkupPromises[fragmentPath];
+      throw error;
+    });
+
+    return sectionMarkupPromises[fragmentPath];
+  }
+
+  function ensureSectionContent(section) {
+    if (!section || section.dataset.loaded === 'true' || !getFragmentPath(section)) {
+      return Promise.resolve(section);
+    }
+
+    section.setAttribute('aria-busy', 'true');
+    section.dataset.loading = 'true';
+
+    return fetchSectionMarkup(section).then(function(markup) {
+      section.innerHTML = markup;
+      section.dataset.loaded = 'true';
+      delete section.dataset.loading;
+      section.removeAttribute('aria-busy');
+      return section;
+    }).catch(function(error) {
+      delete section.dataset.loading;
+      section.dataset.loaded = 'error';
+      section.removeAttribute('aria-busy');
+      section.innerHTML = '<div class="repo-section-placeholder rounded-xl border border-dashed border-beige-200 bg-white/80 p-5 text-center text-sm text-error shadow-sm"><p>Repository detail failed to load. Click again to retry.</p></div>';
+      throw error;
+    });
+  }
+
+  function ensureECharts() {
+    if (window.echarts) return Promise.resolve(window.echarts);
+    if (!echartsPromise) {
+      echartsPromise = window.loadScriptOnce('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js', 'echarts');
+    }
+    return echartsPromise;
+  }
+
+  function showChartFallback(el) {
+    el.innerHTML = '<p class="text-center text-sm text-base-content/60 py-10">Trend chart unavailable right now.</p>';
+    el.dataset.chartReady = 'error';
+  }
+
+  function renderChart(el) {
+    if (!el || el.dataset.chartReady === 'true' || el.dataset.chartLoading === 'true') return;
+    el.dataset.chartLoading = 'true';
+
+    ensureECharts().then(function() {
+      var dates = JSON.parse(el.getAttribute('data-dates') || '[]');
+      var values = JSON.parse(el.getAttribute('data-values') || '[]');
+      var color = el.getAttribute('data-color') || '#2563eb';
+      var name = el.getAttribute('data-name') || 'AII';
+      if (!dates.length || !values.length) {
+        showChartFallback(el);
+        return;
+      }
+
+      var chart = echarts.init(el, null, { renderer: 'canvas' });
+      chart.setOption({
+        backgroundColor: 'transparent',
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#fffdf9',
+          borderColor: '#d9cfc3',
+          borderRadius: 8,
+          padding: [10, 14],
+          textStyle: { color: '#1f2937', fontSize: 13, fontFamily: 'DM Sans, sans-serif' },
+          formatter: function(params) {
+            var p = params[0];
+            return '<b>' + p.name + '</b><br/><span style="color:' + color + '">●</span> ' + name + ': <b>' + p.value.toFixed(2) + '%</b>';
+          }
+        },
+        grid: { left: 48, right: 16, top: 16, bottom: 32 },
+        xAxis: {
+          type: 'category',
+          data: dates,
+          axisLine: { lineStyle: { color: '#e2dace' } },
+          axisTick: { show: false },
+          axisLabel: {
+            color: '#9ca3af',
+            fontSize: 11,
+            fontFamily: 'DM Mono, monospace',
+            interval: Math.max(0, Math.floor(dates.length / 6) - 1),
+            formatter: function(v) { return v.slice(5); }
+          }
+        },
+        yAxis: {
+          type: 'value',
+          splitLine: { lineStyle: { color: '#f0ebe4', type: 'dashed' } },
+          axisLabel: {
+            color: '#9ca3af',
+            fontSize: 11,
+            fontFamily: 'DM Mono, monospace',
+            formatter: '{value}%'
+          }
+        },
+        series: [{
+          type: 'line',
+          data: values,
+          smooth: 0.3,
+          symbol: 'circle',
+          symbolSize: 7,
+          lineStyle: { color: color, width: 2.5 },
+          itemStyle: { color: color, borderColor: '#fff', borderWidth: 2 },
+          emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 8, shadowColor: color + '44' } },
+          areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: color + '30' },
+            { offset: 0.6, color: color + '10' },
+            { offset: 1, color: color + '02' }
+          ]) }
+        }]
+      });
+      el.dataset.chartReady = 'true';
+      delete el.dataset.chartLoading;
+      if (window.ResizeObserver) {
+        new ResizeObserver(function() { chart.resize(); }).observe(el);
+      }
+    }).catch(function(err) {
+      console.error(err);
+      showChartFallback(el);
+    });
+  }
+
+  function ensureChartsFor(section) {
+    if (!section) return;
+    section.querySelectorAll('.echart-container').forEach(renderChart);
+  }
+
+  function scheduleSectionWarmup() {
+    var prefetchIds = links.map(function(link) {
+      return link.getAttribute('data-repo');
+    }).filter(function(id) {
+      return id && id !== 'summary';
+    }).slice(0, 3);
+
+    if (!prefetchIds.length) return;
+
+    function warmup() {
+      prefetchIds.forEach(function(id, index) {
+        setTimeout(function() {
+          var section = document.getElementById(id);
+          if (!section || section.dataset.loaded === 'true') return;
+          fetchSectionMarkup(section).catch(function() { return null; });
+        }, index * 180);
+      });
+    }
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(warmup, { timeout: 1200 });
+    } else {
+      setTimeout(warmup, 900);
+    }
+  }
+
+  // ── Section switching ──
+  function show(id, push, options) {
+    sections.forEach(function(s) { s.classList.remove('active'); });
+    var target = document.getElementById(id);
+    if (!target && sections.length > 0) target = sections[0];
+    if (target) target.classList.add('active');
+    if (!target) return;
+    setActiveLink(target.id, options);
+    ensureSectionContent(target).then(function(section) {
+      if (section && section.classList.contains('active')) ensureChartsFor(section);
+    }).catch(function(err) {
+      console.error(err);
+    });
     if (push) {
-      history.pushState({ section: id }, '', '#' + id);
+      history.pushState({ section: target.id }, '', '#' + target.id);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!(options && options.skipScroll)) {
+      window.scrollTo({ top: 0, behavior: options && options.instant ? 'auto' : 'smooth' });
+    }
     closeMobile();
   }
 
@@ -125,9 +326,9 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('popstate', function(e) {
     var id = (e.state && e.state.section) || location.hash.slice(1);
     if (id && document.getElementById(id)) {
-      show(id, false);
+      show(id, false, { skipScroll: true });
     } else if (sections.length > 0) {
-      show(sections[0].id, false);
+      show(sections[0].id, false, { skipScroll: true });
     }
   });
 
@@ -135,11 +336,23 @@ document.addEventListener('DOMContentLoaded', function() {
   // Use scrollTo instant (no smooth) on first load to prevent visible scroll jump
   var hash = location.hash.slice(1);
   if (hash && document.getElementById(hash)) {
-    show(hash);
+    show(hash, false, { skipScroll: true, instant: true });
   } else if (sections.length > 0) {
-    show(sections[0].id);
+    show(sections[0].id, false, { skipScroll: true, instant: true });
   }
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  window.scrollTo({ top: 0, behavior: 'auto' });
+
+  if (rankToggle && collapsedRankings) {
+    rankToggle.addEventListener('click', function() {
+      var isExpanded = collapsedRankings.classList.contains('hidden');
+      collapsedRankings.classList.toggle('hidden', !isExpanded);
+      rankToggle.textContent = isExpanded ? rankToggle.getAttribute('data-label-collapse') : rankToggle.getAttribute('data-label-expand');
+      rankToggle.setAttribute('aria-expanded', String(isExpanded));
+    });
+    rankToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  scheduleSectionWarmup();
 
   // ── Animate bars on load ──
   requestAnimationFrame(function() {

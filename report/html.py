@@ -12,9 +12,11 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import shutil
+import time
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
@@ -228,6 +230,47 @@ def _copy_static(out_dir: Path) -> None:
             shutil.copy2(src, out_dir / fname)
 
 
+def _build_asset_versions() -> dict[str, str]:
+    """Return short content hashes for static assets used in generated URLs."""
+    versions: dict[str, str] = {}
+    build_nonce = str(time.time_ns())
+    for fname in ("style.css", "app.js", "favicon.svg"):
+        src = _STATIC_DIR / fname
+        if not src.exists():
+            continue
+        digest = hashlib.sha256(src.read_bytes()).hexdigest()[:10]
+        versions[fname] = f"{digest}-{build_nonce}"
+    return versions
+
+
+def _versioned_asset_path(path: str, asset_versions: dict[str, str] | None = None) -> str:
+    """Append a stable version query to a relative asset path for cache busting."""
+    if not asset_versions:
+        return path
+    clean_path, _, existing_query = path.partition("?")
+    asset_name = Path(clean_path).name
+    version = asset_versions.get(asset_name)
+    if not version:
+        return path
+    if existing_query:
+        return f"{clean_path}?{existing_query}&v={version}"
+    return f"{clean_path}?v={version}"
+
+
+def _write_repo_fragments(out_dir: Path, repos: list[dict], date_str: str) -> None:
+    """Write lazy-loaded repo detail fragments for the report page."""
+    fragment_dir = out_dir / "fragments"
+    if fragment_dir.exists():
+        shutil.rmtree(fragment_dir)
+    fragment_dir.mkdir(parents=True, exist_ok=True)
+
+    tmpl = _env.get_template("repo_section_inner.html")
+    for repo in repos:
+        fragment_html = tmpl.render(r=repo, date_str=date_str)
+        fragment_path = fragment_dir / f"{repo['_slug']}.html"
+        fragment_path.write_text(fragment_html, encoding="utf-8")
+
+
 def _site_url_for_path(site_url: str, path: Path) -> str:
     index_suffix = "/index.html"
     site_url = site_url.rstrip("/")
@@ -287,7 +330,8 @@ def _aggregate_ai_contributors(reports_dir: Path, up_to_date: str | None = None,
 def build_site(report_data: dict, out_dir: Path, *,
                history: dict[str, list[tuple[str, float]]] | None = None,
                available_dates: list[str] | None = None,
-               css_path: str = "style.css") -> None:
+               css_path: str = "style.css",
+               asset_versions: dict[str, str] | None = None) -> None:
     repos = report_data.get("repos", [])
     date_str = report_data.get("date", "unknown")
     config = _load_config()
@@ -301,9 +345,12 @@ def build_site(report_data: dict, out_dir: Path, *,
     repos = _enrich_repos(repos, icon_map, history)
     sorted_repos = sorted(repos, key=lambda r: r["aii"], reverse=True)
 
-    # Derive js_path from css_path
-    js_path = css_path.replace("style.css", "app.js")
-    favicon_path = css_path.replace("style.css", "favicon.svg")
+    css_base_path, _, _ = css_path.partition("?")
+    js_base_path = css_base_path.replace("style.css", "app.js")
+    favicon_base_path = css_base_path.replace("style.css", "favicon.svg")
+    css_path = _versioned_asset_path(css_base_path, asset_versions)
+    js_path = _versioned_asset_path(js_base_path, asset_versions)
+    favicon_path = _versioned_asset_path(favicon_base_path, asset_versions)
 
     # Render main report page
     tmpl = _env.get_template("report.html")
@@ -320,6 +367,7 @@ def build_site(report_data: dict, out_dir: Path, *,
     )
 
     out_dir.mkdir(parents=True, exist_ok=True)
+    _write_repo_fragments(out_dir, repos, date_str)
     index_path = out_dir / "index.html"
     index_path.write_text(page, encoding="utf-8")
     print(f"Site written → {index_path}")
@@ -417,7 +465,10 @@ def _build_sitemap(out_dir: Path, site_url: str) -> None:
     from xml.etree.ElementTree import Element, SubElement, tostring
 
     site_url = site_url.rstrip("/")
-    html_pages = sorted(out_dir.rglob("*.html"))
+    html_pages = [
+        page for page in sorted(out_dir.rglob("*.html"))
+        if "fragments" not in page.relative_to(out_dir).parts
+    ]
     if not html_pages:
         return
 
@@ -498,6 +549,7 @@ def build_history_index(reports_dir: Path, out_dir: Path) -> None:
 
     # Copy static assets to site root
     _copy_static(out_dir)
+    asset_versions = _build_asset_versions()
 
     # Generate per-day report pages
     for rfile in report_files:
@@ -506,13 +558,14 @@ def build_history_index(reports_dir: Path, out_dir: Path) -> None:
         data["ai_contributors"] = _aggregate_ai_contributors(reports_dir, up_to_date=date_str)
         day_dir = out_dir / date_str
         build_site(data, day_dir, history=history, available_dates=available_dates,
-                   css_path="../style.css")
+                   css_path="../style.css", asset_versions=asset_versions)
 
     # Build root page — use the latest report
     root_file = report_files[0]
     root_data = json.loads(root_file.read_text(encoding="utf-8"))
     root_data["ai_contributors"] = _aggregate_ai_contributors(reports_dir)
-    build_site(root_data, out_dir, history=history, available_dates=available_dates)
+    build_site(root_data, out_dir, history=history, available_dates=available_dates,
+               asset_versions=asset_versions)
 
     # Build history index page
     entries = []
@@ -526,8 +579,8 @@ def build_history_index(reports_dir: Path, out_dir: Path) -> None:
     tmpl = _env.get_template("history.html")
     history_html = tmpl.render(
         entries=entries,
-        css_path="style.css",
-        favicon_path="favicon.svg",
+        css_path=_versioned_asset_path("style.css", asset_versions),
+        favicon_path=_versioned_asset_path("favicon.svg", asset_versions),
     )
     history_path = out_dir / "history.html"
     history_path.write_text(history_html, encoding="utf-8")

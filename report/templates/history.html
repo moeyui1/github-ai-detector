@@ -12,14 +12,14 @@
     <h1 class="text-2xl font-bold tracking-tight mb-2">Report History</h1>
     <a href="index.html" class="btn btn-sm btn-outline border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white gap-1">View latest report →</a>
   </div>
-  <div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
-    <table class="table table-sm">
-      <thead><tr><th>Date</th><th>Repos</th></tr></thead>
+  <div class="report-table-shell overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+    <table class="table table-sm report-table report-table-history">
+      <thead class="bg-beige-50"><tr><th>Date</th><th>Repos</th></tr></thead>
       <tbody>
         {% for entry in entries %}
         <tr class="hover">
-          <td><a class="link link-hover text-blue-600 font-mono" href="{{ entry.date }}/index.html">{{ entry.date }}</a></td>
-          <td class="font-mono">{{ entry.n_repos }}</td>
+          <td data-label="Date" class="report-table-main"><a class="link link-hover text-blue-600 font-mono" href="{{ entry.date }}/index.html">{{ entry.date }}</a></td>
+          <td data-label="Repos" class="report-table-metric font-mono">{{ entry.n_repos }}</td>
         </tr>
         {% endfor %}
       </tbody>
