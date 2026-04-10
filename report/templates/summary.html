@@ -54,7 +54,9 @@
     {% endfor %}
     {% if sorted_repos|length > 8 %}
     </div>
-    <button id="rank-toggle" onclick="document.getElementById('rank-collapsed').classList.toggle('hidden');this.textContent=this.textContent.includes('Show')?'Hide':'Show {{ sorted_repos|length - 8 }} more …'"
+        <button id="rank-toggle"
+          data-label-expand="Show {{ sorted_repos|length - 8 }} more …"
+          data-label-collapse="Hide extra repositories"
             class="w-full text-center py-2 text-sm text-blue-600 hover:text-blue-800 font-medium cursor-pointer">
       Show {{ sorted_repos|length - 8 }} more …
     </button>
@@ -63,7 +65,7 @@
 
   {#- Top agents Breakdown -#}
   {% if ai_contributors %}
-  <div class="mb-8">
+  <div class="mb-8 content-visibility-block">
     <h2 class="text-lg font-bold mb-3">🏆 Top agents</h2>
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
       {% for c in ai_contributors %}
@@ -104,12 +106,12 @@
   {% endif %}
 
   {#- Detail table -#}
-  <div class="mb-8">
+  <div class="mb-8 content-visibility-block">
     <h2 class="text-lg font-bold mb-3">📋 Detail</h2>
-    <div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
-    <table class="table table-sm">
+    <div class="report-table-shell overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+    <table class="table table-sm report-table report-table-summary">
     <thead class="bg-beige-50"><tr>
-      {% for col in ["", "Repository", "AII", "Trend", "AI Commits", "AI PRs", "AI Reviews", "Events"] %}
+      {% for col in ["Repository", "AII", "Trend", "AI Commits", "AI PRs", "AI Reviews", "Events"] %}
       <th class="text-xs uppercase tracking-wide opacity-50">{{ col }}</th>
       {% endfor %}
     </tr></thead>
@@ -117,18 +119,21 @@
     {% for r in sorted_repos %}
       {% set cls = r._cls %}
       <tr class="hover">
-        <td><img src="{{ r._avatar }}" class="w-5 h-5 rounded" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'"></td>
-        <td>
-          <a href="#{{ r._slug }}" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2 font-medium">
-            {{ r.repo_name }}
+        <td data-label="Repository" class="report-table-main">
+          <a href="#{{ r._slug }}" class="report-table-link text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2 font-medium">
+            <img src="{{ r._avatar }}" class="report-table-link__avatar" loading="lazy" decoding="async" crossorigin="anonymous" onerror="this.style.display='none'">
+            <span class="report-table-link__stack">
+              <span class="report-table-link__text report-table-link__text--full hidden md:inline">{{ r.repo_name }}</span>
+              <span class="report-table-link__text report-table-link__text--short md:hidden">{{ r.repo_name.split('/')[-1] }}</span>
+            </span>
           </a>
         </td>
-        <td><span class="badge {{ badge_cls(cls) }} badge-sm font-mono">{{ pct(r.aii) }}</span></td>
-        <td>{{ trend_html(r._trend) }}</td>
-        <td class="font-mono text-xs">{{ r.commit_ai|default(0) }}/{{ r.commit_total|default(0) }}</td>
-        <td class="font-mono text-xs">{{ r.pr_ai|default(0) }}/{{ r.pr_total|default(0) }}</td>
-        <td class="font-mono text-xs">{{ r.review_ai|default(0) }}/{{ r.review_total|default(0) }}</td>
-        <td class="font-mono text-xs">{{ r.events|default([])|length }}</td>
+        <td data-label="AII" class="report-table-score"><span class="badge {{ badge_cls(cls) }} badge-sm font-mono">{{ pct(r.aii) }}</span></td>
+        <td data-label="Trend" class="report-table-trend">{{ trend_html(r._trend) }}</td>
+        <td data-label="AI Commits" class="report-table-metric font-mono text-xs">{{ r.commit_ai|default(0) }}/{{ r.commit_total|default(0) }}</td>
+        <td data-label="AI PRs" class="report-table-metric font-mono text-xs">{{ r.pr_ai|default(0) }}/{{ r.pr_total|default(0) }}</td>
+        <td data-label="AI Reviews" class="report-table-metric font-mono text-xs">{{ r.review_ai|default(0) }}/{{ r.review_total|default(0) }}</td>
+        <td data-label="Events" class="report-table-metric font-mono text-xs">{{ r.events|default([])|length }}</td>
       </tr>
     {% endfor %}
     </tbody>

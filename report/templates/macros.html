@@ -94,7 +94,7 @@
   {% set p_total = r.pr_total|default(0) %}
   {% set rv_ai = r.review_ai|default(0) %}
   {% set rv_total = r.review_total|default(0) %}
-  <div class="flex gap-4 mt-2 pl-[52px] flex-wrap sm:hidden text-[11px] text-base-content/50">
+  <div class="rank-card-mobile-stats flex gap-4 mt-2 pl-[52px] flex-wrap sm:hidden text-[11px] text-base-content/50">
     {% for lbl, val in [("C", c_ai ~ "/" ~ c_total), ("PR", p_ai ~ "/" ~ p_total), ("R", rv_ai ~ "/" ~ rv_total)] %}
     <div>
       <span class="opacity-50">{{ lbl }}</span>
@@ -106,7 +106,7 @@
 
 {#- Single ranking card -#}
 {% macro rank_card(r, rank, slug, avatar, cls, trend, sparkline_data) %}
-<div class="bg-white border border-beige-200 rounded-xl px-4 py-3 cursor-pointer hover:border-primary hover:bg-primary/5 transition-all shadow-sm"
+<div class="rank-card-surface bg-white border border-beige-200 rounded-xl px-4 py-3 cursor-pointer hover:border-primary hover:bg-primary/5 transition-all shadow-sm"
      onclick="document.querySelector('a[data-repo=&quot;{{ slug }}&quot;]').click()">
   {#- Main row: rank + avatar + name + (KPIs on sm+) + trend + score -#}
   <div class="flex items-center gap-3">
@@ -146,8 +146,8 @@
 {#- Events table -#}
 {% macro events_table(events, max_rows=0, show_more_url="") %}
   {% set show_events = events[:max_rows] if max_rows and events|length > max_rows else events %}
-<div class="overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
-<table class="table table-sm">
+<div class="report-table-shell report-table-shell--events overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+<table class="table table-sm report-table report-table-events">
 <thead class="bg-beige-50"><tr>
   {% for col in ["Type", "AI Score", "Description", "Actor", "Reason", "Date"] %}
   <th class="text-xs uppercase tracking-wide opacity-50">{{ col }}</th>
@@ -177,28 +177,28 @@
   {% set title = e.title[:60] %}
   {% set reason = (e.reason|default(""))[:40] %}
   {% set date_str = (e.created_at|default(""))[:10] %}
-  <tr class="hover">
-    <td><span class="badge {{ kind_cls }} badge-sm font-medium">{{ kind }}</span></td>
-    <td class="font-mono text-sm font-semibold {{ 'text-red-600' if sc >= 0.6 else '' }}">{{ "%.2f"|format(sc) }}</td>
-    <td class="max-w-[200px] truncate">
+  <tr class="hover report-event-row report-event-row--{{ kind|lower }}">
+    <td data-label="Type" class="report-table-kind"><span class="badge {{ kind_cls }} badge-sm font-medium">{{ kind }}</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold {{ 'text-red-600' if sc >= 0.6 else '' }}">{{ "%.2f"|format(sc) }}</td>
+    <td data-label="Description" class="report-table-main report-table-description">
       {%- if url %}<a href="{{ url }}" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">{{ title }}</a>
       {%- else %}{{ title }}{% endif -%}
     </td>
-    <td>
-      <div class="flex items-center gap-2">
-        <img class="w-6 h-6 rounded-full bg-beige-200" src="{{ actor_avatar }}" loading="lazy" onerror="this.style.display='none'">
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="{{ actor_avatar }}" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <a href="{{ actor_url }}" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">{{ actor }}</a>
       </div>
     </td>
-    <td class="max-w-[160px] truncate">
+    <td data-label="Reason" class="report-table-reason">
       {%- if reason %}<span class="text-xs opacity-60">{{ reason }}</span>
       {%- else %}<span class="opacity-30">—</span>{% endif -%}
     </td>
-    <td class="font-mono text-xs opacity-50">{{ date_str }}</td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">{{ date_str }}</td>
   </tr>
 {% endfor %}
 {% if show_more_url and events|length > show_events|length %}
-  <tr><td colspan="6" class="text-center py-3">
+  <tr class="report-table-more-row"><td colspan="6" class="text-center py-3">
     <a href="{{ show_more_url }}" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Show more …</a>
   </td></tr>
 {% endif %}
