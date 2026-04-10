@@ -16,7 +16,6 @@ import hashlib
 import json
 import re
 import shutil
-import time
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
@@ -233,13 +232,11 @@ def _copy_static(out_dir: Path) -> None:
 def _build_asset_versions() -> dict[str, str]:
     """Return short content hashes for static assets used in generated URLs."""
     versions: dict[str, str] = {}
-    build_nonce = str(time.time_ns())
     for fname in ("style.css", "app.js", "favicon.svg"):
         src = _STATIC_DIR / fname
         if not src.exists():
             continue
-        digest = hashlib.sha256(src.read_bytes()).hexdigest()[:10]
-        versions[fname] = f"{digest}-{build_nonce}"
+        versions[fname] = hashlib.sha256(src.read_bytes()).hexdigest()[:10]
     return versions
 
 
