@@ -1,0 +1,288 @@
+
+
+<div class="flex items-center gap-2 mb-1">
+  <img class="w-7 h-7 rounded-lg object-cover shrink-0 bg-beige-200" src="https://avatars.githubusercontent.com/ollama?size=80" alt="" loading="lazy" decoding="async" crossorigin="anonymous" onerror="this.style.display='none'">
+  <h1 class="text-2xl font-bold tracking-tight">ollama/ollama</h1>
+  <a href="https://github.com/ollama/ollama" target="_blank" class="opacity-40 hover:opacity-80 transition-opacity" title="View on GitHub">
+    <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+  </a>
+</div>
+<p class="text-sm opacity-50 mb-6">Analysis report — 2026-04-07</p>
+
+<div class="bg-white border border-beige-200 rounded-xl p-5 shadow-sm mb-8">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">AII Trend</h2>    <div class="flex items-center gap-2">      <span class="text-sm font-mono font-bold text-red-500">↑20.6%</span>    </div>  </div>
+  <div id="echart-2" class="echart-container"
+       data-dates='["2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11"]'
+       data-values='[4.0, 4.56, 5.93, 11.05, 4.99, 5.44, 24.59]'
+       data-color="#16a34a"
+       data-name="ollama/ollama">
+  </div>
+</div>
+
+
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5 content-visibility-block">
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">5.9%</div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Score</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">0.0%</div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">Bot Rate</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">2<span class="text-xs opacity-40">/100</span></div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Commits</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">1<span class="text-xs opacity-40">/100</span></div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI PRs</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">0<span class="text-xs opacity-40">/0</span></div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Reviews</div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 content-visibility-block">
+  <div>
+    <div class="flex justify-between text-sm mb-1">
+      <span class="opacity-60">Commit</span>
+      <span class="font-mono text-xs font-semibold">2/100</span>
+    </div>
+    <progress class="progress progress-info w-full h-2" value="2" max="100"></progress>
+  </div>
+  <div>
+    <div class="flex justify-between text-sm mb-1">
+      <span class="opacity-60">PR</span>
+      <span class="font-mono text-xs font-semibold">1/100</span>
+    </div>
+    <progress class="progress progress-success w-full h-2" value="1" max="100"></progress>
+  </div>
+  <div>
+    <div class="flex justify-between text-sm mb-1">
+      <span class="opacity-60">Review</span>
+      <span class="font-mono text-xs font-semibold">0/0</span>
+    </div>
+    <progress class="progress progress-primary w-full h-2" value="0" max="100"></progress>
+  </div>
+</div>
+
+<div class="mb-8 content-visibility-block">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">Events (200)</h2>
+  </div>
+    <div class="report-table-shell report-table-shell--events overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+<table class="table table-sm report-table report-table-events">
+<thead class="bg-beige-50"><tr>
+  <th class="text-xs uppercase tracking-wide opacity-50">Type</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">AI Score</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Description</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Actor</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Reason</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Date</th>
+</tr></thead>
+<tbody>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/commit/810d4f9c22319491cd3ac360afed6d2cae6be99a" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">runner: fix swallowed error in allocModel graph reservation</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/unknown.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/unknown" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">unknown</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-14</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/15364" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">anthropic: set Think to false when thinking type is disabled</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/ysnows.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/ysnows" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ysnows</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Explicit AI generation disclosed in desc</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-04-06</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">0.90</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/commit/c000afe76c13517781eea825a38a55cd42d02b91" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">doc: update vscode doc (#15064)</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/hoyyeva.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/hoyyeva" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">hoyyeva</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Contains AI collaboration trailer (Co-au</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-26</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.55</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/15292" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">LLM-client for the Community integrations</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/AlexandreBrillant.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/AlexandreBrillant" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">AlexandreBrillant</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Some ChatGPT-style phrases and formal to</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-04-03</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.35</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/15294" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Added Terminal OCR example</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/rapidarchitect.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/rapidarchitect" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">rapidarchitect</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Slightly generic phrasing, but some doma</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-04-03</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.30</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/11249" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat: expose Ollama native parameters (think, keep_alive) th</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/basnijholt.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/basnijholt" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">basnijholt</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Thorough but contextually relevant tech </span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2025-06-30</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.25</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/15389" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Add uninstallation scripts and documentation</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/Rrishabh2003.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/Rrishabh2003" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">Rrishabh2003</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Brief and neutral; lacks AI hallmarks.</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-04-07</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.20</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/15345" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">mlx: Improve M5 performance with NAX</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/dhiltgen.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/dhiltgen" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">dhiltgen</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Detailed, technical, slight formality bu</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-04-05</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.20</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/15385" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">cuda: restore integrated GPU detection from device propertie</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/zidad.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/zidad" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">zidad</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Technical detail, some informal commenta</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-04-07</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.20</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/15382" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Refactor Parser and add SafeParser for concurrency</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/geethu5166.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/geethu5166" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">geethu5166</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Ter se standard refactor language; not A</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-04-07</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.20</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/7855" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">refactor: Use map instead of switch</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/shirayu.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/shirayu" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">shirayu</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Slightly formal but justified, review co</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2024-11-27</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.20</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/5665" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Refactor cmd.go for Improved Readability</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/hasitpbhatt.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/hasitpbhatt" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">hasitpbhatt</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Terse and technical refactoring summary;</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2024-07-13</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.20</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/1031" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Added logit_bias support</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/Vokturz.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/Vokturz" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">Vokturz</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Detailed explanation, but mostly technic</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2023-11-07</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.20</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/15052" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Fix: Add VACUUM to database cleanup on shutdown</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/hnshah.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/hnshah" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">hnshah</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Problem/solution format but with domain-</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.20</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/ollama/ollama/pull/15355" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">Feature/7170 image url cli private</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/ljluestc.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/ljluestc" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ljluestc</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Follows template, domain-specific conten</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-04-06</td>
+  </tr>
+  <tr class="report-table-more-row"><td colspan="6" class="text-center py-3">
+    <a href="events-ollama-ollama.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Show more …</a>
+  </td></tr>
+</tbody>
+</table>
+</div>
+
+</div>

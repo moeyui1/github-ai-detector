@@ -1,0 +1,288 @@
+
+
+<div class="flex items-center gap-2 mb-1">
+  <img class="w-7 h-7 rounded-lg object-cover shrink-0 bg-beige-200" src="https://avatars.githubusercontent.com/openclaw?size=80" alt="" loading="lazy" decoding="async" crossorigin="anonymous" onerror="this.style.display='none'">
+  <h1 class="text-2xl font-bold tracking-tight">openclaw/openclaw</h1>
+  <a href="https://github.com/openclaw/openclaw" target="_blank" class="opacity-40 hover:opacity-80 transition-opacity" title="View on GitHub">
+    <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+  </a>
+</div>
+<p class="text-sm opacity-50 mb-6">Analysis report — 2026-03-25</p>
+
+<div class="bg-white border border-beige-200 rounded-xl p-5 shadow-sm mb-8">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">AII Trend</h2>    <div class="flex items-center gap-2">      <span class="text-sm font-mono font-bold text-gray-400">→ Flat</span>    </div>  </div>
+  <div id="echart-2" class="echart-container"
+       data-dates='["2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11"]'
+       data-values='[26.38, 27.09, 31.83, 23.83, 30.45, 24.52, 26.41]'
+       data-color="#ca8a04"
+       data-name="openclaw/openclaw">
+  </div>
+</div>
+
+
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5 content-visibility-block">
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">30.6%</div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Score</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">0.0%</div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">Bot Rate</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">8<span class="text-xs opacity-40">/100</span></div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Commits</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">18<span class="text-xs opacity-40">/100</span></div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI PRs</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">378<span class="text-xs opacity-40">/386</span></div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Reviews</div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 content-visibility-block">
+  <div>
+    <div class="flex justify-between text-sm mb-1">
+      <span class="opacity-60">Commit</span>
+      <span class="font-mono text-xs font-semibold">8/100</span>
+    </div>
+    <progress class="progress progress-info w-full h-2" value="8" max="100"></progress>
+  </div>
+  <div>
+    <div class="flex justify-between text-sm mb-1">
+      <span class="opacity-60">PR</span>
+      <span class="font-mono text-xs font-semibold">18/100</span>
+    </div>
+    <progress class="progress progress-success w-full h-2" value="18" max="100"></progress>
+  </div>
+  <div>
+    <div class="flex justify-between text-sm mb-1">
+      <span class="opacity-60">Review</span>
+      <span class="font-mono text-xs font-semibold">378/386</span>
+    </div>
+    <progress class="progress progress-primary w-full h-2" value="97" max="100"></progress>
+  </div>
+</div>
+
+<div class="mb-8 content-visibility-block">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">Events (200)</h2>
+  </div>
+    <div class="report-table-shell report-table-shell--events overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+<table class="table table-sm report-table report-table-events">
+<thead class="bg-beige-50"><tr>
+  <th class="text-xs uppercase tracking-wide opacity-50">Type</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">AI Score</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Description</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Actor</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Reason</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Date</th>
+</tr></thead>
+<tbody>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/commit/d1bfe084241a141e4cfcd449aa0a42374ae5bbaf" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: apply host-env blocklist to auth-profile env refs in da</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/jacobtomlinson.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/jacobtomlinson" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">jacobtomlinson</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/commit/e34694733fc64931ed4a543c73d84ad3435d5df1" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(talk-voice): enforce operator.admin scope on /voice set </a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/jacobtomlinson.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/jacobtomlinson" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">jacobtomlinson</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/commit/7cc86e9685523a8b6e64febe20c01a5f7e00247d" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(release): add plugin-sdk:check-exports to release:check </a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/xieyongliang.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/xieyongliang" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">xieyongliang</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/commit/a0b9dc007823dff69832b16419c9511b321d8e1b" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(feishu): use message create_time for inbound timestamps </a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/schumilin.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/schumilin" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">schumilin</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/commit/bd4237c16c2c7d3cd0a30e58dd264938306bb03d" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(feishu): close WebSocket connections on monitor stop (#5</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/schumilin.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/schumilin" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">schumilin</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/commit/3e2e9bc23864d9e3ed75212b1c190bfe8ce0e3cf" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: isolate session:patch hook payload (#53880) (thanks @gr</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/graciegould.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/graciegould" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">graciegould</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/commit/db35f300051a6a8994ef6f6896f0cc059a23ed62" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: validate config before restart + derive loaded from rea</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/hclsys.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/hclsys" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">hclsys</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/commit/d2248534d85bd3829d6a3a255f948cd25e7a79d0" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(daemon): bootstrap stopped service on `gateway start`</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/hclsys.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/hclsys" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">hclsys</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/pull/53520" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(cli): add migrate export/import for cross-device migrat</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/shenli.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/shenli" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">shenli</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/pull/54728" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: QMD 1.1+ mcporter compatibility with legacy fallback [A</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/armanddp.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/armanddp" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">armanddp</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/pull/54648" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(tools): add MiniMax as bundled web search provider</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/JithendraNara.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/JithendraNara" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">JithendraNara</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/pull/54588" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(windows): add native WinUI 3 companion app [AI-assisted</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/AlexAlves87.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/AlexAlves87" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">AlexAlves87</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/pull/54646" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(cli): validate gateway-rpc --timeout</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/ruanrrn.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/ruanrrn" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ruanrrn</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/pull/54183" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">[AI] WhatsApp: add configurable send retry for transient net</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/hassansys2.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/hassansys2" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">hassansys2</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/openclaw/openclaw/pull/18860" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(agents): expose tools and their schemas via new after_t</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/lan17.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/lan17" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">lan17</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Title includes '[AI-assisted]', explicit</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-02-17</td>
+  </tr>
+  <tr class="report-table-more-row"><td colspan="6" class="text-center py-3">
+    <a href="events-openclaw-openclaw.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Show more …</a>
+  </td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
