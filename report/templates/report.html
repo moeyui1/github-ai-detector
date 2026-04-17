@@ -89,5 +89,6 @@
 {% endblock %}
 
 {% block scripts %}
+<div id="report-vendor-assets" data-echarts="{{ vendor_assets.echarts }}" data-qrcode="{{ vendor_assets.qrcode }}" hidden></div>
 <script src="{{ js_path }}" defer></script>
 {% endblock %}

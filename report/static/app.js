@@ -27,6 +27,22 @@ window.loadScriptOnce = (function() {
   };
 })();
 
+window.getReportVendorAsset = (function() {
+  var vendorAssetEl = document.getElementById('report-vendor-assets');
+  var vendorAssets = {
+    echarts: vendorAssetEl ? vendorAssetEl.getAttribute('data-echarts') : '',
+    qrcode: vendorAssetEl ? vendorAssetEl.getAttribute('data-qrcode') : '',
+  };
+  var currentScript = document.currentScript || document.querySelector('script[src*="app.js"]');
+  var scriptUrl = currentScript && currentScript.src ? currentScript.src : window.location.href;
+  return function(name, fallbackRelativePath) {
+    if (vendorAssets[name]) {
+      return vendorAssets[name];
+    }
+    return new URL(fallbackRelativePath, scriptUrl).toString();
+  };
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
   // Assign section IDs from data attributes (deferred to prevent browser anchor jump)
   document.querySelectorAll('[data-section-id]').forEach(function(el) {
@@ -153,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function ensureECharts() {
     if (window.echarts) return Promise.resolve(window.echarts);
     if (!echartsPromise) {
-      echartsPromise = window.loadScriptOnce('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js', 'echarts');
+      echartsPromise = window.loadScriptOnce(window.getReportVendorAsset('echarts', 'vendor/echarts.min.js'), 'echarts');
     }
     return echartsPromise;
   }
@@ -387,7 +403,7 @@ function shareRanking() {
   var siteUrlEl = document.getElementById('share-site-url');
   var siteUrl = siteUrlEl ? siteUrlEl.getAttribute('data-url') : 'http://localhost:8080';
 
-  window.loadScriptOnce('https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js', 'qrcode').then(function() {
+  window.loadScriptOnce(window.getReportVendorAsset('qrcode', 'vendor/qrcode.js'), 'qrcode').then(function() {
     // Collect ranking data from visible cards
     var cards = document.querySelectorAll('#summary .space-y-2.mb-8 > div:not(#rank-collapsed)');
     var items = [];

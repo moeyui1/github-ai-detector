@@ -19,12 +19,18 @@ import shutil
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
+from engine.models import BOT_AVATAR_MAP as _BOT_AVATAR_MAP
 
 # ── Paths ─────────────────────────────────────────────────────
 
 _PKG_DIR = Path(__file__).resolve().parent
 _TEMPLATE_DIR = _PKG_DIR / "templates"
 _STATIC_DIR = _PKG_DIR / "static"
+_ROOT_DIR = _PKG_DIR.parent
+_VENDOR_ASSETS = {
+    "vendor/echarts.min.js": _ROOT_DIR / "node_modules" / "echarts" / "dist" / "echarts.min.js",
+    "vendor/qrcode.js": _ROOT_DIR / "node_modules" / "qrcode-generator" / "dist" / "qrcode.js",
+}
 
 # ── Jinja2 environment ───────────────────────────────────────
 
@@ -35,9 +41,9 @@ _env = Environment(
     lstrip_blocks=True,
 )
 
-# Expose bot avatar mapping to all templates
-from engine.models import BOT_AVATAR_MAP as _BOT_AVATAR_MAP
+
 _env.globals["bot_avatars"] = _BOT_AVATAR_MAP
+
 
 
 # ── Helpers ──────────────────────────────────────────────────
@@ -221,12 +227,18 @@ def _enrich_repos(repos: list[dict], icon_map: dict[str, str],
 # ── Copy static files ────────────────────────────────────────
 
 def _copy_static(out_dir: Path) -> None:
-    """Copy CSS, JS, favicon to output directory root."""
+    """Copy root static assets and local vendor scripts to the output directory."""
     out_dir.mkdir(parents=True, exist_ok=True)
     for fname in ("style.css", "app.js", "favicon.svg"):
         src = _STATIC_DIR / fname
         if src.exists():
             shutil.copy2(src, out_dir / fname)
+    vendor_dir = out_dir / "vendor"
+    vendor_dir.mkdir(parents=True, exist_ok=True)
+    for rel_path, src in _VENDOR_ASSETS.items():
+        if not src.exists():
+            continue
+        shutil.copy2(src, out_dir / rel_path)
 
 
 def _build_asset_versions() -> dict[str, str]:
@@ -236,7 +248,13 @@ def _build_asset_versions() -> dict[str, str]:
         src = _STATIC_DIR / fname
         if not src.exists():
             continue
-        versions[fname] = hashlib.sha256(src.read_bytes()).hexdigest()[:10]
+        digest = hashlib.sha256(src.read_bytes()).hexdigest()[:10]
+        versions[fname] = digest
+    for rel_path, src in _VENDOR_ASSETS.items():
+        if not src.exists():
+            continue
+        digest = hashlib.sha256(src.read_bytes()).hexdigest()[:10]
+        versions[Path(rel_path).name] = digest
     return versions
 
 
@@ -254,6 +272,15 @@ def _versioned_asset_path(path: str, asset_versions: dict[str, str] | None = Non
     return f"{clean_path}?v={version}"
 
 
+def _vendor_asset_paths(css_base_path: str, asset_versions: dict[str, str] | None = None) -> dict[str, str]:
+    base_dir = Path(css_base_path).parent
+    paths = {
+        "echarts": (base_dir / "vendor" / "echarts.min.js").as_posix(),
+        "qrcode": (base_dir / "vendor" / "qrcode.js").as_posix(),
+    }
+    return {key: _versioned_asset_path(path, asset_versions) for key, path in paths.items()}
+
+
 def _write_repo_fragments(out_dir: Path, repos: list[dict], date_str: str) -> None:
     """Write lazy-loaded repo detail fragments for the report page."""
     fragment_dir = out_dir / "fragments"
@@ -266,6 +293,13 @@ def _write_repo_fragments(out_dir: Path, repos: list[dict], date_str: str) -> No
         fragment_html = tmpl.render(r=repo, date_str=date_str)
         fragment_path = fragment_dir / f"{repo['_slug']}.html"
         fragment_path.write_text(fragment_html, encoding="utf-8")
+
+
+def _clear_event_detail_pages(out_dir: Path) -> None:
+    """Remove stale per-repo event pages before rebuilding a report directory."""
+    for page in out_dir.glob("events-*.html"):
+        if page.is_file():
+            page.unlink()
 
 
 def _site_url_for_path(site_url: str, path: Path) -> str:
@@ -345,6 +379,7 @@ def build_site(report_data: dict, out_dir: Path, *,
     css_base_path, _, _ = css_path.partition("?")
     js_base_path = css_base_path.replace("style.css", "app.js")
     favicon_base_path = css_base_path.replace("style.css", "favicon.svg")
+    vendor_assets = _vendor_asset_paths(css_base_path, asset_versions)
     css_path = _versioned_asset_path(css_base_path, asset_versions)
     js_path = _versioned_asset_path(js_base_path, asset_versions)
     favicon_path = _versioned_asset_path(favicon_base_path, asset_versions)
@@ -359,11 +394,13 @@ def build_site(report_data: dict, out_dir: Path, *,
         css_path=css_path,
         js_path=js_path,
         favicon_path=favicon_path,
+        vendor_assets=vendor_assets,
         site_url=site_url,
         ai_contributors=ai_contributors,
     )
 
     out_dir.mkdir(parents=True, exist_ok=True)
+    _clear_event_detail_pages(out_dir)
     _write_repo_fragments(out_dir, repos, date_str)
     index_path = out_dir / "index.html"
     index_path.write_text(page, encoding="utf-8")
