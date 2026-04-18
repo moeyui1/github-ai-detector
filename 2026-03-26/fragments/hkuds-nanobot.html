@@ -1,0 +1,288 @@
+
+
+<div class="flex items-center gap-2 mb-1">
+  <img class="w-7 h-7 rounded-lg object-cover shrink-0 bg-beige-200" src="https://avatars.githubusercontent.com/HKUDS?size=80" alt="" loading="lazy" decoding="async" crossorigin="anonymous" onerror="this.style.display='none'">
+  <h1 class="text-2xl font-bold tracking-tight">HKUDS/nanobot</h1>
+  <a href="https://github.com/HKUDS/nanobot" target="_blank" class="opacity-40 hover:opacity-80 transition-opacity" title="View on GitHub">
+    <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+  </a>
+</div>
+<p class="text-sm opacity-50 mb-6">Analysis report — 2026-03-26</p>
+
+<div class="bg-white border border-beige-200 rounded-xl p-5 shadow-sm mb-8">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">AII Trend</h2>    <div class="flex items-center gap-2">      <span class="text-sm font-mono font-bold text-red-500">↑0.8%</span>    </div>  </div>
+  <div id="echart-1" class="echart-container"
+       data-dates='["2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05"]'
+       data-values='[11.32, 15.46, 6.75, 5.86, 10.62, 8.04, 12.13]'
+       data-color="#16a34a"
+       data-name="HKUDS/nanobot">
+  </div>
+</div>
+
+
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5 content-visibility-block">
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">10.7%</div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Score</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">0.0%</div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">Bot Rate</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">7<span class="text-xs opacity-40">/100</span></div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Commits</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">4<span class="text-xs opacity-40">/100</span></div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI PRs</div>
+  </div>
+  <div class="stat bg-white border border-beige-200 rounded-lg p-4 text-center shadow-sm">
+    <div class="stat-value text-2xl font-mono">0<span class="text-xs opacity-40">/0</span></div>
+    <div class="stat-desc text-[11px] uppercase tracking-wider mt-1">AI Reviews</div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 content-visibility-block">
+  <div>
+    <div class="flex justify-between text-sm mb-1">
+      <span class="opacity-60">Commit</span>
+      <span class="font-mono text-xs font-semibold">7/100</span>
+    </div>
+    <progress class="progress progress-info w-full h-2" value="7" max="100"></progress>
+  </div>
+  <div>
+    <div class="flex justify-between text-sm mb-1">
+      <span class="opacity-60">PR</span>
+      <span class="font-mono text-xs font-semibold">4/100</span>
+    </div>
+    <progress class="progress progress-success w-full h-2" value="4" max="100"></progress>
+  </div>
+  <div>
+    <div class="flex justify-between text-sm mb-1">
+      <span class="opacity-60">Review</span>
+      <span class="font-mono text-xs font-semibold">0/0</span>
+    </div>
+    <progress class="progress progress-primary w-full h-2" value="0" max="100"></progress>
+  </div>
+</div>
+
+<div class="mb-8 content-visibility-block">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold">Events (200)</h2>
+  </div>
+    <div class="report-table-shell report-table-shell--events overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+<table class="table table-sm report-table report-table-events">
+<thead class="bg-beige-50"><tr>
+  <th class="text-xs uppercase tracking-wide opacity-50">Type</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">AI Score</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Description</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Actor</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Reason</th>
+  <th class="text-xs uppercase tracking-wide opacity-50">Date</th>
+</tr></thead>
+<tbody>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/commit/556b21d01168cbc1e8cf5ebd508cad863536cd37" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">refactor(channels): abstract login() into BaseChannel, unify</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/chengyongru.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/chengyongru" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">chengyongru</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-23</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/commit/11e1bbbab74c3060c2aab4200d4b186c16cebce3" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(weixin): add outbound media file sending via CDN upload</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/ZhangYuanhan-AI.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/ZhangYuanhan-AI" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ZhangYuanhan-AI</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-23</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/commit/ebc4c2ec3516e0807dcb576a77ae038f6edd5fc4" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(weixin): add personal WeChat channel via ilinkai HTTP l</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/ZhangYuanhan-AI.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/ZhangYuanhan-AI" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ZhangYuanhan-AI</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-22</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/commit/2db2cc18f1a40fb79b76cc137b71e5d277ce2205" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(qq): fix local file outbound and add svg as image type (</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/ddadaal.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/ddadaal" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ddadaal</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-20</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/commit/d7373db41958893ac0c1031f85c0bf1a72223b45" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(qq): bot can send and receive images and files (#1667)</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/ddadaal.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/ddadaal" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ddadaal</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-20</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/commit/8b971a7827fcedece6e9d5c6e797ebd077e78264" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(custom_provider): show raw API error instead of JSONDeco</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/unknown.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/unknown" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">unknown</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-20</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--commit">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-success badge-sm font-medium">COMMIT</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/commit/67528deb4c570a44b91fdc628853df5fbd1cb051" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(tests): use --no-interactive for non-interactive onboard</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/chengyongru.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/chengyongru" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">chengyongru</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Commit message contains explicit AI assi</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-17</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/pull/2486" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(discord): Use `discord.py` for stable discord channel</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/rick2047.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/rick2047" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">rick2047</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-25</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/pull/2070" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix(bridge): add participant field and compute wasMentioned </a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/danielphang.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/danielphang" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">danielphang</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Explicitly states AI generation with ref</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-15</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/pull/2322" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: subagent results are sent to chat root instead of reply</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/flobo3.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/flobo3" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">flobo3</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-21</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold text-red-600">1.00</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/pull/2430" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: make heartbeat stateless by default</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/xiwuqi.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/xiwuqi" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">xiwuqi</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">PR body explicitly mentions AI collabora</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-24</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.42</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/pull/2509" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(agent): add multi-agent system with per-agent config an</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/ZhangYuanhan-AI.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/ZhangYuanhan-AI" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">ZhangYuanhan-AI</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Structured technical changelog, slight f</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-26</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.40</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/pull/2374" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(security): pluggable ToolGuard middleware for tool-leve</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/sliverp.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/sliverp" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">sliverp</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Detailed and organized, but some formal </span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-23</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.35</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/pull/2516" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">feat(agent): add skill discovery mode for large skill sets</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/sontianye.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/sontianye" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">sontianye</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Structured, technical summary with minor</span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-26</td>
+  </tr>
+  <tr class="hover report-event-row report-event-row--pr">
+    <td data-label="Type" class="report-table-kind"><span class="badge badge-error badge-sm font-medium">PR</span></td>
+    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold ">0.30</td>
+    <td data-label="Description" class="report-table-main report-table-description"><a href="https://github.com/HKUDS/nanobot/pull/2512" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">fix: disable SDK built-in retries to prevent stacking with c</a></td>
+    <td data-label="Actor" class="report-table-actor-cell">
+      <div class="report-table-actor flex items-center gap-2">
+        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="https://github.com/xzq-xu.png?size=32" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="https://github.com/xzq-xu" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">xzq-xu</a>
+      </div>
+    </td>
+    <td data-label="Reason" class="report-table-reason"><span class="text-xs opacity-60">Problem explanation, technical details; </span></td>
+    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">2026-03-26</td>
+  </tr>
+  <tr class="report-table-more-row"><td colspan="6" class="text-center py-3">
+    <a href="events-hkuds-nanobot.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Show more …</a>
+  </td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
