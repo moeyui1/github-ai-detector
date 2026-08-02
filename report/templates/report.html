@@ -1,6 +1,6 @@
 {#- Main report page with sidebar + sections -#}
 {% extends "base.html" %}
-{% from "macros.html" import score_class, pct, badge_cls, rank_card, events_table, trend_chart, trend_html, kpi_cells_inline, kpi_cells_mobile, sparkline, trend_label, bar_cls %}
+{% from "macros.html" import score_class, pct, label_cls, rank_card, events_table, trend_chart, trend_html, kpi_cells_inline, kpi_cells_mobile, sparkline, trend_label %}
 
 {% block title %}GitHub AI Radar — {{ date_str }}{% endblock %}
 
@@ -19,44 +19,48 @@
 
 {% block body %}
 {#- Mobile top bar -#}
-<header class="fixed top-0 left-0 right-0 z-[60] h-12 flex items-center gap-2 px-3 bg-beige-100/95 backdrop-blur-sm border-b border-beige-200 md:hidden" id="mobile-header">
-  <button id="menu-toggle" class="btn btn-sm btn-square btn-ghost" aria-label="Toggle menu">
+<header class="fixed top-0 left-0 right-0 z-[60] h-12 flex items-center gap-2 px-3 bg-gh-canvas/95 backdrop-blur-sm border-b border-gh-border md:hidden" id="mobile-header">
+  <button id="menu-toggle" class="btn btn-sm btn-square btn-ghost text-gh-muted" aria-label="Toggle menu">
     <svg class="w-5 h-5 icon-menu" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     <svg class="w-5 h-5 icon-close hidden" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
-  <span class="text-sm font-bold tracking-tight">🛸 AI Radar</span>
-  <span class="text-[11px] opacity-40 ml-auto font-mono">{{ date_str }}</span>
+  <span class="text-sm font-semibold tracking-tight"><span class="text-gh-green">~/</span>ai-radar</span>
+  <span class="text-[11px] text-gh-faint ml-auto">{{ date_str }}</span>
 </header>
-<div class="sidebar-overlay fixed inset-0 bg-black/30 z-40 hidden md:hidden" id="sidebar-overlay"></div>
+<div class="sidebar-overlay fixed inset-0 bg-black/60 z-40 hidden md:hidden" id="sidebar-overlay"></div>
 
 {#- Sidebar -#}
-<aside class="fixed top-12 md:top-0 left-0 h-[calc(100vh-3rem)] md:h-screen w-[272px] bg-beige-100 border-r border-beige-200 flex flex-col z-50 overflow-y-auto transition-transform duration-300 max-md:-translate-x-full max-md:shadow-xl" id="sidebar">
-  <div class="px-5 pt-5 pb-3 border-b border-beige-200 hidden md:block">
-    <h2 class="text-[15px] font-bold flex items-center gap-2">🛸 AI Radar</h2>
-    <p class="text-[11px] opacity-40 mt-0.5">How much code is AI-generated?</p>
+<aside class="fixed top-12 md:top-0 left-0 h-[calc(100vh-3rem)] md:h-screen w-[272px] bg-gh-inset border-r border-gh-border flex flex-col z-50 overflow-y-auto transition-transform duration-300 max-md:-translate-x-full max-md:shadow-gh-overlay" id="sidebar">
+  <div class="px-5 pt-5 pb-3 border-b border-gh-border hidden md:block">
+    <h2 class="text-[15px] font-semibold flex items-center gap-2">
+      <svg class="w-5 h-5 shrink-0" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      <span><span class="text-gh-green">~/</span>ai-radar<span class="gh-cursor ml-0.5"></span></span>
+    </h2>
+    <p class="text-[11px] text-gh-faint mt-1.5">How much code is AI-generated?</p>
   </div>
-  <div class="px-5 py-2.5 text-[11px] uppercase tracking-wider opacity-40 border-b border-beige-200 font-medium hidden md:block">
-    Report · {{ date_str }}
+  <div class="px-5 py-2.5 text-[11px] uppercase tracking-wider text-gh-faint border-b border-gh-border hidden md:block">
+    report · <span class="text-gh-muted">{{ date_str }}</span>
   </div>
   <nav class="py-1 flex-1">
-    <a href="#summary" data-repo="summary" class="flex items-center gap-2 px-5 py-2 text-sm font-medium border-l-2 border-transparent hover:bg-beige-200/60 transition-colors active">
-      📊 Ranking
+    <a href="#summary" data-repo="summary" class="flex items-center gap-2 px-5 py-2 text-sm font-medium border-l-2 border-transparent hover:bg-gh-elevated transition-colors active">
+      <span class="text-gh-faint">#</span>
+      <span>ranking</span>
     </a>
     {% for r in sorted_repos %}
     {% set slug = r._slug %}
     {% set cls = score_class(r.aii)|trim %}
     <div class="nav-item">
       <a href="#{{ slug }}" data-repo="{{ slug }}"
-         class="flex items-center gap-2 px-5 py-2 text-sm opacity-60 hover:opacity-100 hover:bg-beige-200/60 border-l-2 border-transparent transition-all">
-        <img class="w-5 h-5 rounded bg-beige-200 shrink-0" src="{{ r._avatar }}" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
+         class="flex items-center gap-2 px-5 py-2 text-sm opacity-60 hover:opacity-100 hover:bg-gh-elevated border-l-2 border-transparent transition-all">
+        <img class="w-5 h-5 rounded bg-gh-elevated shrink-0" src="{{ r._avatar }}" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
         <span class="truncate">{{ r.repo_name }}</span>
-        <span class="badge {{ badge_cls(cls) }} badge-xs font-mono ml-auto">{{ pct(r.aii) }}</span>
+        <span class="gh-label {{ label_cls(cls) }} ml-auto !text-[10px]">{{ pct(r.aii) }}</span>
       </a>
     </div>
     {% endfor %}
   </nav>
-  <div class="px-5 py-3 border-t border-beige-200 text-xs opacity-40">
-    <a href="history.html" class="hover:opacity-80">📅 All Reports</a>
+  <div class="px-5 py-3 border-t border-gh-border text-xs">
+    <a href="history.html" class="text-gh-muted hover:text-gh-blue transition-colors">all reports →</a>
   </div>
 </aside>
 
@@ -70,24 +74,30 @@
 {#- Per-repo sections -#}
 {% for r in repos %}
 <div data-section-id="{{ r._slug }}" class="repo-section repo-section--lazy" data-fragment="fragments/{{ r._slug }}.html" data-loaded="false">
-  <div class="repo-section-placeholder rounded-xl border border-dashed border-beige-200 bg-white/80 p-5 text-center text-sm text-base-content/60 shadow-sm">
-    <p class="font-medium">{{ r.repo_name }}</p>
+  <div class="repo-section-placeholder rounded-gh border border-dashed border-gh-border p-5 text-center text-sm text-gh-muted">
+    <p class="font-medium text-gh-fg">{{ r.repo_name }}</p>
     <p class="mt-1">Repository detail loads on demand.</p>
   </div>
 </div>
 {% endfor %}
 
-<p class="text-center text-sm opacity-60 mt-12 pb-4 flex items-center justify-center gap-1.5">
-  Powered by <a href="https://github.com/moeyui1/github-ai-detector" target="_blank"
-    class="inline-flex items-center gap-1 text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2 font-medium">
-    <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-    AI Intrusion Report</a>
-</p>
+<footer class="mt-12 pt-6 pb-4 border-t border-gh-border text-center text-xs text-gh-faint">
+  <p class="flex items-center justify-center gap-1.5 flex-wrap">
+    <span class="text-gh-green">$</span>
+    <span>powered by</span>
+    <a href="https://github.com/moeyui1/github-ai-detector" target="_blank" rel="noopener"
+      class="inline-flex items-center gap-1 text-gh-blue hover:underline font-medium">
+      <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      github-ai-detector
+    </a>
+  </p>
+</footer>
 
 </main>
 </div>
 {% endblock %}
 
 {% block scripts %}
+<div id="report-vendor-assets" data-echarts="{{ vendor_assets.echarts }}" data-qrcode="{{ vendor_assets.qrcode }}" hidden></div>
 <script src="{{ js_path }}" defer></script>
 {% endblock %}
