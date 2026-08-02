@@ -1,14 +1,14 @@
 {#- Base page layout — all pages extend this -#}
-{% from "macros.html" import score_class, pct, badge_cls %}
+{% from "macros.html" import score_class, pct %}
 <!DOCTYPE html>
-<html lang="en" data-theme="corporate">
+<html lang="en" data-theme="github-dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}GitHub AI Radar{% endblock %}</title>
 <meta name="description" content="{% block description %}Track AI-generated code across open-source GitHub repositories. Daily automated reports with AI Involvement Index scores.{% endblock %}">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#f0ebe4">
+<meta name="theme-color" content="#0d1117">
 {% block og %}
 <meta property="og:type" content="website">
 <meta property="og:title" content="GitHub AI Radar">
@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="{{ css_path }}">
 <style>html{scroll-behavior:auto!important}</style>
 </head>
-<body class="bg-beige-100 font-sans text-base-content min-h-screen">
+<body class="bg-gh-canvas font-sans text-gh-fg min-h-screen">
 {% block body %}{% endblock %}
 {% block scripts %}{% endblock %}
 </body>

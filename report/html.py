@@ -164,10 +164,9 @@ def _compute_sparkline(series: list[tuple[str, float]], color_cls: str) -> dict:
 
     pts = [px(i, v) for i, v in enumerate(values)]
     polyline = " ".join(f"{x},{y}" for x, y in pts)
-    area = polyline + f" {pts[-1][0]},{h - pad} {pts[0][0]},{h - pad}"
 
-    color_map = {"high": "#dc2626", "med": "#ca8a04", "low": "#16a34a"}
-    stroke = color_map.get(color_cls, "#2563eb")
+    color_map = {"high": "#f85149", "med": "#d29922", "low": "#3fb950"}
+    stroke = color_map.get(color_cls, "#58a6ff")
 
     first_avg = sum(values[:max(1, n // 4)]) / max(1, n // 4)
     last_avg = sum(values[-max(1, n // 4):]) / max(1, n // 4)
@@ -183,7 +182,6 @@ def _compute_sparkline(series: list[tuple[str, float]], color_cls: str) -> dict:
     return {
         "points": True,
         "polyline": polyline,
-        "area": area,
         "color": stroke,
         "last_x": lx,
         "last_y": ly,
@@ -197,12 +195,12 @@ def _compute_chart(series: list[tuple[str, float]], cls: str, counter: int) -> d
     if len(series) < 2:
         return None
     series = series[-7:]
-    color_map = {"high": "#dc2626", "med": "#ca8a04", "low": "#16a34a"}
+    color_map = {"high": "#f85149", "med": "#d29922", "low": "#3fb950"}
     return {
         "id": f"echart-{counter}",
         "dates_json": json.dumps([d for d, _ in series]),
         "values_json": json.dumps([round(v * 100, 2) for _, v in series]),
-        "color": color_map.get(cls, "#2563eb"),
+        "color": color_map.get(cls, "#58a6ff"),
     }
 
 

@@ -8,27 +8,22 @@
 {#- Format percentage -#}
 {% macro pct(val) -%}{{ "%.1f%%"|format(val * 100) }}{%- endmacro %}
 
-{#- Badge class for score -#}
-{% macro badge_cls(cls) -%}
-  {%- if cls == "high" %}badge-error{% elif cls == "med" %}badge-warning{% elif cls == "low" %}badge-success{% else %}badge-ghost{% endif -%}
+{#- GitHub issue-label style pill class for score -#}
+{% macro label_cls(cls) -%}
+  {%- if cls == "high" %}gh-label-red{% elif cls == "med" %}gh-label-yellow{% elif cls == "low" %}gh-label-green{% else %}gh-label-blue{% endif -%}
 {%- endmacro %}
 
-{#- Progress bar class for score -#}
-{% macro bar_cls(cls) -%}
-  {%- if cls == "high" %}progress-error{% elif cls == "med" %}progress-warning{% elif cls == "low" %}progress-success{% else %}progress-info{% endif -%}
-{%- endmacro %}
-
-{#- Score background class (for highlighted AI Score) -#}
-{% macro score_bg(cls) -%}
-  {%- if cls == "high" %}bg-error/10 text-error{% elif cls == "med" %}bg-warning/10 text-warning{% elif cls == "low" %}bg-success/10 text-success{% endif -%}
+{#- Score text colour -#}
+{% macro score_text(cls) -%}
+  {%- if cls == "high" %}text-gh-red{% elif cls == "med" %}text-gh-yellow{% elif cls == "low" %}text-gh-green{% else %}text-gh-blue{% endif -%}
 {%- endmacro %}
 
 {#- Rank class for #1 / #2 / #3 -#}
 {% macro rank_cls(rank) -%}
-  {%- if rank == 1 %}text-amber-600 font-extrabold
-  {%- elif rank == 2 %}text-gray-400 font-bold
-  {%- elif rank == 3 %}text-orange-700 font-bold
-  {%- else %}opacity-30{% endif -%}
+  {%- if rank == 1 %}text-gh-gold font-extrabold
+  {%- elif rank == 2 %}text-gh-silver font-bold
+  {%- elif rank == 3 %}text-gh-bronze font-bold
+  {%- else %}text-gh-faint{% endif -%}
 {%- endmacro %}
 
 {#- Sparkline SVG -#}
@@ -36,7 +31,6 @@
   {%- if series_data.points %}
   <div class="rank-trend">
     <svg viewBox="0 0 120 36" preserveAspectRatio="none">
-      <polygon class="sparkline-area" points="{{ series_data.area }}" fill="{{ series_data.color }}"/>
       <polyline class="sparkline-line" points="{{ series_data.polyline }}" stroke="{{ series_data.color }}"/>
       <circle class="sparkline-dot" cx="{{ series_data.last_x }}" cy="{{ series_data.last_y }}" fill="{{ series_data.color }}"/>
     </svg>
@@ -47,11 +41,11 @@
 {#- Trend label (arrow + percentage) -#}
 {% macro trend_label(trend) %}
   {%- if trend.direction == "flat" -%}
-    <span class="opacity-30">→</span>
+    <span class="text-gh-faint">→</span>
   {%- elif trend.direction == "up" -%}
-    <span class="text-error font-mono">↑{{ "%.1f%%"|format(trend.diff * 100) }}</span>
+    <span class="text-gh-red">↑{{ "%.1f%%"|format(trend.diff * 100) }}</span>
   {%- elif trend.direction == "down" -%}
-    <span class="text-success font-mono">↓{{ "%.1f%%"|format(trend.diff * 100) }}</span>
+    <span class="text-gh-green">↓{{ "%.1f%%"|format(trend.diff * 100) }}</span>
   {%- endif -%}
 {% endmacro %}
 
@@ -59,14 +53,14 @@
 {% macro trend_html(trend) %}
   {%- if trend -%}
     {%- if trend.direction == "flat" -%}
-      <span class="opacity-30">→</span>
+      <span class="text-gh-faint">→</span>
     {%- elif trend.direction == "up" -%}
-      <span class="text-error font-mono text-xs">↑{{ "%.1f%%"|format(trend.diff * 100) }}</span>
+      <span class="text-gh-red text-xs">↑{{ "%.1f%%"|format(trend.diff * 100) }}</span>
     {%- elif trend.direction == "down" -%}
-      <span class="text-success font-mono text-xs">↓{{ "%.1f%%"|format(trend.diff * 100) }}</span>
+      <span class="text-gh-green text-xs">↓{{ "%.1f%%"|format(trend.diff * 100) }}</span>
     {%- endif -%}
   {%- else -%}
-    <span class="opacity-20">—</span>
+    <span class="text-gh-faint">—</span>
   {%- endif -%}
 {% endmacro %}
 
@@ -78,10 +72,10 @@
   {% set p_total = r.pr_total|default(0) %}
   {% set rv_ai = r.review_ai|default(0) %}
   {% set rv_total = r.review_total|default(0) %}
-  {% for lbl, val in [("AI Commits", c_ai ~ "/" ~ c_total), ("AI PRs", p_ai ~ "/" ~ p_total), ("AI Reviews", rv_ai ~ "/" ~ rv_total)] %}
-  <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
-    <div class="text-[10px] uppercase tracking-wider opacity-40">{{ lbl }}</div>
-    <div class="font-bold font-mono text-sm">{{ val }}</div>
+  {% for lbl, val in [("commits", c_ai ~ "/" ~ c_total), ("prs", p_ai ~ "/" ~ p_total), ("reviews", rv_ai ~ "/" ~ rv_total)] %}
+  <div class="border-l border-gh-border pl-3 shrink-0 hidden sm:block min-w-[3.6rem]">
+    <div class="text-[10px] tracking-wider text-gh-faint">{{ lbl }}</div>
+    <div class="font-semibold text-sm mt-0.5">{{ val }}</div>
   </div>
   {% endfor %}
 {% endmacro %}
@@ -94,11 +88,11 @@
   {% set p_total = r.pr_total|default(0) %}
   {% set rv_ai = r.review_ai|default(0) %}
   {% set rv_total = r.review_total|default(0) %}
-  <div class="rank-card-mobile-stats flex gap-4 mt-2 pl-[52px] flex-wrap sm:hidden text-[11px] text-base-content/50">
+  <div class="rank-card-mobile-stats flex gap-4 mt-2 pl-[52px] flex-wrap sm:hidden text-[11px] text-gh-muted">
     {% for lbl, val in [("C", c_ai ~ "/" ~ c_total), ("PR", p_ai ~ "/" ~ p_total), ("R", rv_ai ~ "/" ~ rv_total)] %}
     <div>
-      <span class="opacity-50">{{ lbl }}</span>
-      <span class="font-mono">{{ val }}</span>
+      <span class="text-gh-faint">{{ lbl }}</span>
+      <span>{{ val }}</span>
     </div>
     {% endfor %}
   </div>
@@ -106,34 +100,33 @@
 
 {#- Single ranking card -#}
 {% macro rank_card(r, rank, slug, avatar, cls, trend, sparkline_data) %}
-<div class="rank-card-surface bg-white border border-beige-200 rounded-xl px-4 py-3 cursor-pointer hover:border-primary hover:bg-primary/5 transition-all shadow-sm"
+<div class="rank-card-surface gh-box gh-box-interactive px-4 py-2.5 cursor-pointer"
      onclick="document.querySelector('a[data-repo=&quot;{{ slug }}&quot;]').click()">
   {#- Main row: rank + avatar + name + (KPIs on sm+) + trend + score -#}
   <div class="flex items-center gap-3">
-    <span class="font-mono text-base w-8 text-center shrink-0 {{ rank_cls(rank) }}">
+    <span class="text-base w-8 text-center shrink-0 {{ rank_cls(rank) }}">
       #{{ rank }}
     </span>
-    <img class="w-10 h-10 rounded-lg object-cover shrink-0 bg-beige-200"
+    <img class="w-9 h-9 rounded-gh object-cover shrink-0 bg-gh-elevated"
          src="{{ avatar }}" alt="" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'">
     <div class="min-w-0 flex-1">
-      <div class="text-[10px] uppercase tracking-wider opacity-40">Repository</div>
-      <div class="font-bold text-sm truncate">{{ r.repo_name }}</div>
+      <div class="font-semibold text-sm truncate">{{ r.repo_name }}</div>
     </div>
     {{ kpi_cells_inline(r) }}
     {%- if trend or sparkline_data.points %}
-    <div class="border-l border-beige-200 pl-3 shrink-0 hidden sm:block">
+    <div class="border-l border-gh-border pl-3 shrink-0 hidden sm:block min-w-[6.25rem]">
       {%- if trend %}
-      <div class="text-[10px] uppercase tracking-wider opacity-40">Trend</div>
-      <div class="font-bold text-sm">{{ trend_label(trend) }}</div>
+      <div class="text-[10px] tracking-wider text-gh-faint">trend</div>
+      <div class="font-semibold text-sm mt-0.5">{{ trend_label(trend) }}</div>
       {%- endif %}
       {%- if sparkline_data.points %}
-      <div class="mt-1">{{ sparkline(sparkline_data) }}</div>
+      <div class="mt-0.5">{{ sparkline(sparkline_data) }}</div>
       {%- endif %}
     </div>
     {%- endif %}
-    <div class="border-l border-beige-200 pl-3 shrink-0">
-      <div class="text-[10px] uppercase tracking-wider opacity-40">AI Score</div>
-      <div class="font-extrabold font-mono text-lg {{ score_bg(cls) }} rounded px-1.5 py-0.5 inline-block mt-0.5">
+    <div class="border-l border-gh-border pl-3 shrink-0 min-w-[4.25rem] text-right">
+      <div class="text-[10px] tracking-wider text-gh-faint">score</div>
+      <div class="font-extrabold text-lg mt-0.5 {{ score_text(cls) }}">
         {{ pct(r.aii) }}
       </div>
     </div>
@@ -146,11 +139,11 @@
 {#- Events table -#}
 {% macro events_table(events, max_rows=0, show_more_url="") %}
   {% set show_events = events[:max_rows] if max_rows and events|length > max_rows else events %}
-<div class="report-table-shell report-table-shell--events overflow-x-auto rounded-lg border border-beige-200 bg-white shadow-sm">
+<div class="report-table-shell report-table-shell--events overflow-x-auto rounded-gh border border-gh-border bg-gh-canvas">
 <table class="table table-sm report-table report-table-events">
-<thead class="bg-beige-50"><tr>
+<thead><tr>
   {% for col in ["Type", "AI Score", "Description", "Actor", "Reason", "Date"] %}
-  <th class="text-xs uppercase tracking-wide opacity-50">{{ col }}</th>
+  <th class="text-xs uppercase tracking-wide">{{ col }}</th>
   {% endfor %}
 </tr></thead>
 <tbody>
@@ -158,8 +151,8 @@
   {% set sc = e.ai_score %}
   {% set ecls = score_class(sc)|trim %}
   {% set kind = e.kind|upper %}
-  {% set kind_colors = {"COMMIT": "badge-success", "PR": "badge-error", "ISSUE": "badge-info", "REVIEW": "badge-warning"} %}
-  {% set kind_cls = kind_colors.get(kind, "badge-ghost") %}
+  {% set kind_colors = {"COMMIT": "gh-label-green", "PR": "gh-label-blue", "ISSUE": "gh-label-yellow", "REVIEW": "gh-label-purple"} %}
+  {% set kind_cls = kind_colors.get(kind, "gh-label-blue") %}
   {% set actor = e.actor %}
   {% set is_bot = "[bot]" in actor|lower %}
   {% set bot_slug = actor|lower|replace("[bot]", "") if is_bot else "" %}
@@ -178,28 +171,28 @@
   {% set reason = (e.reason|default(""))[:40] %}
   {% set date_str = (e.created_at|default(""))[:10] %}
   <tr class="hover report-event-row report-event-row--{{ kind|lower }}">
-    <td data-label="Type" class="report-table-kind"><span class="badge {{ kind_cls }} badge-sm font-medium">{{ kind }}</span></td>
-    <td data-label="AI Score" class="report-table-score font-mono text-sm font-semibold {{ 'text-red-600' if sc >= 0.6 else '' }}">{{ "%.2f"|format(sc) }}</td>
+    <td data-label="Type" class="report-table-kind"><span class="gh-label {{ kind_cls }}">{{ kind|lower }}</span></td>
+    <td data-label="AI Score" class="report-table-score text-sm font-semibold {{ score_text(ecls) }}">{{ "%.2f"|format(sc) }}</td>
     <td data-label="Description" class="report-table-main report-table-description">
-      {%- if url %}<a href="{{ url }}" target="_blank" class="text-blue-600 underline decoration-1 underline-offset-2 hover:text-blue-800 hover:decoration-2">{{ title }}</a>
+      {%- if url %}<a href="{{ url }}" target="_blank" class="text-gh-blue hover:underline">{{ title }}</a>
       {%- else %}{{ title }}{% endif -%}
     </td>
     <td data-label="Actor" class="report-table-actor-cell">
       <div class="report-table-actor flex items-center gap-2">
-        <img class="w-6 h-6 rounded-full bg-beige-200 shrink-0" src="{{ actor_avatar }}" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <a href="{{ actor_url }}" target="_blank" class="font-medium text-sm text-blue-600 hover:text-blue-800">{{ actor }}</a>
+        <img class="w-6 h-6 rounded-full bg-gh-elevated shrink-0" src="{{ actor_avatar }}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <a href="{{ actor_url }}" target="_blank" class="font-medium text-sm text-gh-blue hover:underline">{{ actor }}</a>
       </div>
     </td>
     <td data-label="Reason" class="report-table-reason">
       {%- if reason %}<span class="text-xs opacity-60">{{ reason }}</span>
       {%- else %}<span class="opacity-30">—</span>{% endif -%}
     </td>
-    <td data-label="Date" class="report-table-date report-table-metric font-mono text-xs opacity-50">{{ date_str }}</td>
+    <td data-label="Date" class="report-table-date report-table-metric text-xs text-gh-faint">{{ date_str }}</td>
   </tr>
 {% endfor %}
 {% if show_more_url and events|length > show_events|length %}
   <tr class="report-table-more-row"><td colspan="6" class="text-center py-3">
-    <a href="{{ show_more_url }}" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Show more …</a>
+    <a href="{{ show_more_url }}" class="text-sm text-gh-blue hover:underline font-medium">Show more …</a>
   </td></tr>
 {% endif %}
 </tbody>
@@ -209,17 +202,17 @@
 
 {#- ECharts trend chart -#}
 {% macro trend_chart(chart_id, series, repo_name, color, trend) %}
-<div class="bg-white border border-beige-200 rounded-xl p-5 shadow-sm mb-8">
+<div class="gh-box p-5 mb-8">
   <div class="flex items-center justify-between mb-3">
-    <h2 class="text-lg font-bold">AII Trend</h2>
+    <h2 class="gh-heading text-base font-semibold">aii trend</h2>
     {%- if trend %}
     <div class="flex items-center gap-2">
       {%- if trend.direction == "up" %}
-      <span class="text-sm font-mono font-bold text-red-500">↑{{ "%.1f"|format(trend.diff * 100) }}%</span>
+      <span class="text-sm font-bold text-gh-red">↑{{ "%.1f"|format(trend.diff * 100) }}%</span>
       {%- elif trend.direction == "down" %}
-      <span class="text-sm font-mono font-bold text-green-600">↓{{ "%.1f"|format(trend.diff * 100) }}%</span>
+      <span class="text-sm font-bold text-gh-green">↓{{ "%.1f"|format(trend.diff * 100) }}%</span>
       {%- else %}
-      <span class="text-sm font-mono font-bold text-gray-400">→ Flat</span>
+      <span class="text-sm font-bold text-gh-faint">→ flat</span>
       {%- endif %}
     </div>
     {%- endif %}

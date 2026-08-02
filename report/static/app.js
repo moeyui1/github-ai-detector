@@ -102,12 +102,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function setActiveLink(id, options) {
     links.forEach(function(l) {
-      l.classList.remove('!opacity-100', '!border-l-blue-600', '!bg-beige-200/60');
+      l.classList.remove('!opacity-100', '!border-l-gh-blue', '!bg-gh-elevated');
       l.classList.add('opacity-60');
     });
     var link = sidebar ? sidebar.querySelector('a[data-repo="' + id + '"]') : null;
     if (link) {
-      link.classList.add('!opacity-100', '!border-l-blue-600', '!bg-beige-200/60');
+      link.classList.add('!opacity-100', '!border-l-gh-blue', '!bg-gh-elevated');
       link.classList.remove('opacity-60');
       collapseAll();
       var parentNavItem = link.closest('.nav-item');
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ensureECharts().then(function() {
       var dates = JSON.parse(el.getAttribute('data-dates') || '[]');
       var values = JSON.parse(el.getAttribute('data-values') || '[]');
-      var color = el.getAttribute('data-color') || '#2563eb';
+      var color = el.getAttribute('data-color') || '#58a6ff';
       var name = el.getAttribute('data-name') || 'AII';
       if (!dates.length || !values.length) {
         showChartFallback(el);
@@ -198,11 +198,11 @@ document.addEventListener('DOMContentLoaded', function() {
         backgroundColor: 'transparent',
         tooltip: {
           trigger: 'axis',
-          backgroundColor: '#fffdf9',
-          borderColor: '#d9cfc3',
-          borderRadius: 8,
+          backgroundColor: '#161b22',
+          borderColor: '#30363d',
+          borderRadius: 6,
           padding: [10, 14],
-          textStyle: { color: '#1f2937', fontSize: 13, fontFamily: 'DM Sans, sans-serif' },
+          textStyle: { color: '#e6edf3', fontSize: 13, fontFamily: 'SFMono-Regular, Consolas, monospace' },
           formatter: function(params) {
             var p = params[0];
             return '<b>' + p.name + '</b><br/><span style="color:' + color + '">●</span> ' + name + ': <b>' + p.value.toFixed(2) + '%</b>';
@@ -212,23 +212,23 @@ document.addEventListener('DOMContentLoaded', function() {
         xAxis: {
           type: 'category',
           data: dates,
-          axisLine: { lineStyle: { color: '#e2dace' } },
+          axisLine: { lineStyle: { color: '#30363d' } },
           axisTick: { show: false },
           axisLabel: {
-            color: '#9ca3af',
+            color: '#8b949e',
             fontSize: 11,
-            fontFamily: 'DM Mono, monospace',
+            fontFamily: 'SFMono-Regular, Consolas, monospace',
             interval: Math.max(0, Math.floor(dates.length / 6) - 1),
             formatter: function(v) { return v.slice(5); }
           }
         },
         yAxis: {
           type: 'value',
-          splitLine: { lineStyle: { color: '#f0ebe4', type: 'dashed' } },
+          splitLine: { lineStyle: { color: '#21262d', type: 'dashed' } },
           axisLabel: {
-            color: '#9ca3af',
+            color: '#8b949e',
             fontSize: 11,
-            fontFamily: 'DM Mono, monospace',
+            fontFamily: 'SFMono-Regular, Consolas, monospace',
             formatter: '{value}%'
           }
         },
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
           symbol: 'circle',
           symbolSize: 7,
           lineStyle: { color: color, width: 2.5 },
-          itemStyle: { color: color, borderColor: '#fff', borderWidth: 2 },
+          itemStyle: { color: color, borderColor: '#0d1117', borderWidth: 2 },
           emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 8, shadowColor: color + '44' } },
           areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             { offset: 0, color: color + '30' },
@@ -473,29 +473,31 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
   var ctx = canvas.getContext('2d');
 
   // ── Background ──
-  ctx.fillStyle = '#f0ebe4';
+  ctx.fillStyle = '#0d1117';
   ctx.fillRect(0, 0, W, totalH);
 
-  // ── Dark header banner ──
+  // ── Header banner ──
   var grd = ctx.createLinearGradient(0, 0, W, headerH);
-  grd.addColorStop(0, '#1e293b');
-  grd.addColorStop(1, '#334155');
+  grd.addColorStop(0, '#161b22');
+  grd.addColorStop(1, '#21262d');
   ctx.fillStyle = grd;
   ctx.fillRect(0, 0, W, headerH);
 
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold ' + (26 * dpr) + 'px "DM Sans", system-ui, sans-serif';
-  ctx.fillText('\ud83d\udef8 AI Involvement Ranking', padX, 46 * dpr);
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.font = (12 * dpr) + 'px "DM Sans", system-ui, sans-serif';
+  ctx.fillStyle = '#3fb950';
+  ctx.font = 'bold ' + (26 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText('$', padX, 46 * dpr);
+  ctx.fillStyle = '#e6edf3';
+  ctx.fillText(' ai-involvement-ranking', padX + ctx.measureText('$').width, 46 * dpr);
+  ctx.fillStyle = '#8b949e';
+  ctx.font = (12 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
   ctx.fillText(dateStr + '  \u00b7  ' + items.length + ' repositories', padX, 68 * dpr);
 
   // ── Podium: Top 3 ──
   var podiumBaseY = headerH + 16 * dpr;
   var podiumColors = [
-    { bg: '#fffbeb', border: '#f59e0b', accent: '#b45309', glow: 'rgba(245,158,11,0.15)', medal: '🥇', label: '1ST' },
-    { bg: '#f0f9ff', border: '#64748b', accent: '#475569', glow: 'rgba(100,116,139,0.12)', medal: '🥈', label: '2ND' },
-    { bg: '#fdf4ff', border: '#a855f7', accent: '#7e22ce', glow: 'rgba(168,85,247,0.12)', medal: '🥉', label: '3RD' },
+    { bg: '#161b22', border: '#e3b341', accent: '#e3b341', glow: 'rgba(227,179,65,0.12)', medal: '🥇', label: '1ST' },
+    { bg: '#161b22', border: '#8b949e', accent: '#c9d1d9', glow: 'rgba(139,148,158,0.12)', medal: '🥈', label: '2ND' },
+    { bg: '#161b22', border: '#d18616', accent: '#d18616', glow: 'rgba(209,134,22,0.12)', medal: '🥉', label: '3RD' },
   ];
 
   var top3 = items.slice(0, 3);
@@ -540,12 +542,12 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
     var contentTop = podiumY + 10 * dpr;
 
     // Medal + label
-    ctx.font = (36 * dpr) + 'px "DM Sans", system-ui, sans-serif';
+    ctx.font = (36 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#1f2937';
+    ctx.fillStyle = '#e6edf3';
     ctx.fillText(c.medal, cx + podiumCardW / 2, contentTop + 34 * dpr);
 
-    ctx.font = 'bold ' + (11 * dpr) + 'px "DM Sans", system-ui, sans-serif';
+    ctx.font = 'bold ' + (11 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
     ctx.fillStyle = c.accent;
     ctx.fillText(c.label, cx + podiumCardW / 2, contentTop + 48 * dpr);
 
@@ -565,14 +567,14 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
       _roundRectStroke(ctx, avatarX, avatarY2, avatarSize, avatarSize, 12 * dpr);
       ctx.globalAlpha = 1;
     } else {
-      ctx.fillStyle = '#e2dace';
+      ctx.fillStyle = '#21262d';
       _roundRect(ctx, avatarX, avatarY2, avatarSize, avatarSize, 12 * dpr);
     }
 
     // Repo name
     var nameMaxW = podiumCardW - 24 * dpr;
-    ctx.font = 'bold ' + (13 * dpr) + 'px "DM Sans", system-ui, sans-serif';
-    ctx.fillStyle = '#1f2937';
+    ctx.font = 'bold ' + (13 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
+    ctx.fillStyle = '#e6edf3';
     var displayName = item.name;
     while (ctx.measureText(displayName).width > nameMaxW && displayName.length > 4) {
       displayName = displayName.slice(0, -4) + '…';
@@ -581,7 +583,7 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
 
     // Score (big)
     var cls = _getScoreCls(item.score);
-    ctx.font = 'bold ' + (24 * dpr) + 'px "DM Mono", monospace';
+    ctx.font = 'bold ' + (24 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
     ctx.fillStyle = _scoreColor(cls);
     ctx.fillText(item.score, cx + podiumCardW / 2, contentTop + 150 * dpr);
 
@@ -593,8 +595,8 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
     var restY = podiumBaseY + podiumH + 8 * dpr;
 
     // Section label
-    ctx.fillStyle = '#9ca3af';
-    ctx.font = (12 * dpr) + 'px "DM Sans", system-ui, sans-serif';
+    ctx.fillStyle = '#8b949e';
+    ctx.font = (12 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
     ctx.fillText('OTHER REPOSITORIES', padX + 4 * dpr, restY + 14 * dpr);
     restY += 24 * dpr;
 
@@ -604,17 +606,17 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
       var cls = _getScoreCls(item.score);
 
       // Card bg
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = '#161b22';
       _roundRect(ctx, padX, cy, contentW, restCardH, 10 * dpr);
-      ctx.strokeStyle = '#e2dace';
+      ctx.strokeStyle = '#30363d';
       ctx.lineWidth = 1 * dpr;
       _roundRectStroke(ctx, padX, cy, contentW, restCardH, 10 * dpr);
 
       var centerY = cy + restCardH / 2;
 
       // Rank number
-      ctx.font = (14 * dpr) + 'px "DM Mono", monospace';
-      ctx.fillStyle = '#9ca3af';
+      ctx.font = (14 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
+      ctx.fillStyle = '#6e7681';
       ctx.textAlign = 'center';
       ctx.fillText(item.rank, padX + 28 * dpr, centerY + 5 * dpr);
       ctx.textAlign = 'left';
@@ -630,14 +632,14 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
         ctx.drawImage(item.avatarImg, sAvatarX, sAvatarY, sAvatarSize, sAvatarSize);
         ctx.restore();
       } else {
-        ctx.fillStyle = '#e2dace';
+        ctx.fillStyle = '#21262d';
         _roundRect(ctx, sAvatarX, sAvatarY, sAvatarSize, sAvatarSize, 6 * dpr);
       }
 
       // Name
       var nameX = sAvatarX + sAvatarSize + 12 * dpr;
-      ctx.font = (14 * dpr) + 'px "DM Sans", system-ui, sans-serif';
-      ctx.fillStyle = '#374151';
+      ctx.font = (14 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
+      ctx.fillStyle = '#c9d1d9';
       var dn = item.name.length > 45 ? item.name.substring(0, 42) + '…' : item.name;
       ctx.fillText(dn, nameX, centerY + 5 * dpr);
 
@@ -649,7 +651,7 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
       ctx.fillStyle = _scoreBg(cls);
       _roundRect(ctx, scoreX, scoreY, scoreW, scoreH, 6 * dpr);
       ctx.fillStyle = _scoreColor(cls);
-      ctx.font = 'bold ' + (13 * dpr) + 'px "DM Mono", monospace';
+      ctx.font = 'bold ' + (13 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
       ctx.textAlign = 'center';
       ctx.fillText(item.score, scoreX + scoreW / 2, scoreY + scoreH / 2 + 5 * dpr);
       ctx.textAlign = 'left';
@@ -659,11 +661,11 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
       var barW = scoreX - barX - 16 * dpr;
       if (barW > 30 * dpr) {
         var pct = parseFloat(item.score) / 100;
-        ctx.fillStyle = '#f0ebe4';
+        ctx.fillStyle = '#21262d';
         _roundRect(ctx, barX, centerY - 3 * dpr, barW, 6 * dpr, 3 * dpr);
         if (pct > 0) {
           ctx.fillStyle = _scoreColor(cls);
-          ctx.globalAlpha = 0.25;
+          ctx.globalAlpha = 0.45;
           _roundRect(ctx, barX, centerY - 3 * dpr, barW * Math.min(pct, 1), 6 * dpr, 3 * dpr);
           ctx.globalAlpha = 1;
         }
@@ -673,7 +675,7 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
 
   // ── Footer ──
   var footerY = totalH - footerH - 10 * dpr;
-  ctx.strokeStyle = '#cdc3b5';
+  ctx.strokeStyle = '#30363d';
   ctx.lineWidth = 1.5 * dpr;
   ctx.beginPath();
   ctx.moveTo(padX, footerY);
@@ -694,7 +696,7 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
   ctx.fillStyle = '#ffffff';
   _roundRect(ctx, qrX - 6 * dpr, qrY - 6 * dpr, qrSize + 12 * dpr, qrSize + 12 * dpr, 8 * dpr);
 
-  ctx.fillStyle = '#1e293b';
+  ctx.fillStyle = '#0d1117';
   for (var row = 0; row < qrModules; row++) {
     for (var col = 0; col < qrModules; col++) {
       if (qr.isDark(row, col)) {
@@ -704,14 +706,14 @@ function drawShareImage(items, dateStr, siteUrl, btn) {
   }
 
   // Footer text
-  ctx.fillStyle = '#1f2937';
-  ctx.font = 'bold ' + (20 * dpr) + 'px "DM Sans", system-ui, sans-serif';
-  ctx.fillText('🛸 AI Intrusion Report', padX, footerY + 36 * dpr);
-  ctx.fillStyle = '#6b7280';
-  ctx.font = (13 * dpr) + 'px "DM Sans", system-ui, sans-serif';
+  ctx.fillStyle = '#e6edf3';
+  ctx.font = 'bold ' + (20 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText('github-ai-detector', padX, footerY + 36 * dpr);
+  ctx.fillStyle = '#8b949e';
+  ctx.font = (13 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
   ctx.fillText('Scan QR to view full report', padX, footerY + 58 * dpr);
-  ctx.fillStyle = '#9ca3af';
-  ctx.font = (12 * dpr) + 'px "DM Mono", monospace';
+  ctx.fillStyle = '#6e7681';
+  ctx.font = (12 * dpr) + 'px "SFMono-Regular", Consolas, monospace';
   ctx.fillText(siteUrl, padX, footerY + 80 * dpr);
 
   // Download
@@ -739,10 +741,10 @@ function _getScoreCls(txt) {
   return 'low';
 }
 function _scoreColor(cls) {
-  return { high: '#dc2626', med: '#ca8a04', low: '#16a34a' }[cls] || '#2563eb';
+  return { high: '#f85149', med: '#d29922', low: '#3fb950' }[cls] || '#58a6ff';
 }
 function _scoreBg(cls) {
-  return { high: '#fef2f2', med: '#fefce8', low: '#f0fdf4' }[cls] || '#f5f5f5';
+  return { high: 'rgba(248,81,73,0.15)', med: 'rgba(210,153,34,0.15)', low: 'rgba(63,185,80,0.15)' }[cls] || 'rgba(88,166,255,0.15)';
 }
 
 // Canvas rounded rect helpers
