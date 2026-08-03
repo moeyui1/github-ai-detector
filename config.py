@@ -33,6 +33,9 @@ class LLMConfig:
     api_key: str = ""
     base_url: str = "https://api.openai.com/v1"
     concurrency: int = 30
+    batch_size: int = 10
+    max_item_chars: int = 3000
+    extra_body: dict = field(default_factory=dict)
 
 
 @dataclass

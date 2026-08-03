@@ -168,7 +168,7 @@ def analyze_repo(
             _log.info("All %d PRs cached, skipping review fetch", len(raw_prs))
 
     t, b, rv_total, rv_ai = build_pr_events(raw_prs, provider, pr_scores, result.events, llm_tasks,
-                           template=templates.get("pr", ""), reviews_by_pr=reviews_map)
+                           reviews_by_pr=reviews_map)
     total_events += t
     bot_events += b
     result.review_total = rv_total
@@ -208,7 +208,7 @@ def analyze_repo(
         _log.info("L3 LLM audit starting | %d tasks | concurrency=%d", len(remaining_tasks), concurrency)
         _update(f"Running L3 LLM audit on {len(remaining_tasks)} events (concurrency={concurrency}) …")
 
-        batch_size = 10
+        batch_size = get_config().llm.batch_size
         batches: list[list[tuple[EventRecord, str, list[float], dict | None]]] = []
         for i in range(0, len(remaining_tasks), batch_size):
             batches.append(remaining_tasks[i:i + batch_size])
@@ -217,7 +217,7 @@ def analyze_repo(
         with ThreadPoolExecutor(max_workers=concurrency) as pool:
             def _score_batch(batch: list[tuple[EventRecord, str, list[float], dict | None]]) -> list[LLMLogEntry]:
                 texts = [text for _, text, _, _ in batch]
-                results_list = _safe_llm_score_batch(provider, texts)
+                results_list = _safe_llm_score_batch(provider, texts, templates.get("pr", ""))
                 has_error = any(r.error for r in results_list)
                 get_stats().record_llm(repo_name, success=not has_error)
                 logs: list[LLMLogEntry] = []

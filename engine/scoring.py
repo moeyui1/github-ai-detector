@@ -49,12 +49,14 @@ def _safe_llm_score(provider: BaseProvider, text: str) -> LLMCallResult:
         return LLMCallResult(score=0.0, error=str(type(exc).__name__))
 
 
-def _safe_llm_score_batch(provider: BaseProvider, texts: list[str]) -> list[LLMCallResult]:
+def _safe_llm_score_batch(provider: BaseProvider, texts: list[str],
+                          shared_context: str = "") -> list[LLMCallResult]:
     """Score multiple texts in a single LLM call. Returns zero scores on failure."""
-    if len(texts) == 1:
+    # Single texts only bypass the batch path when there is no shared context to carry.
+    if len(texts) == 1 and not shared_context:
         return [_safe_llm_score(provider, texts[0])]
     try:
-        return provider.analyze_batch(texts)
+        return provider.analyze_batch(texts, shared_context)
     except Exception as exc:
         _log.warning("Batch LLM call failed (%s), returning zero scores for %d items", _sanitize_exc(exc), len(texts))
         return [LLMCallResult(score=0.0, error=type(exc).__name__) for _ in texts]

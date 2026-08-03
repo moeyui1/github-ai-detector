@@ -31,6 +31,21 @@ model = "gpt-4.1"
 base_url = ""
 # LLM concurrency for L3 scoring
 concurrency = 3
+# Events scored per LLM request
+batch_size = 10
+# Max characters of event text sent per item. Long texts keep head + tail,
+# since AI sign-off footers appear at the end. Raise for accuracy, lower for
+# tighter rate-limit / cost budgets.
+max_item_chars = 3000
+
+# Extra fields merged into every LLM request body (vendor-specific).
+# This task is a short classification and needs no chain-of-thought, so turn
+# thinking off where the model supports it:
+#   Qwen / vLLM / SGLang     -> enable_thinking = false
+#   OpenAI o-series / gpt-5  -> reasoning_effort = "minimal"
+#   Claude via OpenAI-compat -> thinking = { type = "disabled" }
+# Keys the endpoint rejects are dropped automatically after an HTTP 400.
+[llm.extra_body]
 
 [site]
 # Website URL used for QR code in share images
