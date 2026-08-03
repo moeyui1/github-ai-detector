@@ -161,7 +161,7 @@ engine.analyze_repo(owner, repo, token, provider, max_items, cache)
          │
          ├── 缓存查找: 若事件 updated_at 未变更 → 复用缓存 ai_score + reason
          │
-         └── L3: 批量 LLM 评分（batch_size=10，仅对未命中缓存的事件）
+         └── L3: 批量 LLM 评分（llm.batch_size，默认 10，仅对未命中缓存的事件）
                scoring._safe_llm_score_batch() → providers.analyze_batch()
                → _call_llm_batch() → 单次 LLM 调用评分多条事件
                │  (commit 特例: raw_score -= rebase_penalty)
@@ -195,13 +195,16 @@ BaseProvider (ABC)              # providers/base.py
 | 成员 | 类型 | 说明 |
 |------|------|------|
 | `analyze_text(text)` | 抽象方法 | 接收原始文本，返回 `LLMCallResult`（含 score + reason + model + token 用量 + 错误信息） |
-| `analyze_batch(texts)` | 实例方法 | 批量评分：一次 LLM 调用评分多条文本，返回 `list[LLMCallResult]`；默认实现逐条调用 `analyze_text`，子类覆盖为真正的批量调用 |
-| `_build_messages(text)` | 实例方法 | 将文本截断至 1000 字符，从 `prompts/detect_ai.txt` 加载 system prompt，构建消息列表 |
-| `_build_batch_messages(texts)` | 实例方法 | 将多条文本拼接为编号格式（`[1]\n...\n---\n[2]\n...`），每条截断至 800 字符，使用 `prompts/detect_ai_batch.txt` 作为 system prompt |
+| `analyze_batch(texts, shared_context)` | 实例方法 | 批量评分：一次 LLM 调用评分多条文本，返回 `list[LLMCallResult]`；`shared_context` 为整批共享的仓库级上下文（如 PR 模板），每请求只发送一次；默认实现逐条调用 `analyze_text`，子类覆盖为真正的批量调用 |
+| `compact_text(text)` | 模块函数 | 剔除代码块、图片、链接 URL、HTML 注释等“占 token 但无文风信号”的内容 |
+| `clip_text(text, limit)` | 模块函数 | 先 `compact_text`，再按 `limit` 保留**首 70% + 尾 30%**；AI 签名页脚常在文末，故不能只截开头 |
+| `_build_messages(text)` | 实例方法 | 按 `llm.max_item_chars` 调用 `clip_text`，从 `prompts/detect_ai.txt` 加载 system prompt，构建消息列表 |
+| `_build_batch_messages(texts, shared_context)` | 实例方法 | 将多条文本拼接为编号格式（`[1]\n...\n---\n[2]\n...`），每条按 `llm.max_item_chars` 裁剪；`shared_context` 作为独立 system 消息只附加一次 |
 | `_parse_response(raw)` | 静态方法 | 从 LLM 返回的 JSON 字符串中提取 score 和 reason；自动清理 `<think>` 标签和 markdown code fence；包含 fallback 正则匹配 |
 | `_parse_batch_response(raw, expected)` | 静态方法 | 从 LLM 返回的 JSON 数组中解析多条 `(score, reason)` 结果；支持正则 fallback |
 | `_call_llm(client, model, text)` | 实例方法 | 共享的单项 LLM 调用实现，包含指数退避重试（5 次，429/RateLimitError）和不支持参数的自动降级 |
-| `_call_llm_batch(client, model, texts)` | 实例方法 | 批量 LLM 调用，重试逻辑同 `_call_llm`；Token 用量按条目数均分记录；429 响应体记录到 WARNING 日志（截断至 300 字符） |
+| `_call_llm_batch(client, model, texts, shared_context)` | 实例方法 | 批量 LLM 调用，重试逻辑同 `_call_llm`；Token 用量按条目数均分记录；429 响应体记录到 WARNING 日志（截断至 300 字符） |
+| `_drop_unsupported(params, err)` | 模块函数 | HTTP 400 时逐级剔离被拒绝的参数（先按名，再整体丢弃 `extra_body`）；无可剔离时返回 `False`，让调用方直接抛出而非空转重试 |
 
 ### 4.2.1 LLMCallResult
 
@@ -395,7 +398,7 @@ def _run_llm_tasks(llm_tasks, provider, concurrency, update) -> list[LLMLogEntry
 **Reviews 处理策略（关键优化）：**
 
 Reviews **不再**作为独立事件生成，而是：
-1. **内容附加**：Review 的文本片段附加到父 PR 的 LLM 评分文本中（格式：`[login(kind)/state]: body[:200]`，总量上限 500 字符），作为 LLM 评分的上下文参考
+1. **内容附加**：Review 的文本片段附加到父 PR 的 LLM 评分文本中（格式：`[login(kind)/state]: body`，总量上限为 `review_budget = min(600, max_item_chars // 4)`），作为 LLM 评分的上下文参考
 2. **AI 计数**：review_total/review_ai 由 `classify_actor()` 的 L1/L2 规则**纯按作者名**判定，不需要 LLM 调用
 3. **效果**：大幅减少 LLM 调用量（如 openclaw 从 1280 个事件降至 180 个）
 
@@ -440,7 +443,7 @@ def analyze_repo(
 3. 并发批量获取 PR reviews（`fetch_pr_reviews_batch()`）
 4. `build_commit_events()` / `build_pr_events()` 构建事件列表
 5. **缓存查找**：将每个 HUMAN 事件与原始 API 数据匹配（`_find_event_key()`），若事件的 `updated_at` 与缓存一致，直接复用缓存的 `ai_score` 和 `reason`
-6. **批量 LLM 评分（L3）**：仅对未命中缓存的事件，按 `batch_size=10` 分组调用 `_safe_llm_score_batch()`
+6. **批量 LLM 评分（L3）**：仅对未命中缓存的事件，按 `llm.batch_size` 分组调用 `_safe_llm_score_batch()`
 7. 所有事件的结果写入 `new_cache`，与 `AnalysisResult` 一起返回
 
 **计数指标**：
@@ -488,17 +491,21 @@ def analyze_single(owner, repo, item_type, identifier, token, ...) -> SingleItem
 
 **流程（批量评分）**：
 1. 收集所有需要 LLM 评分的 HUMAN 事件文本（排除已被正则检测为显式 AI 的事件）
-2. 按 `batch_size=10` 分组
-3. 每组调用 `_safe_llm_score_batch()` → `provider.analyze_batch(texts)` → `_call_llm_batch()`
-4. 单次 LLM 调用中，多条事件以编号格式拼接（`[1]\n...\n---\n[2]\n...`），每条截断至 800 字符
+2. 按 `llm.batch_size`（默认 10）分组
+3. 每组调用 `_safe_llm_score_batch()` → `provider.analyze_batch(texts, shared_context)` → `_call_llm_batch()`
+4. 单次 LLM 调用中，多条事件以编号格式拼接（`[1]\n...\n---\n[2]\n...`），每条经 `clip_text` 按 `llm.max_item_chars`（默认 3000）保留首尾
 5. LLM 返回 JSON 数组 `[{"score": ..., "reason": "..."}, ...]`
 6. `_parse_batch_response` 解析数组（含正则 fallback）
 7. **仅对 Commit**：减去 `_rebase_penalty`（0 或 0.3），结果 clamp 到 ≥ 0
 8. `reason` 写入 `EventRecord.reason`，贯穿整条数据管道至 UI 展示
 
+**仓库 PR 模板的传递**：
+- 模板对整批事件是相同的，故作为 `shared_context` **每请求只发送一次**的独立 system 消息
+- 旧实现将模板拼在每条事件文本前，占据了单条预算的 ~68%，导致真实 PR 内容被截断
+
 **PR 的 Review 上下文**：
-- Reviews 的文本片段作为上下文附加到父 PR 的评分文本中（上限 500 字符）
-- 这些内容帮助 LLM 更准确判断 PR 的 AI 参与度
+- Reviews 的文本片段作为上下文附加到父 PR 的评分文本中（上限 `review_budget`）
+- 各段落预算之和等于单条预算，确保 Review 不会被尾部截断丢弃
 - Review 的 AI 计数**不使用 LLM**，而是由 L1/L2 纯按作者名判定
 
 **批量评分容错**：
@@ -647,6 +654,9 @@ class SingleItemResult:
 | `llm.api_key` | str | `""` | OpenAI API Key |
 | `llm.base_url` | str | `"https://api.openai.com/v1"` | OpenAI 兼容端点 |
 | `llm.concurrency` | int | `30` | L3 阶段 LLM 并发调用数 |
+| `llm.batch_size` | int | `10` | 单次 LLM 请求评分的事件数 |
+| `llm.max_item_chars` | int | `3000` | 单条事件文本上限；超长时保留首 70% + 尾 30%。上下文窗口非瓶颈，调大提升准确度，调小缓解限流与成本 |
+| `llm.extra_body` | table | `{}` | 合并到每次请求体的厂商字段，用于关闭 thinking（如 `enable_thinking = false`、`reasoning_effort = "minimal"`）；被拒绝的字段在 HTTP 400 后自动剔离 |
 | `analysis.max_items` | int | `50` | 每类事件最大拉取条数（commit 取最新 N 条非 merge，PR 取最近更新的 N 条） |
 | `analysis.max_pages` | int | `10` | commit 拉取的最大分页次数（merge commit 较多时需要多页才能凑够 max_items） |
 | `analysis.high_risk_threshold` | float | `0.6` | 高风险事件阈值 |
@@ -726,7 +736,7 @@ When current reviews and issue comments not serve as independent event dimension
 
 当前 L3 阶段使用两层优化：
 
-1. **批量 LLM 评分**：多个事件在一次 LLM 调用中评分（`batch_size=10`），大幅减少 API 调用次数（如 openclaw 从 650+ 次降至 ~13 次）
+1. **批量 LLM 评分**：多个事件在一次 LLM 调用中评分（`llm.batch_size`，默认 10），大幅减少 API 调用次数（如 openclaw 从 650+ 次降至 ~13 次）
 2. **并发执行**：批量任务通过 `concurrent.futures.ThreadPoolExecutor` 并发提交，并发度通过 `config.toml` 的 `llm.concurrency` 配置（默认 30）
 
 GitHub API 访问也使用并发批量获取（`_GH_CONCURRENCY=10`）：

@@ -36,6 +36,74 @@ def _get_batch_system_prompt() -> str:
     return _BATCH_SYSTEM_PROMPT
 
 
+# Noise that costs input tokens but carries almost no writing-style signal.
+_HTML_COMMENT_RE = re.compile(r"<!--[\s\S]*?-->")
+_IMAGE_RE = re.compile(r"!\[[^\]]*\]\([^)]*\)")
+_MD_LINK_RE = re.compile(r"\[([^\]]*)\]\([^)]*\)")
+_CODE_FENCE_RE = re.compile(r"```[\s\S]*?```")
+_INDENTED_DIFF_RE = re.compile(r"(?m)^[+-]{3}.*$|^@@.*@@.*$")
+_BARE_URL_RE = re.compile(r"https?://\S+")
+_BLANK_LINES_RE = re.compile(r"\n{3,}")
+_TRAILING_WS_RE = re.compile(r"(?m)[ \t]+$")
+
+
+def compact_text(text: str) -> str:
+    """Strip token-heavy, style-neutral noise before the text is sent to the LLM."""
+    if not text:
+        return ""
+    out = _HTML_COMMENT_RE.sub("", text)
+    out = _CODE_FENCE_RE.sub("[code]", out)
+    out = _IMAGE_RE.sub("[img]", out)
+    out = _MD_LINK_RE.sub(r"\1", out)
+    out = _INDENTED_DIFF_RE.sub("[diff]", out)
+    out = _BARE_URL_RE.sub("[url]", out)
+    out = _TRAILING_WS_RE.sub("", out)
+    out = _BLANK_LINES_RE.sub("\n\n", out)
+    return out.strip()
+
+
+_ELLIPSIS = "\n[…]\n"
+
+
+def clip_text(text: str, limit: int) -> str:
+    """Compact then clip to *limit*, keeping both ends.
+
+    AI sign-off footers ("Generated with ...") live at the end, so head-only
+    truncation would discard the strongest signal in long bodies.
+    """
+    out = compact_text(text)
+    if limit <= 0 or len(out) <= limit:
+        return out
+    if limit <= len(_ELLIPSIS):
+        return out[:limit]
+    budget = limit - len(_ELLIPSIS)
+    head = int(budget * 0.7)
+    return f"{out[:head]}{_ELLIPSIS}{out[-(budget - head):]}"
+
+
+def _drop_unsupported(extra_params: dict, error_body: str) -> bool:
+    """Drop only params the error actually names. False means the caller should re-raise."""
+    dropped = False
+    for param in ("temperature", "max_completion_tokens"):
+        if param in error_body and param in extra_params:
+            _log.warning("Model does not support '%s', removing and retrying", param)
+            del extra_params[param]
+            dropped = True
+
+    if body := extra_params.get("extra_body"):
+        named = [k for k in body if k in error_body]
+        if not named and "extra_body" in error_body:
+            named = list(body)
+        if named:
+            _log.warning("Endpoint rejected llm.extra_body %s, removing and retrying", named)
+            for key in named:
+                del body[key]
+            if not body:
+                del extra_params["extra_body"]
+            dropped = True
+    return dropped
+
+
 @dataclass
 class LLMCallResult:
     """Result of a single LLM call including token usage."""
@@ -56,28 +124,35 @@ class BaseProvider(ABC):
     def analyze_text(self, text: str) -> LLMCallResult:
         """Return an LLMCallResult with score and token usage."""
 
-    def analyze_batch(self, texts: list[str]) -> list[LLMCallResult]:
+    def analyze_batch(self, texts: list[str], shared_context: str = "") -> list[LLMCallResult]:
         """Score multiple texts in a single LLM call. Default: call analyze_text individually."""
         return [self.analyze_text(t) for t in texts]
 
     # ── message building ───────────────────────────────────────
     def _build_messages(self, text: str) -> list[dict[str, str]]:
-        truncated = text[:1000] if text else ""
+        truncated = clip_text(text, get_config().llm.max_item_chars)
         return [
             {"role": "system", "content": _get_system_prompt()},
             {"role": "user", "content": truncated},
         ]
 
-    def _build_batch_messages(self, texts: list[str]) -> list[dict[str, str]]:
+    def _build_batch_messages(self, texts: list[str], shared_context: str = "") -> list[dict[str, str]]:
+        limit = get_config().llm.max_item_chars
         parts: list[str] = []
         for i, text in enumerate(texts, 1):
-            truncated = text[:800] if text else ""
-            parts.append(f"[{i}]\n{truncated}")
+            parts.append(f"[{i}]\n{clip_text(text, limit)}")
         combined = "\n\n---\n\n".join(parts)
-        return [
-            {"role": "system", "content": _get_batch_system_prompt()},
-            {"role": "user", "content": combined},
-        ]
+        messages = [{"role": "system", "content": _get_batch_system_prompt()}]
+        # Repo-level context is identical for every item, so send it once per request.
+        if shared_context:
+            messages.append({
+                "role": "system",
+                "content": "[REPO PR TEMPLATE — shared by all items below; "
+                           "structure inherited from it is NOT an AI signal]\n"
+                           + clip_text(shared_context, limit),
+            })
+        messages.append({"role": "user", "content": combined})
+        return messages
 
     # ── score parsing ──────────────────────────────────────────
     @staticmethod
@@ -122,6 +197,8 @@ class BaseProvider(ABC):
 
         # Optional params that some models may not support
         extra_params: dict = {"max_completion_tokens": 4096}
+        if cfg_extra := get_config().llm.extra_body:
+            extra_params["extra_body"] = dict(cfg_extra)
 
         for attempt in range(max_retries):
             try:
@@ -151,12 +228,8 @@ class BaseProvider(ABC):
                         raise
                     time.sleep(delay)
                 elif exc.status_code == 400 and "does not support" in str(exc):
-                    # Remove the unsupported parameter and retry immediately
-                    body = str(exc)
-                    for param in ("temperature", "max_completion_tokens"):
-                        if param in body and param in extra_params:
-                            _log.warning("Model does not support '%s', removing and retrying", param)
-                            del extra_params[param]
+                    if not _drop_unsupported(extra_params, str(exc)):
+                        raise
                     continue
                 else:
                     raise
@@ -239,7 +312,8 @@ class BaseProvider(ABC):
             return results[:expected]
         return []  # signal parse failure
 
-    def _call_llm_batch(self, client: OpenAI, model: str, texts: list[str]) -> list[LLMCallResult]:
+    def _call_llm_batch(self, client: OpenAI, model: str, texts: list[str],
+                        shared_context: str = "") -> list[LLMCallResult]:
         """Score multiple texts in a single LLM call."""
         from openai import APIStatusError, RateLimitError
 
@@ -248,12 +322,14 @@ class BaseProvider(ABC):
         max_retries = 5
         base_delay = 1.0
         extra_params: dict = {"max_completion_tokens": 4096}
+        if cfg_extra := get_config().llm.extra_body:
+            extra_params["extra_body"] = dict(cfg_extra)
 
         for attempt in range(max_retries):
             try:
                 raw_resp = client.chat.completions.with_raw_response.create(
                     model=model,
-                    messages=self._build_batch_messages(texts),  # type: ignore[arg-type]
+                    messages=self._build_batch_messages(texts, shared_context),  # type: ignore[arg-type]
                     **extra_params,
                 )
                 break
@@ -273,17 +349,21 @@ class BaseProvider(ABC):
                         raise
                     time.sleep(delay)
                 elif exc.status_code == 400 and "does not support" in str(exc):
-                    body = str(exc)
-                    for param in ("temperature", "max_completion_tokens"):
-                        if param in body and param in extra_params:
-                            _log.warning("Model does not support '%s', removing and retrying", param)
-                            del extra_params[param]
+                    if not _drop_unsupported(extra_params, str(exc)):
+                        raise
                     continue
                 else:
                     raise
 
         resp = raw_resp.parse()
         content = resp.choices[0].message.content or ""
+
+        if not content:
+            _log.warning(
+                "LLM batch returned empty content (finish_reason=%s). A reasoning model may "
+                "have spent the whole budget on thinking — disable it via [llm.extra_body].",
+                getattr(resp.choices[0], "finish_reason", "?"),
+            )
 
         usage = resp.usage
         if usage and usage.total_tokens:

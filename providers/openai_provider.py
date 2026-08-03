@@ -35,5 +35,5 @@ class OpenAIProvider(BaseProvider):
     def analyze_text(self, text: str) -> LLMCallResult:
         return self._call_llm(self.client, self.model, text)
 
-    def analyze_batch(self, texts: list[str]) -> list[LLMCallResult]:
-        return self._call_llm_batch(self.client, self.model, texts)
+    def analyze_batch(self, texts: list[str], shared_context: str = "") -> list[LLMCallResult]:
+        return self._call_llm_batch(self.client, self.model, texts, shared_context)

@@ -7,8 +7,9 @@ from __future__ import annotations
 import re
 from typing import Callable
 
+from config import get_config
 from log import get_logger
-from providers.base import BaseProvider
+from providers.base import BaseProvider, clip_text, compact_text
 
 from engine.github_api import (
     fetch_pr_comments,
@@ -25,6 +26,11 @@ from engine.models import (
 from engine.scoring import _run_llm_tasks
 
 _log = get_logger("engine.pulls")
+
+# Titles are clipped to the same length the EventRecord stores.
+_TITLE_BUDGET = 120
+# "Title: " + "\n\n" + "\n\n[REVIEWS]:\n" wrappers.
+_WRAPPER_BUDGET = 25
 
 # Patterns that indicate explicit AI collaboration in PR descriptions.
 # These are deliberately strict — only match clear, unambiguous statements.
@@ -54,7 +60,6 @@ def build_pr_events(
     pr_scores: list[float],
     events: list[EventRecord],
     llm_tasks: list[tuple[EventRecord, str, list[float], dict | None]],
-    template: str = "",
     reviews_by_pr: dict[int, list[dict]] | None = None,
 ) -> tuple[int, int, int, int]:
     """Process raw PRs into events.
@@ -69,6 +74,12 @@ def build_pr_events(
     bots = 0
     review_total = 0
     review_ai = 0
+
+    item_budget = get_config().llm.max_item_chars
+    review_budget = min(600, item_budget // 4)
+    # Sections must sum to item_budget, otherwise the provider clips the text a
+    # second time and the review context is no longer guaranteed to survive.
+    body_budget = max(200, item_budget - review_budget - _TITLE_BUDGET - _WRAPPER_BUDGET)
 
     for pr in raw_prs:
         login = (pr.get("user") or {}).get("login", "unknown")
@@ -101,7 +112,7 @@ def build_pr_events(
                 if rv_kind == ActorKind.AI_BOT:
                     review_ai += 1
                 # Keep a short snippet of review content for LLM context
-                review_snippets.append(f"[{rv_login}({rv_kind.value})/{rv_state}]: {rv_body[:200]}")
+                review_snippets.append(f"[{rv_login}({rv_kind.value})/{rv_state}]: {rv_body[:review_budget]}")
 
         if kind == ActorKind.SYSTEM_BOT:
             ev.ai_score = 0.0
@@ -115,12 +126,10 @@ def build_pr_events(
             ev.reason = "PR body explicitly mentions AI collaboration"
             _log.info("PR #%s: explicit AI collaboration detected in body", pr_number)
         elif provider:
-            combined = f"Title: {title}\n\n{body}"
-            if template:
-                combined = f"[REPO PR TEMPLATE]:\n{template[:500]}\n\n[ACTUAL PR CONTENT]:\n{combined}"
-            # Append review snippets as context (capped at 500 chars total)
+            # Budget each section explicitly so review context survives truncation.
+            combined = f"Title: {title[:_TITLE_BUDGET]}\n\n{clip_text(body, body_budget)}"
             if review_snippets:
-                ctx = "\n".join(review_snippets)[:500]
+                ctx = compact_text("\n".join(review_snippets))[:review_budget]
                 combined += f"\n\n[REVIEWS]:\n{ctx}"
             llm_tasks.append((ev, combined, pr_scores, None))
         else:
