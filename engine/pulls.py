@@ -27,6 +27,11 @@ from engine.scoring import _run_llm_tasks
 
 _log = get_logger("engine.pulls")
 
+# Titles are clipped to the same length the EventRecord stores.
+_TITLE_BUDGET = 120
+# "Title: " + "\n\n" + "\n\n[REVIEWS]:\n" wrappers.
+_WRAPPER_BUDGET = 25
+
 # Patterns that indicate explicit AI collaboration in PR descriptions.
 # These are deliberately strict — only match clear, unambiguous statements.
 _AI_COLLAB_PATTERNS = re.compile(
@@ -72,7 +77,9 @@ def build_pr_events(
 
     item_budget = get_config().llm.max_item_chars
     review_budget = min(600, item_budget // 4)
-    body_budget = max(200, item_budget - review_budget - 150)
+    # Sections must sum to item_budget, otherwise the provider clips the text a
+    # second time and the review context is no longer guaranteed to survive.
+    body_budget = max(200, item_budget - review_budget - _TITLE_BUDGET - _WRAPPER_BUDGET)
 
     for pr in raw_prs:
         login = (pr.get("user") or {}).get("login", "unknown")
@@ -120,7 +127,7 @@ def build_pr_events(
             _log.info("PR #%s: explicit AI collaboration detected in body", pr_number)
         elif provider:
             # Budget each section explicitly so review context survives truncation.
-            combined = f"Title: {title}\n\n{clip_text(body, body_budget)}"
+            combined = f"Title: {title[:_TITLE_BUDGET]}\n\n{clip_text(body, body_budget)}"
             if review_snippets:
                 ctx = compact_text("\n".join(review_snippets))[:review_budget]
                 combined += f"\n\n[REVIEWS]:\n{ctx}"

@@ -62,6 +62,9 @@ def compact_text(text: str) -> str:
     return out.strip()
 
 
+_ELLIPSIS = "\n[…]\n"
+
+
 def clip_text(text: str, limit: int) -> str:
     """Compact then clip to *limit*, keeping both ends.
 
@@ -71,24 +74,33 @@ def clip_text(text: str, limit: int) -> str:
     out = compact_text(text)
     if limit <= 0 or len(out) <= limit:
         return out
-    head = int(limit * 0.7)
-    tail = limit - head
-    return f"{out[:head]}\n[…]\n{out[-tail:]}"
+    if limit <= len(_ELLIPSIS):
+        return out[:limit]
+    budget = limit - len(_ELLIPSIS)
+    head = int(budget * 0.7)
+    return f"{out[:head]}{_ELLIPSIS}{out[-(budget - head):]}"
 
 
 def _drop_unsupported(extra_params: dict, error_body: str) -> bool:
-    """Remove params the endpoint rejected. Returns False when nothing can be dropped."""
+    """Drop only params the error actually names. False means the caller should re-raise."""
     dropped = False
     for param in ("temperature", "max_completion_tokens"):
         if param in error_body and param in extra_params:
             _log.warning("Model does not support '%s', removing and retrying", param)
             del extra_params[param]
             dropped = True
-    if not dropped and "extra_body" in extra_params:
-        _log.warning("Endpoint rejected llm.extra_body %s, removing and retrying",
-                     sorted(extra_params["extra_body"]))
-        del extra_params["extra_body"]
-        dropped = True
+
+    if body := extra_params.get("extra_body"):
+        named = [k for k in body if k in error_body]
+        if not named and "extra_body" in error_body:
+            named = list(body)
+        if named:
+            _log.warning("Endpoint rejected llm.extra_body %s, removing and retrying", named)
+            for key in named:
+                del body[key]
+            if not body:
+                del extra_params["extra_body"]
+            dropped = True
     return dropped
 
 
