@@ -7,7 +7,6 @@
 repos = [
     "https://github.com/openclaw/openclaw",
     "ollama/ollama",
-    "open-webui/open-webui",
     "huggingface/transformers",
     "mem0ai/mem0",
     "torvalds/linux",
@@ -26,7 +25,7 @@ trending_ai_topics = ["artificial-intelligence", "machine-learning", "llm", "gen
 provider = "github"
 # Model identifier
 # model = "DeepSeek-V3.2"
-model = "gpt-4.1"
+model = "gpt-5.6-luna"
 # OpenAI-compatible endpoint (set via OPENAI_BASE_URL env var)
 base_url = ""
 # LLM concurrency for L3 scoring
