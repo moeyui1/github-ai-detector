@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>GitHub AI Radar</title><link>https://aiintrusion.dpdns.org</link><description>Daily AI involvement rankings for GitHub repositories</description><language>en</language><item><title>AI Radar Report — 2026-11-14</title><link>https://aiintrusion.dpdns.org/2026-11-14/</link><guid>https://aiintrusion.dpdns.org/2026-11-14/</guid><pubDate>Sat, 14 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-14
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 61.9% | 80/100 | 62/100 | 89/201
+#2 | morluto/rea | 54.0% | 15/100 | 96/100 | 107/120
+#3 | f/prompts.chat | 50.4% | 11/100 | 79/100 | 9/10
+#4 | thedotmack/claude-mem | 43.4% | 42/100 | 15/100 | 7/9
+#5 | public-apis/public-apis | 40.8% | 12/100 | 41/100 | 1/1
+#6 | hacksider/Deep-Live-Cam | 31.3% | 13/100 | 10/100 | 2/2
+#7 | AstrBotDevs/AstrBot | 30.9% | 3/100 | 22/100 | 25/25
+#8 | mem0ai/mem0 | 29.3% | 10/100 | 61/100 | 0/0
+#9 | openclaw/openclaw | 25.9% | 6/100 | 8/100 | 4/5
+#10 | huggingface/transformers | 23.6% | 26/100 | 31/100 | 1/57
+#11 | OpenHands/OpenHands | 18.0% | 19/100 | 53/100 | 1/95
+#12 | harvard-edge/cs249r_book | 15.3% | 4/100 | 50/100 | 0/1
+#13 | EbookFoundation/free-programming-books | 12.4% | 10/100 | 19/100 | 0/1
+#14 | codecrafters-io/build-your-own-x | 11.7% | 0/100 | 26/100 | 0/0
+#15 | nilbuild/developer-roadmap | 8.2% | 18/100 | 17/100 | 0/0
+#16 | torvalds/linux | 8.2% | 10/100 | 0/0 | 0/0
+#17 | usestrix/strix | 7.2% | 1/100 | 20/100 | 0/4
+#18 | jwasham/coding-interview-university | 6.4% | 1/100 | 11/100 | 0/0
+#19 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 5/100 | 0/0
+#20 | ollama/ollama | 5.2% | 1/100 | 10/100 | 0/2
+#21 | nautechsystems/nautilus_trader | 4.5% | 4/100 | 1/100 | 0/2
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 1.2% | 0/100 | 0/100 | 0/35
+
+Average AII: 21.7%
+Total events analyzed: 4948</description></item><item><title>AI Radar Report — 2026-11-13</title><link>https://aiintrusion.dpdns.org/2026-11-13/</link><guid>https://aiintrusion.dpdns.org/2026-11-13/</guid><pubDate>Fri, 13 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-13
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 63.5% | 80/100 | 62/100 | 162/271
+#2 | f/prompts.chat | 52.2% | 11/100 | 79/100 | 1/1
+#3 | morluto/rea | 47.0% | 6/100 | 84/100 | 174/185
+#4 | mem0ai/mem0 | 43.0% | 10/100 | 62/100 | 1/1
+#5 | thedotmack/claude-mem | 40.7% | 42/100 | 18/100 | 7/12
+#6 | The-Art-of-Hacking/h4cker | 35.3% | 20/100 | 56/100 | 1/3
+#7 | hacksider/Deep-Live-Cam | 31.3% | 13/100 | 10/100 | 3/3
+#8 | AstrBotDevs/AstrBot | 30.3% | 3/100 | 24/100 | 12/13
+#9 | huggingface/transformers | 24.5% | 29/100 | 30/100 | 2/76
+#10 | public-apis/public-apis | 23.9% | 14/100 | 32/100 | 0/0
+#11 | openclaw/openclaw | 23.7% | 1/100 | 9/100 | 5/6
+#12 | ollama/ollama | 19.9% | 1/100 | 9/100 | 3/4
+#13 | OpenHands/OpenHands | 19.4% | 21/100 | 55/100 | 0/81
+#14 | EbookFoundation/free-programming-books | 12.2% | 10/100 | 18/100 | 0/1
+#15 | usestrix/strix | 11.9% | 0/100 | 22/100 | 1/4
+#16 | nautechsystems/nautilus_trader | 10.0% | 5/100 | 1/100 | 1/4
+#17 | codecrafters-io/build-your-own-x | 9.3% | 0/100 | 26/100 | 0/2
+#18 | nilbuild/developer-roadmap | 8.1% | 18/100 | 17/100 | 0/0
+#19 | jwasham/coding-interview-university | 6.4% | 1/100 | 11/100 | 0/0
+#20 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 5/100 | 0/0
+#21 | torvalds/linux | 4.9% | 7/100 | 0/0 | 0/0
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 0.8% | 0/100 | 0/100 | 0/16
+
+Average AII: 22.9%
+Total events analyzed: 5061</description></item><item><title>AI Radar Report — 2026-11-12</title><link>https://aiintrusion.dpdns.org/2026-11-12/</link><guid>https://aiintrusion.dpdns.org/2026-11-12/</guid><pubDate>Thu, 12 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-12
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 55.4% | 80/100 | 53/100 | 112/238
+#2 | f/prompts.chat | 53.6% | 15/100 | 79/100 | 4/4
+#3 | morluto/rea | 49.6% | 6/100 | 91/100 | 307/315
+#4 | mem0ai/mem0 | 42.9% | 10/100 | 62/100 | 1/1
+#5 | public-apis/public-apis | 35.8% | 14/100 | 21/100 | 1/1
+#6 | The-Art-of-Hacking/h4cker | 35.3% | 20/100 | 56/100 | 1/3
+#7 | thedotmack/claude-mem | 34.7% | 16/100 | 16/100 | 8/9
+#8 | hacksider/Deep-Live-Cam | 31.3% | 13/100 | 10/100 | 2/2
+#9 | AstrBotDevs/AstrBot | 30.2% | 3/100 | 24/100 | 20/22
+#10 | codecrafters-io/build-your-own-x | 29.3% | 0/100 | 26/100 | 1/1
+#11 | openclaw/openclaw | 24.8% | 2/100 | 22/100 | 10/13
+#12 | EbookFoundation/free-programming-books | 22.4% | 10/100 | 19/100 | 1/2
+#13 | huggingface/transformers | 20.6% | 20/100 | 32/100 | 1/64
+#14 | OpenHands/OpenHands | 16.6% | 22/100 | 34/100 | 3/75
+#15 | ollama/ollama | 10.4% | 1/100 | 14/100 | 1/5
+#16 | nilbuild/developer-roadmap | 7.6% | 18/100 | 16/100 | 0/0
+#17 | usestrix/strix | 7.3% | 0/100 | 22/100 | 0/2
+#18 | jwasham/coding-interview-university | 6.4% | 1/100 | 11/100 | 0/0
+#19 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 5/100 | 0/0
+#20 | torvalds/linux | 6.2% | 7/100 | 0/0 | 0/0
+#21 | nautechsystems/nautilus_trader | 5.5% | 5/100 | 1/100 | 1/28
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 1.3% | 0/100 | 2/100 | 0/32
+
+Average AII: 23.3%
+Total events analyzed: 5195</description></item><item><title>AI Radar Report — 2026-11-11</title><link>https://aiintrusion.dpdns.org/2026-11-11/</link><guid>https://aiintrusion.dpdns.org/2026-11-11/</guid><pubDate>Wed, 11 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-11
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 73.7% | 99/100 | 65/100 | 114/243
+#2 | morluto/rea | 54.1% | 14/100 | 94/100 | 214/219
+#3 | f/prompts.chat | 53.0% | 14/100 | 80/100 | 3/3
+#4 | The-Art-of-Hacking/h4cker | 33.7% | 20/100 | 56/100 | 1/4
+#5 | AstrBotDevs/AstrBot | 31.8% | 3/100 | 22/100 | 33/34
+#6 | hacksider/Deep-Live-Cam | 31.3% | 13/100 | 10/100 | 5/5
+#7 | mem0ai/mem0 | 28.9% | 10/100 | 60/100 | 0/0
+#8 | public-apis/public-apis | 25.2% | 12/100 | 36/100 | 0/0
+#9 | thedotmack/claude-mem | 23.3% | 20/100 | 15/100 | 1/3
+#10 | huggingface/transformers | 21.5% | 20/100 | 33/100 | 2/42
+#11 | OpenHands/OpenHands | 20.9% | 25/100 | 43/100 | 0/77
+#12 | openclaw/openclaw | 16.5% | 6/100 | 42/100 | 0/1
+#13 | EbookFoundation/free-programming-books | 12.6% | 10/100 | 19/100 | 0/1
+#14 | codecrafters-io/build-your-own-x | 11.7% | 0/100 | 26/100 | 0/0
+#15 | ollama/ollama | 9.6% | 1/100 | 16/100 | 1/8
+#16 | nilbuild/developer-roadmap | 7.9% | 20/100 | 16/100 | 0/0
+#17 | usestrix/strix | 7.0% | 0/100 | 21/100 | 0/2
+#18 | jwasham/coding-interview-university | 6.4% | 1/100 | 11/100 | 0/0
+#19 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 5/100 | 0/0
+#20 | torvalds/linux | 6.1% | 7/100 | 0/0 | 0/0
+#21 | nautechsystems/nautilus_trader | 4.7% | 5/100 | 1/100 | 0/6
+#22 | freeCodeCamp/freeCodeCamp | 2.7% | 0/100 | 6/100 | 0/19
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 21.4%
+Total events analyzed: 5045</description></item><item><title>AI Radar Report — 2026-11-10</title><link>https://aiintrusion.dpdns.org/2026-11-10/</link><guid>https://aiintrusion.dpdns.org/2026-11-10/</guid><pubDate>Tue, 10 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-10
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | thedotmack/claude-mem | 60.7% | 74/100 | 20/100 | 5/7
+#2 | morluto/rea | 57.4% | 19/100 | 97/100 | 260/271
+#3 | Significant-Gravitas/AutoGPT | 56.5% | 99/100 | 40/100 | 113/262
+#4 | f/prompts.chat | 52.8% | 14/100 | 79/100 | 21/21
+#5 | mem0ai/mem0 | 41.9% | 10/100 | 59/100 | 2/2
+#6 | The-Art-of-Hacking/h4cker | 34.3% | 20/100 | 56/100 | 2/7
+#7 | AstrBotDevs/AstrBot | 31.0% | 3/100 | 20/100 | 28/30
+#8 | hacksider/Deep-Live-Cam | 27.5% | 13/100 | 10/100 | 8/10
+#9 | openclaw/openclaw | 26.2% | 4/100 | 13/100 | 3/4
+#10 | OpenHands/OpenHands | 20.2% | 21/100 | 47/100 | 1/89
+#11 | public-apis/public-apis | 20.0% | 12/100 | 41/100 | 0/2
+#12 | huggingface/transformers | 17.2% | 17/100 | 25/100 | 1/102
+#13 | ollama/ollama | 13.9% | 1/100 | 21/100 | 3/11
+#14 | EbookFoundation/free-programming-books | 11.9% | 10/100 | 16/100 | 0/3
+#15 | codecrafters-io/build-your-own-x | 11.7% | 0/100 | 26/100 | 0/0
+#16 | nilbuild/developer-roadmap | 8.3% | 20/100 | 16/100 | 0/0
+#17 | usestrix/strix | 7.5% | 0/100 | 22/100 | 0/2
+#18 | jwasham/coding-interview-university | 6.4% | 1/100 | 11/100 | 0/0
+#19 | torvalds/linux | 5.4% | 6/100 | 0/0 | 0/0
+#20 | rasbt/LLMs-from-scratch | 5.1% | 0/100 | 5/100 | 0/1
+#21 | nautechsystems/nautilus_trader | 4.8% | 5/100 | 1/100 | 0/19
+#22 | freeCodeCamp/freeCodeCamp | 2.7% | 0/100 | 5/100 | 0/6
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 22.9%
+Total events analyzed: 5227</description></item><item><title>AI Radar Report — 2026-11-09</title><link>https://aiintrusion.dpdns.org/2026-11-09/</link><guid>https://aiintrusion.dpdns.org/2026-11-09/</guid><pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-09
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 64.1% | 99/100 | 54/100 | 82/196
+#2 | morluto/rea | 61.9% | 31/100 | 88/100 | 243/249
+#3 | thedotmack/claude-mem | 57.0% | 69/100 | 31/100 | 5/8
+#4 | f/prompts.chat | 50.7% | 8/100 | 80/100 | 5/5
+#5 | public-apis/public-apis | 33.6% | 12/100 | 15/100 | 1/1
+#6 | hacksider/Deep-Live-Cam | 31.8% | 13/100 | 12/100 | 5/5
+#7 | AstrBotDevs/AstrBot | 30.3% | 2/100 | 20/100 | 21/23
+#8 | Lightning-AI/pytorch-lightning | 27.6% | 7/100 | 21/100 | 1/1
+#9 | mem0ai/mem0 | 23.7% | 10/100 | 62/100 | 0/3
+#10 | huggingface/transformers | 22.1% | 19/100 | 41/100 | 0/12
+#11 | openclaw/openclaw | 21.2% | 3/100 | 24/100 | 1/3
+#12 | OpenHands/OpenHands | 18.2% | 15/100 | 49/100 | 1/44
+#13 | EbookFoundation/free-programming-books | 12.1% | 10/100 | 16/100 | 0/1
+#14 | ollama/ollama | 10.1% | 1/100 | 15/100 | 1/6
+#15 | codecrafters-io/build-your-own-x | 9.7% | 0/100 | 26/100 | 1/56
+#16 | nilbuild/developer-roadmap | 8.1% | 20/100 | 15/100 | 0/0
+#17 | usestrix/strix | 6.8% | 0/100 | 20/100 | 0/2
+#18 | jwasham/coding-interview-university | 6.4% | 1/100 | 11/100 | 0/0
+#19 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 5/100 | 0/0
+#20 | nautechsystems/nautilus_trader | 6.2% | 3/100 | 1/100 | 1/9
+#21 | torvalds/linux | 5.4% | 6/100 | 0/0 | 0/0
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.5% | 0/100 | 3/100 | 0/9
+
+Average AII: 22.5%
+Total events analyzed: 5011</description></item><item><title>AI Radar Report — 2026-11-08</title><link>https://aiintrusion.dpdns.org/2026-11-08/</link><guid>https://aiintrusion.dpdns.org/2026-11-08/</guid><pubDate>Sun, 08 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-08
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 68.9% | 99/100 | 55/100 | 107/233
+#2 | mattpocock/skills | 67.2% | 70/100 | 69/100 | 0/0
+#3 | morluto/rea | 66.8% | 39/100 | 97/100 | 267/298
+#4 | thedotmack/claude-mem | 58.6% | 70/100 | 25/100 | 25/33
+#5 | f/prompts.chat | 50.1% | 6/100 | 80/100 | 7/7
+#6 | The-Art-of-Hacking/h4cker | 35.0% | 20/100 | 58/100 | 3/10
+#7 | openclaw/openclaw | 31.2% | 15/100 | 11/100 | 11/14
+#8 | AstrBotDevs/AstrBot | 30.6% | 2/100 | 16/100 | 22/22
+#9 | mem0ai/mem0 | 29.5% | 10/100 | 61/100 | 0/0
+#10 | huggingface/transformers | 22.0% | 18/100 | 36/100 | 1/11
+#11 | OpenHands/OpenHands | 18.5% | 14/100 | 55/100 | 0/35
+#12 | public-apis/public-apis | 16.7% | 12/100 | 14/100 | 0/0
+#13 | Lightning-AI/pytorch-lightning | 12.3% | 7/100 | 21/100 | 0/0
+#14 | EbookFoundation/free-programming-books | 11.5% | 10/100 | 14/100 | 0/1
+#15 | nilbuild/developer-roadmap | 8.1% | 20/100 | 15/100 | 0/0
+#16 | ollama/ollama | 7.9% | 1/100 | 14/100 | 0/0
+#17 | torvalds/linux | 6.4% | 7/100 | 0/0 | 0/0
+#18 | usestrix/strix | 6.4% | 0/100 | 19/100 | 0/2
+#19 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 5/100 | 0/0
+#20 | jwasham/coding-interview-university | 5.1% | 1/100 | 11/100 | 0/2
+#21 | freeCodeCamp/freeCodeCamp | 3.2% | 0/100 | 3/100 | 0/0
+#22 | nautechsystems/nautilus_trader | 2.9% | 1/100 | 1/100 | 0/3
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 24.7%
+Total events analyzed: 5049</description></item><item><title>AI Radar Report — 2026-11-07</title><link>https://aiintrusion.dpdns.org/2026-11-07/</link><guid>https://aiintrusion.dpdns.org/2026-11-07/</guid><pubDate>Sat, 07 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-07
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 67.2% | 70/100 | 69/100 | 0/0
+#2 | Significant-Gravitas/AutoGPT | 65.5% | 99/100 | 44/100 | 79/190
+#3 | morluto/rea | 59.8% | 30/100 | 98/100 | 39/52
+#4 | f/prompts.chat | 47.3% | 3/100 | 76/100 | 9/9
+#5 | thedotmack/claude-mem | 46.0% | 53/100 | 39/100 | 1/3
+#6 | mem0ai/mem0 | 41.9% | 10/100 | 58/100 | 1/1
+#7 | The-Art-of-Hacking/h4cker | 33.2% | 20/100 | 58/100 | 5/25
+#8 | openclaw/openclaw | 31.5% | 0/100 | 25/100 | 1/1
+#9 | AstrBotDevs/AstrBot | 27.1% | 2/100 | 19/100 | 20/25
+#10 | huggingface/transformers | 20.4% | 19/100 | 34/100 | 0/91
+#11 | OpenHands/OpenHands | 20.3% | 16/100 | 57/100 | 0/71
+#12 | public-apis/public-apis | 17.4% | 14/100 | 23/100 | 0/1
+#13 | Lightning-AI/pytorch-lightning | 14.5% | 7/100 | 21/100 | 1/4
+#14 | EbookFoundation/free-programming-books | 11.4% | 10/100 | 14/100 | 0/1
+#15 | ollama/ollama | 11.2% | 1/100 | 12/100 | 3/11
+#16 | nilbuild/developer-roadmap | 8.0% | 20/100 | 15/100 | 0/0
+#17 | usestrix/strix | 6.9% | 0/100 | 21/100 | 0/2
+#18 | jwasham/coding-interview-university | 5.5% | 1/100 | 11/100 | 0/6
+#19 | rasbt/LLMs-from-scratch | 5.1% | 0/100 | 5/100 | 0/2
+#20 | torvalds/linux | 4.5% | 6/100 | 0/0 | 0/0
+#21 | nautechsystems/nautilus_trader | 4.4% | 2/100 | 1/100 | 3/67
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.4% | 0/100 | 2/100 | 0/3
+
+Average AII: 24.1%
+Total events analyzed: 4943</description></item><item><title>AI Radar Report — 2026-11-06</title><link>https://aiintrusion.dpdns.org/2026-11-06/</link><guid>https://aiintrusion.dpdns.org/2026-11-06/</guid><pubDate>Fri, 06 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-06
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 67.2% | 70/100 | 69/100 | 0/0
+#2 | Significant-Gravitas/AutoGPT | 63.7% | 75/100 | 54/100 | 157/258
+#3 | morluto/rea | 62.7% | 32/100 | 97/100 | 284/314
+#4 | thedotmack/claude-mem | 52.8% | 51/100 | 43/100 | 2/3
+#5 | f/prompts.chat | 46.4% | 2/100 | 75/100 | 2/2
+#6 | public-apis/public-apis | 38.0% | 14/100 | 26/100 | 1/1
+#7 | hacksider/Deep-Live-Cam | 31.4% | 13/100 | 11/100 | 4/4
+#8 | obra/superpowers | 29.1% | 9/100 | 58/100 | 0/0
+#9 | AstrBotDevs/AstrBot | 28.6% | 2/100 | 18/100 | 34/38
+#10 | torvalds/linux | 27.6% | 33/100 | 0/0 | 0/0
+#11 | mem0ai/mem0 | 23.1% | 10/100 | 58/100 | 0/1
+#12 | huggingface/transformers | 20.3% | 17/100 | 34/100 | 1/82
+#13 | OpenHands/OpenHands | 16.4% | 15/100 | 36/100 | 0/66
+#14 | openclaw/openclaw | 16.2% | 2/100 | 6/100 | 3/7
+#15 | EbookFoundation/free-programming-books | 11.6% | 10/100 | 14/100 | 0/1
+#16 | nilbuild/developer-roadmap | 8.3% | 20/100 | 15/100 | 0/0
+#17 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#18 | usestrix/strix | 6.8% | 0/100 | 21/100 | 0/3
+#19 | ollama/ollama | 5.9% | 1/100 | 13/100 | 0/4
+#20 | rasbt/LLMs-from-scratch | 4.7% | 0/100 | 3/100 | 0/2
+#21 | explosion/spaCy | 4.6% | 1/100 | 2/100 | 0/0
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.6% | 0/100 | 2/100 | 0/12
+
+Average AII: 25.2%
+Total events analyzed: 5176</description></item><item><title>AI Radar Report — 2026-11-05</title><link>https://aiintrusion.dpdns.org/2026-11-05/</link><guid>https://aiintrusion.dpdns.org/2026-11-05/</guid><pubDate>Thu, 05 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-05
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 66.9% | 70/100 | 68/100 | 0/0
+#2 | morluto/rea | 57.4% | 18/100 | 96/100 | 138/143
+#3 | Significant-Gravitas/AutoGPT | 55.2% | 75/100 | 44/100 | 148/295
+#4 | f/prompts.chat | 46.6% | 4/100 | 74/100 | 5/5
+#5 | thedotmack/claude-mem | 44.8% | 51/100 | 47/100 | 1/5
+#6 | mem0ai/mem0 | 42.8% | 10/100 | 61/100 | 1/1
+#7 | public-apis/public-apis | 37.5% | 12/100 | 31/100 | 1/1
+#8 | hacksider/Deep-Live-Cam | 31.4% | 13/100 | 11/100 | 5/5
+#9 | AstrBotDevs/AstrBot | 28.5% | 2/100 | 15/100 | 45/47
+#10 | obra/superpowers | 28.4% | 9/100 | 56/100 | 0/0
+#11 | OpenHands/OpenHands | 22.1% | 21/100 | 37/100 | 0/96
+#12 | huggingface/transformers | 18.1% | 18/100 | 24/100 | 2/77
+#13 | openclaw/openclaw | 15.2% | 4/100 | 16/100 | 0/0
+#14 | ollama/ollama | 14.6% | 1/100 | 14/100 | 3/7
+#15 | EbookFoundation/free-programming-books | 11.9% | 10/100 | 15/100 | 0/1
+#16 | nilbuild/developer-roadmap | 8.9% | 21/100 | 15/100 | 0/0
+#17 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#18 | usestrix/strix | 6.8% | 0/100 | 16/100 | 0/0
+#19 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 3/100 | 0/0
+#20 | explosion/spaCy | 4.6% | 1/100 | 2/100 | 0/0
+#21 | freeCodeCamp/freeCodeCamp | 3.0% | 0/100 | 2/100 | 0/11
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | torvalds/linux | 1.4% | 2/100 | 0/0 | 0/0
+
+Average AII: 24.5%
+Total events analyzed: 5072</description></item><item><title>AI Radar Report — 2026-11-04</title><link>https://aiintrusion.dpdns.org/2026-11-04/</link><guid>https://aiintrusion.dpdns.org/2026-11-04/</guid><pubDate>Wed, 04 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-04
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 66.9% | 70/100 | 68/100 | 0/0
+#2 | morluto/rea | 64.8% | 31/100 | 99/100 | 164/171
+#3 | Significant-Gravitas/AutoGPT | 60.0% | 70/100 | 65/100 | 139/309
+#4 | f/prompts.chat | 55.2% | 20/100 | 73/100 | 2/2
+#5 | thedotmack/claude-mem | 43.9% | 58/100 | 46/100 | 0/1
+#6 | hacksider/Deep-Live-Cam | 31.4% | 13/100 | 11/100 | 8/8
+#7 | mem0ai/mem0 | 29.4% | 10/100 | 60/100 | 0/0
+#8 | obra/superpowers | 28.6% | 9/100 | 57/100 | 0/0
+#9 | openclaw/openclaw | 27.0% | 11/100 | 28/100 | 1/2
+#10 | OpenHands/OpenHands | 26.3% | 25/100 | 48/100 | 0/150
+#11 | AstrBotDevs/AstrBot | 24.8% | 0/100 | 10/100 | 98/112
+#12 | huggingface/transformers | 20.6% | 19/100 | 32/100 | 0/68
+#13 | public-apis/public-apis | 20.4% | 15/100 | 22/100 | 0/0
+#14 | ollama/ollama | 12.7% | 1/100 | 20/100 | 1/4
+#15 | EbookFoundation/free-programming-books | 11.6% | 10/100 | 14/100 | 0/1
+#16 | nilbuild/developer-roadmap | 10.9% | 23/100 | 15/100 | 0/0
+#17 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#18 | usestrix/strix | 6.3% | 0/100 | 15/100 | 0/0
+#19 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 3/100 | 0/0
+#20 | explosion/spaCy | 4.6% | 1/100 | 2/100 | 0/0
+#21 | freeCodeCamp/freeCodeCamp | 3.0% | 1/100 | 1/100 | 0/21
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | torvalds/linux | 1.4% | 2/100 | 0/0 | 0/0
+
+Average AII: 24.6%
+Total events analyzed: 5227</description></item><item><title>AI Radar Report — 2026-11-03</title><link>https://aiintrusion.dpdns.org/2026-11-03/</link><guid>https://aiintrusion.dpdns.org/2026-11-03/</guid><pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-03
+Repos analyzed: 24
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 66.9% | 70/100 | 68/100 | 0/0
+#2 | Significant-Gravitas/AutoGPT | 64.3% | 70/100 | 76/100 | 131/328
+#3 | morluto/rea | 64.0% | 37/100 | 95/100 | 182/206
+#4 | f/prompts.chat | 54.6% | 19/100 | 72/100 | 4/4
+#5 | thedotmack/claude-mem | 50.8% | 58/100 | 42/100 | 2/5
+#6 | openclaw/openclaw | 32.5% | 7/100 | 24/100 | 11/12
+#7 | hacksider/Deep-Live-Cam | 30.9% | 13/100 | 8/100 | 4/4
+#8 | mem0ai/mem0 | 29.4% | 10/100 | 60/100 | 0/0
+#9 | OpenHands/OpenHands | 28.9% | 24/100 | 59/100 | 1/84
+#10 | obra/superpowers | 27.4% | 8/100 | 55/100 | 6/22
+#11 | AstrBotDevs/AstrBot | 26.1% | 0/100 | 7/100 | 23/24
+#12 | huggingface/transformers | 23.1% | 19/100 | 39/100 | 2/86
+#13 | Lightning-AI/pytorch-lightning | 22.5% | 7/100 | 19/100 | 14/19
+#14 | public-apis/public-apis | 19.7% | 15/100 | 18/100 | 0/0
+#15 | EbookFoundation/free-programming-books | 11.6% | 10/100 | 14/100 | 0/1
+#16 | torvalds/linux | 9.8% | 11/100 | 0/0 | 0/0
+#17 | ollama/ollama | 8.2% | 1/100 | 22/100 | 0/6
+#18 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#19 | nilbuild/developer-roadmap | 8.1% | 17/100 | 10/100 | 0/0
+#20 | usestrix/strix | 6.4% | 0/100 | 15/100 | 0/0
+#21 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 3/100 | 0/0
+#22 | explosion/spaCy | 4.6% | 1/100 | 2/100 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 3.4% | 1/100 | 3/100 | 0/27
+#24 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 25.4%
+Total events analyzed: 5406</description></item><item><title>AI Radar Report — 2026-11-02</title><link>https://aiintrusion.dpdns.org/2026-11-02/</link><guid>https://aiintrusion.dpdns.org/2026-11-02/</guid><pubDate>Mon, 02 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-02
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | morluto/rea | 70.2% | 43/100 | 99/100 | 69/73
+#2 | mattpocock/skills | 66.9% | 70/100 | 68/100 | 0/0
+#3 | Significant-Gravitas/AutoGPT | 58.2% | 70/100 | 63/100 | 100/276
+#4 | f/prompts.chat | 57.2% | 29/100 | 69/100 | 31/31
+#5 | thedotmack/claude-mem | 53.4% | 74/100 | 39/100 | 2/11
+#6 | public-apis/public-apis | 35.4% | 15/100 | 16/100 | 1/1
+#7 | hacksider/Deep-Live-Cam | 30.6% | 13/100 | 7/100 | 6/6
+#8 | OpenHands/OpenHands | 28.2% | 24/100 | 56/100 | 0/74
+#9 | obra/superpowers | 27.5% | 8/100 | 55/100 | 0/0
+#10 | AstrBotDevs/AstrBot | 27.1% | 0/100 | 9/100 | 66/68
+#11 | mem0ai/mem0 | 23.0% | 10/100 | 58/100 | 0/3
+#12 | huggingface/transformers | 22.9% | 21/100 | 35/100 | 1/21
+#13 | openclaw/openclaw | 19.4% | 2/100 | 16/100 | 3/6
+#14 | EbookFoundation/free-programming-books | 11.5% | 10/100 | 14/100 | 0/1
+#15 | torvalds/linux | 9.8% | 11/100 | 0/0 | 0/0
+#16 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#17 | ollama/ollama | 8.0% | 1/100 | 21/100 | 0/4
+#18 | nilbuild/developer-roadmap | 7.9% | 17/100 | 9/100 | 0/0
+#19 | usestrix/strix | 6.4% | 0/100 | 15/100 | 0/0
+#20 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 3/100 | 0/0
+#21 | explosion/spaCy | 4.6% | 1/100 | 2/100 | 0/0
+#22 | freeCodeCamp/freeCodeCamp | 2.7% | 2/100 | 2/100 | 0/2
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 25.6%
+Total events analyzed: 4955</description></item><item><title>AI Radar Report — 2026-11-01</title><link>https://aiintrusion.dpdns.org/2026-11-01/</link><guid>https://aiintrusion.dpdns.org/2026-11-01/</guid><pubDate>Sun, 01 Nov 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-11-01
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | morluto/rea | 75.2% | 57/100 | 94/100 | 147/157
+#2 | mattpocock/skills | 66.6% | 70/100 | 67/100 | 0/0
+#3 | Significant-Gravitas/AutoGPT | 55.4% | 90/100 | 50/100 | 30/100
+#4 | thedotmack/claude-mem | 51.7% | 74/100 | 40/100 | 1/13
+#5 | f/prompts.chat | 47.0% | 14/100 | 58/100 | 24/24
+#6 | openclaw/openclaw | 31.7% | 2/100 | 29/100 | 32/32
+#7 | hacksider/Deep-Live-Cam | 30.6% | 13/100 | 7/100 | 3/3
+#8 | OpenHands/OpenHands | 30.4% | 28/100 | 47/100 | 1/56
+#9 | mem0ai/mem0 | 29.4% | 10/100 | 60/100 | 0/0
+#10 | AstrBotDevs/AstrBot | 28.0% | 0/100 | 15/100 | 37/38
+#11 | obra/superpowers | 27.7% | 8/100 | 56/100 | 0/0
+#12 | huggingface/transformers | 22.9% | 22/100 | 33/100 | 1/18
+#13 | public-apis/public-apis | 21.3% | 16/100 | 21/100 | 0/0
+#14 | ollama/ollama | 14.8% | 1/100 | 21/100 | 2/6
+#15 | EbookFoundation/free-programming-books | 11.6% | 11/100 | 12/100 | 0/2
+#16 | torvalds/linux | 11.2% | 13/100 | 0/0 | 0/0
+#17 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#18 | nilbuild/developer-roadmap | 7.8% | 17/100 | 9/100 | 0/0
+#19 | rasbt/LLMs-from-scratch | 6.3% | 0/100 | 3/100 | 0/0
+#20 | usestrix/strix | 5.7% | 0/100 | 13/100 | 0/0
+#21 | explosion/spaCy | 4.7% | 1/100 | 2/100 | 0/0
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.7% | 2/100 | 2/100 | 0/5
+
+Average AII: 25.8%
+Total events analyzed: 4832</description></item><item><title>AI Radar Report — 2026-10-31</title><link>https://aiintrusion.dpdns.org/2026-10-31/</link><guid>https://aiintrusion.dpdns.org/2026-10-31/</guid><pubDate>Sat, 31 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-31
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 66.6% | 70/100 | 67/100 | 0/0
+#2 | morluto/rea | 64.4% | 48/100 | 86/100 | 68/76
+#3 | Significant-Gravitas/AutoGPT | 61.5% | 94/100 | 48/100 | 80/226
+#4 | thedotmack/claude-mem | 49.9% | 74/100 | 39/100 | 0/1
+#5 | obra/superpowers | 42.0% | 8/100 | 55/100 | 1/1
+#6 | f/prompts.chat | 40.0% | 3/100 | 50/100 | 7/7
+#7 | mem0ai/mem0 | 36.4% | 10/100 | 61/100 | 4/6
+#8 | OpenHands/OpenHands | 32.7% | 34/100 | 45/100 | 1/87
+#9 | hacksider/Deep-Live-Cam | 30.6% | 13/100 | 7/100 | 3/3
+#10 | openclaw/openclaw | 30.4% | 4/100 | 12/100 | 10/11
+#11 | AstrBotDevs/AstrBot | 28.3% | 0/100 | 18/100 | 21/22
+#12 | public-apis/public-apis | 23.2% | 16/100 | 26/100 | 0/0
+#13 | huggingface/transformers | 22.5% | 22/100 | 33/100 | 2/73
+#14 | ollama/ollama | 13.1% | 1/100 | 18/100 | 4/14
+#15 | EbookFoundation/free-programming-books | 12.4% | 12/100 | 12/100 | 0/1
+#16 | torvalds/linux | 8.2% | 10/100 | 0/0 | 0/0
+#17 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#18 | nilbuild/developer-roadmap | 7.8% | 17/100 | 9/100 | 0/0
+#19 | rasbt/LLMs-from-scratch | 5.0% | 0/100 | 3/100 | 0/1
+#20 | explosion/spaCy | 4.7% | 1/100 | 2/100 | 0/0
+#21 | usestrix/strix | 4.0% | 0/100 | 11/100 | 0/1
+#22 | freeCodeCamp/freeCodeCamp | 2.9% | 2/100 | 5/100 | 0/13
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 26.0%
+Total events analyzed: 4921</description></item><item><title>AI Radar Report — 2026-10-30</title><link>https://aiintrusion.dpdns.org/2026-10-30/</link><guid>https://aiintrusion.dpdns.org/2026-10-30/</guid><pubDate>Fri, 30 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-30
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 71.1% | 94/100 | 64/100 | 122/327
+#2 | thedotmack/claude-mem | 68.4% | 75/100 | 39/100 | 9/10
+#3 | mattpocock/skills | 66.2% | 70/100 | 66/100 | 0/0
+#4 | morluto/rea | 63.1% | 35/100 | 97/100 | 74/91
+#5 | f/prompts.chat | 41.4% | 8/100 | 48/100 | 6/6
+#6 | OpenHands/OpenHands | 32.9% | 38/100 | 40/100 | 1/72
+#7 | obra/superpowers | 27.9% | 8/100 | 57/100 | 0/0
+#8 | AstrBotDevs/AstrBot | 26.2% | 0/100 | 21/100 | 29/36
+#9 | hacksider/Deep-Live-Cam | 25.2% | 13/100 | 7/100 | 5/7
+#10 | openclaw/openclaw | 25.1% | 5/100 | 13/100 | 2/3
+#11 | mem0ai/mem0 | 24.0% | 10/100 | 62/100 | 0/3
+#12 | usestrix/strix | 21.2% | 0/100 | 11/100 | 2/2
+#13 | huggingface/transformers | 20.6% | 21/100 | 28/100 | 3/73
+#14 | public-apis/public-apis | 16.6% | 10/100 | 16/100 | 0/0
+#15 | ollama/ollama | 13.5% | 1/100 | 16/100 | 4/12
+#16 | EbookFoundation/free-programming-books | 12.4% | 12/100 | 12/100 | 0/1
+#17 | torvalds/linux | 10.6% | 13/100 | 0/0 | 0/0
+#18 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#19 | nilbuild/developer-roadmap | 7.0% | 16/100 | 8/100 | 0/0
+#20 | rasbt/LLMs-from-scratch | 5.3% | 0/100 | 3/100 | 0/2
+#21 | explosion/spaCy | 3.8% | 1/100 | 2/100 | 0/1
+#22 | freeCodeCamp/freeCodeCamp | 2.8% | 2/100 | 4/100 | 0/21
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 25.9%
+Total events analyzed: 5045</description></item><item><title>AI Radar Report — 2026-10-29</title><link>https://aiintrusion.dpdns.org/2026-10-29/</link><guid>https://aiintrusion.dpdns.org/2026-10-29/</guid><pubDate>Thu, 29 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-29
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 70.5% | 94/100 | 68/100 | 43/115
+#2 | mattpocock/skills | 67.0% | 70/100 | 67/100 | 0/0
+#3 | thedotmack/claude-mem | 64.4% | 70/100 | 37/100 | 10/12
+#4 | morluto/rea | 51.3% | 5/100 | 99/100 | 86/91
+#5 | obra/superpowers | 43.3% | 8/100 | 61/100 | 1/1
+#6 | f/prompts.chat | 42.8% | 12/100 | 46/100 | 18/18
+#7 | openclaw/openclaw | 33.6% | 1/100 | 34/100 | 11/11
+#8 | OpenHands/OpenHands | 32.8% | 38/100 | 46/100 | 0/45
+#9 | hacksider/Deep-Live-Cam | 30.6% | 13/100 | 7/100 | 3/3
+#10 | AstrBotDevs/AstrBot | 29.9% | 0/100 | 24/100 | 25/26
+#11 | torvalds/linux | 29.7% | 30/100 | 0/0 | 0/0
+#12 | explosion/spaCy | 23.8% | 1/100 | 3/100 | 1/1
+#13 | mem0ai/mem0 | 23.7% | 10/100 | 61/100 | 0/4
+#14 | Kong/kong | 22.2% | 0/100 | 3/100 | 3/3
+#15 | huggingface/transformers | 20.5% | 20/100 | 31/100 | 0/50
+#16 | public-apis/public-apis | 15.5% | 9/100 | 15/100 | 0/0
+#17 | ollama/ollama | 14.2% | 1/100 | 14/100 | 4/10
+#18 | EbookFoundation/free-programming-books | 12.4% | 12/100 | 12/100 | 0/1
+#19 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#20 | nilbuild/developer-roadmap | 7.0% | 16/100 | 8/100 | 0/0
+#21 | usestrix/strix | 5.4% | 0/100 | 13/100 | 0/0
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.6% | 2/100 | 3/100 | 0/21
+
+Average AII: 28.4%
+Total events analyzed: 4790</description></item><item><title>AI Radar Report — 2026-10-28</title><link>https://aiintrusion.dpdns.org/2026-10-28/</link><guid>https://aiintrusion.dpdns.org/2026-10-28/</guid><pubDate>Wed, 28 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-28
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | thedotmack/claude-mem | 61.0% | 74/100 | 36/100 | 0/0
+#2 | Significant-Gravitas/AutoGPT | 54.6% | 94/100 | 49/100 | 54/201
+#3 | mattpocock/skills | 53.6% | 70/100 | 67/100 | 0/2
+#4 | morluto/rea | 48.8% | 6/100 | 92/100 | 69/82
+#5 | f/prompts.chat | 36.9% | 4/100 | 38/100 | 11/11
+#6 | OpenHands/OpenHands | 35.0% | 38/100 | 49/100 | 1/94
+#7 | obra/superpowers | 33.5% | 8/100 | 62/100 | 1/2
+#8 | hacksider/Deep-Live-Cam | 30.6% | 13/100 | 7/100 | 5/5
+#9 | torvalds/linux | 29.7% | 30/100 | 0/0 | 0/0
+#10 | AstrBotDevs/AstrBot | 29.6% | 0/100 | 23/100 | 36/37
+#11 | openclaw/openclaw | 27.8% | 2/100 | 31/100 | 17/24
+#12 | mem0ai/mem0 | 24.6% | 10/100 | 65/100 | 0/4
+#13 | huggingface/transformers | 24.4% | 18/100 | 44/100 | 3/84
+#14 | Kong/kong | 22.1% | 0/100 | 3/100 | 3/3
+#15 | public-apis/public-apis | 19.6% | 9/100 | 29/100 | 0/0
+#16 | ollama/ollama | 17.3% | 1/100 | 18/100 | 1/2
+#17 | EbookFoundation/free-programming-books | 16.7% | 12/100 | 13/100 | 1/5
+#18 | jingyaogong/minimind | 8.1% | 2/100 | 14/100 | 0/0
+#19 | nilbuild/developer-roadmap | 6.6% | 15/100 | 8/100 | 0/0
+#20 | usestrix/strix | 5.8% | 0/100 | 14/100 | 0/0
+#21 | explosion/spaCy | 4.0% | 1/100 | 3/100 | 0/2
+#22 | freeCodeCamp/freeCodeCamp | 3.0% | 2/100 | 4/100 | 0/14
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 25.9%
+Total events analyzed: 4950</description></item><item><title>AI Radar Report — 2026-10-27</title><link>https://aiintrusion.dpdns.org/2026-10-27/</link><guid>https://aiintrusion.dpdns.org/2026-10-27/</guid><pubDate>Tue, 27 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-27
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 81.2% | 97/100 | 88/100 | 118/306
+#2 | mattpocock/skills | 67.0% | 70/100 | 67/100 | 0/0
+#3 | thedotmack/claude-mem | 64.8% | 74/100 | 32/100 | 6/7
+#4 | mem0ai/mem0 | 43.8% | 10/100 | 66/100 | 1/1
+#5 | morluto/rea | 43.7% | 1/100 | 85/100 | 156/183
+#6 | f/prompts.chat | 35.8% | 2/100 | 35/100 | 8/8
+#7 | OpenHands/OpenHands | 33.7% | 40/100 | 49/100 | 0/58
+#8 | hacksider/Deep-Live-Cam | 30.8% | 13/100 | 7/100 | 3/3
+#9 | AstrBotDevs/AstrBot | 28.4% | 0/100 | 14/100 | 43/43
+#10 | openclaw/openclaw | 28.3% | 1/100 | 17/100 | 14/15
+#11 | obra/superpowers | 26.7% | 8/100 | 54/100 | 0/0
+#12 | Kong/kong | 22.1% | 0/100 | 3/100 | 3/3
+#13 | public-apis/public-apis | 20.2% | 9/100 | 31/100 | 0/0
+#14 | torvalds/linux | 19.9% | 22/100 | 0/0 | 0/0
+#15 | huggingface/transformers | 19.1% | 18/100 | 29/100 | 1/111
+#16 | EbookFoundation/free-programming-books | 14.6% | 15/100 | 13/100 | 0/2
+#17 | Lightning-AI/pytorch-lightning | 8.5% | 7/100 | 16/100 | 0/2
+#18 | ollama/ollama | 6.5% | 1/100 | 15/100 | 0/2
+#19 | nilbuild/developer-roadmap | 6.2% | 15/100 | 8/100 | 0/0
+#20 | usestrix/strix | 6.2% | 0/100 | 14/100 | 0/0
+#21 | explosion/spaCy | 5.1% | 1/100 | 3/100 | 0/0
+#22 | freeCodeCamp/freeCodeCamp | 3.2% | 2/100 | 4/100 | 0/22
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 26.9%
+Total events analyzed: 5144</description></item><item><title>AI Radar Report — 2026-10-26</title><link>https://aiintrusion.dpdns.org/2026-10-26/</link><guid>https://aiintrusion.dpdns.org/2026-10-26/</guid><pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-26
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 71.5% | 97/100 | 71/100 | 80/226
+#2 | mattpocock/skills | 67.0% | 70/100 | 67/100 | 0/0
+#3 | thedotmack/claude-mem | 59.6% | 79/100 | 31/100 | 2/4
+#4 | morluto/rea | 52.6% | 23/100 | 92/100 | 52/77
+#5 | OpenHands/OpenHands | 42.1% | 45/100 | 68/100 | 0/34
+#6 | f/prompts.chat | 34.1% | 1/100 | 31/100 | 9/9
+#7 | hacksider/Deep-Live-Cam | 30.8% | 13/100 | 7/100 | 6/6
+#8 | mem0ai/mem0 | 30.5% | 10/100 | 65/100 | 0/0
+#9 | openclaw/openclaw | 28.1% | 1/100 | 21/100 | 5/7
+#10 | obra/superpowers | 26.7% | 8/100 | 54/100 | 0/0
+#11 | public-apis/public-apis | 24.6% | 9/100 | 24/100 | 1/2
+#12 | AstrBotDevs/AstrBot | 24.6% | 0/100 | 6/100 | 37/41
+#13 | huggingface/transformers | 21.6% | 15/100 | 45/100 | 0/31
+#14 | Kong/kong | 17.1% | 0/100 | 3/100 | 3/4
+#15 | ollama/ollama | 16.3% | 1/100 | 14/100 | 2/4
+#16 | EbookFoundation/free-programming-books | 15.2% | 15/100 | 15/100 | 0/2
+#17 | torvalds/linux | 8.8% | 10/100 | 0/0 | 0/0
+#18 | usestrix/strix | 6.7% | 0/100 | 15/100 | 0/0
+#19 | nilbuild/developer-roadmap | 5.4% | 14/100 | 6/100 | 0/0
+#20 | explosion/spaCy | 5.0% | 1/100 | 3/100 | 0/0
+#21 | nautechsystems/nautilus_trader | 4.9% | 3/100 | 2/100 | 0/4
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.5% | 1/100 | 2/100 | 0/18
+
+Average AII: 26.0%
+Total events analyzed: 4847</description></item><item><title>AI Radar Report — 2026-10-25</title><link>https://aiintrusion.dpdns.org/2026-10-25/</link><guid>https://aiintrusion.dpdns.org/2026-10-25/</guid><pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-25
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 78.4% | 97/100 | 77/100 | 87/240
+#2 | mattpocock/skills | 67.0% | 70/100 | 67/100 | 0/0
+#3 | thedotmack/claude-mem | 61.1% | 76/100 | 30/100 | 6/9
+#4 | morluto/rea | 51.3% | 11/100 | 94/100 | 199/232
+#5 | obra/superpowers | 42.0% | 8/100 | 56/100 | 1/1
+#6 | OpenHands/OpenHands | 41.8% | 44/100 | 70/100 | 0/66
+#7 | f/prompts.chat | 35.1% | 9/100 | 27/100 | 30/33
+#8 | openclaw/openclaw | 33.5% | 4/100 | 13/100 | 8/8
+#9 | hacksider/Deep-Live-Cam | 30.7% | 13/100 | 7/100 | 3/3
+#10 | mem0ai/mem0 | 29.8% | 10/100 | 63/100 | 0/0
+#11 | huggingface/transformers | 26.4% | 15/100 | 48/100 | 3/15
+#12 | AstrBotDevs/AstrBot | 26.0% | 0/100 | 6/100 | 40/41
+#13 | Kong/kong | 22.1% | 0/100 | 3/100 | 3/3
+#14 | public-apis/public-apis | 16.0% | 9/100 | 17/100 | 0/0
+#15 | EbookFoundation/free-programming-books | 15.2% | 15/100 | 15/100 | 0/1
+#16 | ollama/ollama | 7.2% | 1/100 | 12/100 | 0/0
+#17 | usestrix/strix | 6.7% | 0/100 | 15/100 | 0/0
+#18 | explosion/spaCy | 5.0% | 1/100 | 3/100 | 0/0
+#19 | nilbuild/developer-roadmap | 4.9% | 13/100 | 5/100 | 0/0
+#20 | nautechsystems/nautilus_trader | 4.2% | 2/100 | 2/100 | 0/7
+#21 | torvalds/linux | 3.8% | 5/100 | 0/0 | 0/0
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.4% | 1/100 | 2/100 | 0/4
+
+Average AII: 26.7%
+Total events analyzed: 5041</description></item><item><title>AI Radar Report — 2026-10-24</title><link>https://aiintrusion.dpdns.org/2026-10-24/</link><guid>https://aiintrusion.dpdns.org/2026-10-24/</guid><pubDate>Sat, 24 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-24
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 67.0% | 70/100 | 67/100 | 0/0
+#2 | Significant-Gravitas/AutoGPT | 66.5% | 97/100 | 60/100 | 85/257
+#3 | thedotmack/claude-mem | 49.5% | 45/100 | 29/100 | 14/14
+#4 | morluto/rea | 45.8% | 1/100 | 96/100 | 201/267
+#5 | OpenHands/OpenHands | 40.5% | 43/100 | 62/100 | 3/102
+#6 | obra/superpowers | 31.7% | 8/100 | 55/100 | 1/2
+#7 | hacksider/Deep-Live-Cam | 30.7% | 13/100 | 7/100 | 5/5
+#8 | mem0ai/mem0 | 29.5% | 10/100 | 62/100 | 0/0
+#9 | AstrBotDevs/AstrBot | 25.6% | 1/100 | 11/100 | 34/39
+#10 | f/prompts.chat | 25.4% | 0/100 | 12/100 | 4/5
+#11 | huggingface/transformers | 22.9% | 15/100 | 48/100 | 1/70
+#12 | openclaw/openclaw | 21.4% | 1/100 | 5/100 | 4/6
+#13 | Kong/kong | 17.1% | 0/100 | 3/100 | 3/4
+#14 | EbookFoundation/free-programming-books | 15.1% | 15/100 | 15/100 | 0/1
+#15 | public-apis/public-apis | 12.3% | 7/100 | 18/100 | 0/1
+#16 | usestrix/strix | 6.9% | 0/100 | 15/100 | 0/0
+#17 | ollama/ollama | 5.7% | 1/100 | 12/100 | 0/4
+#18 | explosion/spaCy | 5.0% | 1/100 | 3/100 | 0/0
+#19 | nilbuild/developer-roadmap | 4.9% | 13/100 | 5/100 | 0/0
+#20 | nautechsystems/nautilus_trader | 4.6% | 3/100 | 2/100 | 0/11
+#21 | torvalds/linux | 3.8% | 5/100 | 0/0 | 0/0
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.2% | 1/100 | 2/100 | 0/31
+
+Average AII: 23.3%
+Total events analyzed: 5197</description></item><item><title>AI Radar Report — 2026-10-23</title><link>https://aiintrusion.dpdns.org/2026-10-23/</link><guid>https://aiintrusion.dpdns.org/2026-10-23/</guid><pubDate>Fri, 23 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-23
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 71.5% | 87/100 | 80/100 | 116/333
+#2 | mattpocock/skills | 67.0% | 70/100 | 67/100 | 0/0
+#3 | morluto/rea | 56.6% | 24/100 | 93/100 | 127/159
+#4 | The-Art-of-Hacking/h4cker | 41.3% | 21/100 | 60/100 | 75/138
+#5 | OpenHands/OpenHands | 34.3% | 33/100 | 56/100 | 0/96
+#6 | obra/superpowers | 32.4% | 8/100 | 49/100 | 18/28
+#7 | hacksider/Deep-Live-Cam | 30.7% | 13/100 | 6/100 | 7/7
+#8 | f/prompts.chat | 29.9% | 0/100 | 12/100 | 3/3
+#9 | AstrBotDevs/AstrBot | 27.8% | 1/100 | 12/100 | 25/26
+#10 | openclaw/openclaw | 27.3% | 0/100 | 15/100 | 14/15
+#11 | thedotmack/claude-mem | 24.0% | 36/100 | 28/100 | 0/1
+#12 | mem0ai/mem0 | 23.6% | 10/100 | 62/100 | 0/1
+#13 | Kong/kong | 22.1% | 0/100 | 3/100 | 3/3
+#14 | huggingface/transformers | 18.9% | 14/100 | 36/100 | 2/64
+#15 | EbookFoundation/free-programming-books | 15.5% | 15/100 | 15/100 | 0/5
+#16 | torvalds/linux | 15.3% | 15/100 | 0/0 | 0/0
+#17 | ollama/ollama | 12.4% | 0/100 | 14/100 | 2/6
+#18 | public-apis/public-apis | 11.8% | 7/100 | 16/100 | 0/1
+#19 | usestrix/strix | 6.2% | 0/100 | 12/100 | 0/0
+#20 | nilbuild/developer-roadmap | 4.7% | 13/100 | 5/100 | 0/0
+#21 | nautechsystems/nautilus_trader | 3.8% | 2/100 | 2/100 | 0/10
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.0% | 0/100 | 1/100 | 1/47
+
+Average AII: 25.3%
+Total events analyzed: 5321</description></item><item><title>AI Radar Report — 2026-10-22</title><link>https://aiintrusion.dpdns.org/2026-10-22/</link><guid>https://aiintrusion.dpdns.org/2026-10-22/</guid><pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-22
+Repos analyzed: 23
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 67.0% | 70/100 | 67/100 | 0/0
+#2 | morluto/rea | 65.4% | 40/100 | 95/100 | 161/192
+#3 | Significant-Gravitas/AutoGPT | 64.9% | 87/100 | 60/100 | 85/247
+#4 | OpenHands/OpenHands | 34.5% | 28/100 | 62/100 | 1/73
+#5 | f/prompts.chat | 29.1% | 0/100 | 12/100 | 4/4
+#6 | thedotmack/claude-mem | 29.1% | 35/100 | 30/100 | 0/0
+#7 | AstrBotDevs/AstrBot | 28.8% | 1/100 | 12/100 | 24/24
+#8 | openclaw/openclaw | 28.0% | 2/100 | 14/100 | 6/7
+#9 | mem0ai/mem0 | 23.1% | 10/100 | 60/100 | 0/2
+#10 | Kong/kong | 22.1% | 0/100 | 3/100 | 3/3
+#11 | huggingface/transformers | 21.7% | 17/100 | 40/100 | 1/110
+#12 | obra/superpowers | 20.6% | 8/100 | 53/100 | 0/2
+#13 | torvalds/linux | 16.3% | 16/100 | 0/0 | 0/0
+#14 | public-apis/public-apis | 15.8% | 7/100 | 19/100 | 0/0
+#15 | EbookFoundation/free-programming-books | 15.4% | 16/100 | 13/100 | 0/1
+#16 | Lightning-AI/pytorch-lightning | 10.5% | 7/100 | 15/100 | 0/0
+#17 | usestrix/strix | 6.1% | 0/100 | 12/100 | 0/0
+#18 | ollama/ollama | 5.9% | 0/100 | 15/100 | 0/2
+#19 | explosion/spaCy | 4.1% | 0/100 | 2/100 | 0/0
+#20 | nautechsystems/nautilus_trader | 3.4% | 2/100 | 1/100 | 0/2
+#21 | nilbuild/developer-roadmap | 3.2% | 10/100 | 2/100 | 0/0
+#22 | freeCodeCamp/freeCodeCamp | 2.9% | 0/100 | 5/100 | 0/44
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 22.6%
+Total events analyzed: 5091</description></item><item><title>AI Radar Report — 2026-10-21</title><link>https://aiintrusion.dpdns.org/2026-10-21/</link><guid>https://aiintrusion.dpdns.org/2026-10-21/</guid><pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-21
+Repos analyzed: 24
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 67.0% | 70/100 | 67/100 | 0/0
+#2 | Significant-Gravitas/AutoGPT | 64.3% | 87/100 | 51/100 | 78/288
+#3 | morluto/rea | 54.7% | 13/100 | 93/100 | 217/236
+#4 | OpenHands/OpenHands | 35.0% | 29/100 | 67/100 | 0/83
+#5 | mem0ai/mem0 | 31.7% | 9/100 | 58/100 | 1/2
+#6 | openclaw/openclaw | 30.3% | 5/100 | 15/100 | 24/26
+#7 | thedotmack/claude-mem | 29.5% | 35/100 | 23/100 | 1/2
+#8 | AstrBotDevs/AstrBot | 28.0% | 1/100 | 10/100 | 26/27
+#9 | f/prompts.chat | 25.9% | 0/100 | 12/100 | 6/7
+#10 | simstudioai/sim | 22.4% | 28/100 | 25/100 | 1/218
+#11 | Kong/kong | 22.1% | 0/100 | 3/100 | 3/3
+#12 | obra/superpowers | 19.5% | 7/100 | 51/100 | 0/3
+#13 | huggingface/transformers | 19.3% | 23/100 | 18/100 | 3/43
+#14 | public-apis/public-apis | 17.9% | 9/100 | 25/100 | 0/0
+#15 | EbookFoundation/free-programming-books | 15.1% | 16/100 | 13/100 | 0/3
+#16 | torvalds/linux | 14.0% | 14/100 | 0/0 | 0/0
+#17 | ollama/ollama | 12.0% | 0/100 | 13/100 | 1/3
+#18 | Lightning-AI/pytorch-lightning | 11.1% | 7/100 | 17/100 | 0/0
+#19 | usestrix/strix | 6.8% | 0/100 | 14/100 | 0/0
+#20 | freeCodeCamp/freeCodeCamp | 4.7% | 0/100 | 5/100 | 4/40
+#21 | explosion/spaCy | 3.7% | 0/100 | 1/100 | 0/0
+#22 | nautechsystems/nautilus_trader | 3.5% | 2/100 | 2/100 | 0/1
+#23 | nilbuild/developer-roadmap | 3.2% | 10/100 | 2/100 | 0/0
+#24 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 22.7%
+Total events analyzed: 5563</description></item><item><title>AI Radar Report — 2026-10-20</title><link>https://aiintrusion.dpdns.org/2026-10-20/</link><guid>https://aiintrusion.dpdns.org/2026-10-20/</guid><pubDate>Tue, 20 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-20
+Repos analyzed: 24
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 69.3% | 87/100 | 75/100 | 103/387
+#2 | morluto/rea | 56.6% | 20/100 | 90/100 | 159/176
+#3 | mattpocock/skills | 53.6% | 70/100 | 67/100 | 0/1
+#4 | thedotmack/claude-mem | 40.6% | 39/100 | 27/100 | 2/2
+#5 | obra/superpowers | 38.4% | 7/100 | 47/100 | 1/1
+#6 | OpenHands/OpenHands | 38.0% | 31/100 | 72/100 | 1/133
+#7 | hacksider/Deep-Live-Cam | 30.9% | 13/100 | 7/100 | 6/6
+#8 | f/prompts.chat | 28.8% | 0/100 | 13/100 | 5/5
+#9 | mem0ai/mem0 | 28.5% | 9/100 | 60/100 | 0/0
+#10 | AstrBotDevs/AstrBot | 28.0% | 2/100 | 11/100 | 18/20
+#11 | openclaw/openclaw | 26.9% | 2/100 | 16/100 | 7/8
+#12 | huggingface/transformers | 23.1% | 27/100 | 31/100 | 0/118
+#13 | Kong/kong | 22.2% | 0/100 | 3/100 | 3/3
+#14 | public-apis/public-apis | 16.5% | 9/100 | 20/100 | 0/0
+#15 | EbookFoundation/free-programming-books | 14.9% | 16/100 | 13/100 | 0/1
+#16 | torvalds/linux | 13.0% | 13/100 | 0/0 | 0/0
+#17 | Lightning-AI/pytorch-lightning | 11.1% | 7/100 | 17/100 | 0/0
+#18 | usestrix/strix | 6.6% | 0/100 | 14/100 | 0/0
+#19 | nautechsystems/nautilus_trader | 5.6% | 4/100 | 7/100 | 0/4
+#20 | ollama/ollama | 5.0% | 0/100 | 12/100 | 0/1
+#21 | explosion/spaCy | 3.7% | 0/100 | 1/100 | 0/0
+#22 | freeCodeCamp/freeCodeCamp | 3.7% | 0/100 | 4/100 | 2/38
+#23 | nilbuild/developer-roadmap | 2.9% | 9/100 | 2/100 | 0/0
+#24 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 23.8%
+Total events analyzed: 5482</description></item><item><title>AI Radar Report — 2026-10-19</title><link>https://aiintrusion.dpdns.org/2026-10-19/</link><guid>https://aiintrusion.dpdns.org/2026-10-19/</guid><pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-19
+Repos analyzed: 24
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 66.6% | 70/100 | 66/100 | 0/0
+#2 | Significant-Gravitas/AutoGPT | 66.6% | 87/100 | 63/100 | 33/151
+#3 | thedotmack/claude-mem | 49.6% | 64/100 | 32/100 | 0/0
+#4 | morluto/rea | 48.1% | 14/100 | 65/100 | 248/270
+#5 | OpenHands/OpenHands | 40.4% | 36/100 | 71/100 | 1/52
+#6 | obra/superpowers | 38.0% | 7/100 | 46/100 | 1/1
+#7 | openclaw/openclaw | 33.8% | 0/100 | 37/100 | 33/34
+#8 | hacksider/Deep-Live-Cam | 31.0% | 13/100 | 7/100 | 5/5
+#9 | AstrBotDevs/AstrBot | 29.8% | 2/100 | 10/100 | 23/23
+#10 | mem0ai/mem0 | 29.0% | 9/100 | 62/100 | 0/0
+#11 | f/prompts.chat | 28.9% | 0/100 | 13/100 | 5/5
+#12 | ollama/ollama | 26.0% | 0/100 | 15/100 | 2/2
+#13 | huggingface/transformers | 22.5% | 25/100 | 30/100 | 0/20
+#14 | Kong/kong | 22.2% | 0/100 | 3/100 | 3/3
+#15 | public-apis/public-apis | 15.5% | 10/100 | 15/100 | 0/0
+#16 | EbookFoundation/free-programming-books | 15.2% | 16/100 | 14/100 | 0/1
+#17 | torvalds/linux | 13.0% | 13/100 | 0/0 | 0/0
+#18 | Lightning-AI/pytorch-lightning | 10.5% | 7/100 | 15/100 | 0/0
+#19 | nautechsystems/nautilus_trader | 6.5% | 3/100 | 7/100 | 1/14
+#20 | usestrix/strix | 5.7% | 0/100 | 12/100 | 0/0
+#21 | freeCodeCamp/freeCodeCamp | 4.7% | 0/100 | 14/100 | 0/15
+#22 | explosion/spaCy | 3.7% | 0/100 | 1/100 | 0/0
+#23 | nilbuild/developer-roadmap | 2.9% | 9/100 | 2/100 | 0/0
+#24 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 25.5%
+Total events analyzed: 5174</description></item><item><title>AI Radar Report — 2026-10-17</title><link>https://aiintrusion.dpdns.org/2026-10-17/</link><guid>https://aiintrusion.dpdns.org/2026-10-17/</guid><pubDate>Sat, 17 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-17
+Repos analyzed: 24
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | Significant-Gravitas/AutoGPT | 72.4% | 87/100 | 73/100 | 29/73
+#2 | thedotmack/claude-mem | 59.6% | 64/100 | 55/100 | 0/0
+#3 | mattpocock/skills | 53.3% | 70/100 | 66/100 | 0/2
+#4 | morluto/rea | 51.4% | 9/100 | 85/100 | 105/113
+#5 | OpenHands/OpenHands | 42.2% | 37/100 | 79/100 | 2/51
+#6 | openclaw/openclaw | 35.7% | 2/100 | 33/100 | 22/22
+#7 | hacksider/Deep-Live-Cam | 31.3% | 13/100 | 8/100 | 4/4
+#8 | f/prompts.chat | 28.9% | 0/100 | 12/100 | 4/4
+#9 | AstrBotDevs/AstrBot | 27.9% | 2/100 | 5/100 | 30/31
+#10 | public-apis/public-apis | 24.5% | 10/100 | 26/100 | 1/2
+#11 | huggingface/transformers | 23.2% | 25/100 | 34/100 | 0/21
+#12 | mem0ai/mem0 | 23.2% | 9/100 | 62/100 | 0/8
+#13 | Kong/kong | 22.2% | 0/100 | 3/100 | 3/3
+#14 | obra/superpowers | 17.4% | 7/100 | 44/100 | 0/1
+#15 | EbookFoundation/free-programming-books | 15.2% | 16/100 | 14/100 | 0/1
+#16 | torvalds/linux | 15.0% | 15/100 | 0/0 | 0/0
+#17 | ollama/ollama | 13.1% | 0/100 | 12/100 | 2/5
+#18 | Lightning-AI/pytorch-lightning | 10.5% | 7/100 | 15/100 | 0/0
+#19 | nautechsystems/nautilus_trader | 10.2% | 3/100 | 7/100 | 1/4
+#20 | usestrix/strix | 6.1% | 0/100 | 13/100 | 0/0
+#21 | freeCodeCamp/freeCodeCamp | 4.5% | 0/100 | 14/100 | 0/7
+#22 | explosion/spaCy | 2.9% | 0/100 | 1/100 | 0/1
+#23 | nilbuild/developer-roadmap | 2.9% | 9/100 | 2/100 | 0/0
+#24 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+
+Average AII: 24.8%
+Total events analyzed: 4931</description></item><item><title>AI Radar Report — 2026-10-16</title><link>https://aiintrusion.dpdns.org/2026-10-16/</link><guid>https://aiintrusion.dpdns.org/2026-10-16/</guid><pubDate>Fri, 16 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-16
+Repos analyzed: 24
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 66.6% | 70/100 | 66/100 | 0/0
+#2 | Significant-Gravitas/AutoGPT | 60.2% | 87/100 | 56/100 | 67/240
+#3 | thedotmack/claude-mem | 59.6% | 75/100 | 72/100 | 0/1
+#4 | OpenHands/OpenHands | 45.2% | 44/100 | 76/100 | 1/87
+#5 | openclaw/openclaw | 33.8% | 2/100 | 29/100 | 67/68
+#6 | hacksider/Deep-Live-Cam | 31.3% | 13/100 | 8/100 | 4/4
+#7 | f/prompts.chat | 30.0% | 6/100 | 11/100 | 6/6
+#8 | mem0ai/mem0 | 28.6% | 9/100 | 60/100 | 0/0
+#9 | AstrBotDevs/AstrBot | 28.4% | 3/100 | 7/100 | 16/16
+#10 | huggingface/transformers | 26.6% | 26/100 | 41/100 | 2/69
+#11 | Kong/kong | 22.2% | 0/100 | 3/100 | 3/3
+#12 | torvalds/linux | 21.1% | 22/100 | 0/0 | 0/0
+#13 | obra/superpowers | 17.6% | 7/100 | 33/100 | 0/0
+#14 | EbookFoundation/free-programming-books | 15.9% | 17/100 | 14/100 | 0/2
+#15 | public-apis/public-apis | 14.7% | 8/100 | 17/100 | 0/0
+#16 | Lightning-AI/pytorch-lightning | 10.5% | 7/100 | 15/100 | 0/0
+#17 | practical-tutorials/project-based-learning | 6.7% | 8/100 | 7/100 | 0/1
+#18 | usestrix/strix | 5.1% | 0/100 | 10/100 | 0/0
+#19 | nautechsystems/nautilus_trader | 4.4% | 0/100 | 8/100 | 0/3
+#20 | ollama/ollama | 4.2% | 0/100 | 10/100 | 0/5
+#21 | explosion/spaCy | 2.9% | 0/100 | 1/100 | 0/1
+#22 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#23 | freeCodeCamp/freeCodeCamp | 2.4% | 2/100 | 2/100 | 1/64
+#24 | nilbuild/developer-roadmap | 2.4% | 8/100 | 1/100 | 0/0
+
+Average AII: 22.6%
+Total events analyzed: 5148</description></item><item><title>AI Radar Report — 2026-10-15</title><link>https://aiintrusion.dpdns.org/2026-10-15/</link><guid>https://aiintrusion.dpdns.org/2026-10-15/</guid><pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate><description>📊 GitHub AI Radar — 2026-10-15
+Repos analyzed: 24
+
+Rank | Repository | AII | Commit AI | PR AI | Review AI
+-----|-----------|-----|-----------|-------|----------
+#1 | mattpocock/skills | 66.6% | 70/100 | 66/100 | 0/0
+#2 | thedotmack/claude-mem | 53.0% | 64/100 | 67/100 | 0/1
+#3 | Significant-Gravitas/AutoGPT | 51.6% | 87/100 | 40/100 | 41/140
+#4 | OpenHands/OpenHands | 39.6% | 43/100 | 50/100 | 0/42
+#5 | openclaw/openclaw | 36.2% | 6/100 | 35/100 | 32/34
+#6 | obra/superpowers | 33.8% | 7/100 | 32/100 | 3/3
+#7 | hacksider/Deep-Live-Cam | 31.3% | 13/100 | 8/100 | 5/5
+#8 | f/prompts.chat | 30.2% | 6/100 | 11/100 | 5/5
+#9 | mem0ai/mem0 | 28.4% | 9/100 | 52/100 | 3/8
+#10 | AstrBotDevs/AstrBot | 27.0% | 3/100 | 7/100 | 28/30
+#11 | Lightning-AI/pytorch-lightning | 25.9% | 7/100 | 15/100 | 1/1
+#12 | huggingface/transformers | 24.5% | 25/100 | 38/100 | 0/86
+#13 | Kong/kong | 22.2% | 0/100 | 3/100 | 3/3
+#14 | EbookFoundation/free-programming-books | 16.0% | 17/100 | 14/100 | 0/4
+#15 | public-apis/public-apis | 14.5% | 6/100 | 19/100 | 0/0
+#16 | torvalds/linux | 14.1% | 15/100 | 0/0 | 0/0
+#17 | practical-tutorials/project-based-learning | 6.0% | 8/100 | 5/100 | 0/1
+#18 | freeCodeCamp/freeCodeCamp | 5.2% | 4/100 | 5/100 | 3/58
+#19 | nautechsystems/nautilus_trader | 4.8% | 0/100 | 10/100 | 0/11
+#20 | ollama/ollama | 4.7% | 0/100 | 11/100 | 0/2
+#21 | usestrix/strix | 4.5% | 0/100 | 9/100 | 0/0
+#22 | explosion/spaCy | 3.7% | 0/100 | 1/100 | 0/0
+#23 | moeyui1/github-ai-detector | 2.7% | 1/62 | 0/16 | 0/0
+#24 | nilbuild/developer-roadmap | 2.0% | 7/100 | 0/100 | 0/0
+
+Average AII: 22.9%
+Total events analyzed: 5012</description></item></channel></rss>
