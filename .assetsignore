@@ -1,0 +1,10 @@
+/.git/
+/.gitignore
+/.assetsignore
+/.nojekyll
+/.wrangler/
+/wrangler.jsonc
+/node_modules/
+/.npm/
+/.env*
+/.dev.vars*
