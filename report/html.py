@@ -550,6 +550,11 @@ def _build_deploy_config(out_dir: Path, config: dict | None = None) -> None:
         "",
     ])
     (out_dir / ".gitignore").write_text(gitignore_content, encoding="utf-8")
+    (out_dir / ".assetsignore").write_text(
+        "/.git/\n/.gitignore\n/.assetsignore\n/.nojekyll\n/.wrangler/\n"
+        "/wrangler.jsonc\n/node_modules/\n/.npm/\n/.env*\n/.dev.vars*\n",
+        encoding="utf-8",
+    )
 
     wrangler_content = json.dumps({
         "$schema": "node_modules/wrangler/config-schema.json",
@@ -564,6 +569,7 @@ def _build_deploy_config(out_dir: Path, config: dict | None = None) -> None:
     (out_dir / ".nojekyll").write_text("", encoding="utf-8")
 
     print(f"Deploy config → {out_dir}/.gitignore, wrangler.jsonc, .nojekyll")
+    print(f"Deploy config → {out_dir}/.gitignore, .assetsignore, wrangler.jsonc, .nojekyll")
 
 
 # ── Build history index ──────────────────────────────────────
